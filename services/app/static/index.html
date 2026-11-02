@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Revenue Recovery: Testing Console</title>
+  <link rel="stylesheet" href="/ui/assets/app.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">
+        <h1>AI Revenue Recovery: Testing Console</h1>
+        <p>Four revenue-risk event types &rarr; one diagnosis (rule, frozen Model C once, or a human) &rarr; recovery plan &rarr; Temporal execution with simulated payment requests</p>
+      </div>
+      <div class="chips" aria-label="System status">
+        <span class="chip" id="chip-api">API: checking&hellip;</span>
+        <span class="chip">Synthetic data only</span>
+        <span class="chip">Offline &middot; no LLM at runtime</span>
+      </div>
+    </div>
+  </header>
+  <div class="banner" role="note">
+    <div class="wrap"><strong>All results are SIMULATED.</strong> SIMULATED_RECOVERED means the simulated customer completed the requested payment. No real payment, message, customer or revenue is involved.</div>
+  </div>
+
+  <nav class="tabs" aria-label="Sections">
+    <div class="wrap" role="tablist" id="tablist">
+      <button class="tab" role="tab" id="tab-individual" aria-controls="panel-individual" aria-selected="true" data-tab="individual">1 &middot; Individual Payment Testing</button>
+      <button class="tab" role="tab" id="tab-dataset" aria-controls="panel-dataset" aria-selected="false" tabindex="-1" data-tab="dataset">2 &middot; Dataset Testing</button>
+      <button class="tab" role="tab" id="tab-intervention" aria-controls="panel-intervention" aria-selected="false" tabindex="-1" data-tab="intervention">3 &middot; Human Intervention</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section class="panel" id="panel-individual" role="tabpanel" aria-labelledby="tab-individual"></section>
+    <section class="panel" id="panel-dataset" role="tabpanel" aria-labelledby="tab-dataset" hidden></section>
+    <section class="panel" id="panel-intervention" role="tabpanel" aria-labelledby="tab-intervention" hidden></section>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/ui/assets/app.js"></script>
+</body>
+</html>

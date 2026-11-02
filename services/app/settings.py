@@ -1,19 +1,17 @@
 from pydantic_settings import BaseSettings
 
+
 class Settings(BaseSettings):
     database_url: str = "postgresql://recovery:recovery@localhost:5432/recovery"
-    redis_url: str = "redis://localhost:6379/0"
     temporal_address: str = "localhost:7233"
-    temporal_task_queue: str = "recovery-q"
-    razorpay_key_id: str = ""
-    razorpay_key_secret: str = ""
-    razorpay_webhook_secret: str = ""
-    llm_provider: str = "gemini"
-    llm_api_key: str = ""
-    llm_model: str = "gemini-2.0-flash"
-    llm_triage_enabled: bool = True
-    demo_mode: bool = True
-    channel_mode: str = "mock"
-    holdout_pct: int = 10
+    demo_mode: bool = True                     # the console and the simulated payment pages only run in demo mode
+    ui_data_dir: str = "eval/data/phase4_ui"   # prebuilt datasets, uploaded CSVs and automated run results
+
+    # Revenue-risk pipeline: its own Temporal task queue.
+    revenue_task_queue: str = "revenue-q"
+    revenue_response_timeout_s: int = 900      # how long a workflow waits for ACCEPT / REJECT on one simulated payment request
+    # Demo pacing of planned delays: 100000 is about one second per 28 hours of plan time. The simulated clock keeps quiet hours reproducible.
+    revenue_time_scale: int = 100000
+
 
 settings = Settings()

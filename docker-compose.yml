@@ -1,20 +1,31 @@
 name: rzp-recovery
 
+# Phase 4: the WHOLE stack is limited to 6 logical cores. Every service is pinned to the same cpuset, so the aggregate
+# can never exceed 6 cores (per-container quotas alone would add up). Verify with: scripts/cap_stack_cpu.ps1
+x-cpu-cap: &cpu-cap
+  cpus: 6
+  cpuset: "0-5"
+
 x-app-base: &app-base
   build:
     context: .
     dockerfile: services/app/Dockerfile
   env_file: [.env]
+  environment:
+    OMP_NUM_THREADS: "3"
+    MKL_NUM_THREADS: "3"
+    OPENBLAS_NUM_THREADS: "3"
+    NUMEXPR_NUM_THREADS: "3"
   volumes:
     - ./services/app:/code/services/app
     - ./eval:/code/eval
   depends_on:
     postgres: { condition: service_healthy }
-    redis: { condition: service_healthy }
     temporal: { condition: service_started }
 
 services:
   postgres:
+    <<: *cpu-cap
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: recovery
@@ -24,24 +35,15 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./db/init:/docker-entrypoint-initdb.d:ro
-    ports: ["5432:5432"]
+    ports: ["5433:5432"]
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U recovery -d recovery"]
       interval: 5s
       timeout: 3s
       retries: 20
 
-  redis:
-    image: redis:7-alpine
-    command: ["redis-server", "--appendonly", "no"]
-    ports: ["6379:6379"]
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 3s
-      retries: 20
-
   temporal:
+    <<: *cpu-cap
     image: temporalio/auto-setup:1.25.2
     environment:
       DB: postgres12
@@ -56,6 +58,7 @@ services:
       postgres: { condition: service_healthy }
 
   temporal-ui:
+    <<: *cpu-cap
     image: temporalio/ui:2.31.2
     environment:
       TEMPORAL_ADDRESS: temporal:7233
@@ -64,12 +67,12 @@ services:
     depends_on: [temporal]
 
   api:
-    <<: *app-base
+    <<: [*app-base, *cpu-cap]
     command: ["uvicorn", "services.app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
     ports: ["8000:8000"]
 
   worker:
-    <<: *app-base
+    <<: [*app-base, *cpu-cap]
     command: ["python", "-m", "services.app.worker"]
 
 

@@ -1,0 +1,74 @@
+{
+  "total_payments": 38871,
+  "terminal": {
+    "SIMULATED_RECOVERY_SUCCESS": 31088,
+    "PLAN_INTERVENTION": 0,
+    "DIAGNOSIS_INTERVENTION": 75,
+    "SAFETY_ESCALATION": 7708
+  },
+  "non_terminal": 0,
+  "reconciles": true,
+  "total_failures_plan_plus_diagnosis": 75,
+  "simulated_recovery_success_by_cycle": {
+    "cycle_1": 29777,
+    "cycle_2": 1059,
+    "cycle_3": 252
+  },
+  "simulated_recovery_success_rate": 0.7997736101463816,
+  "diagnosis": {
+    "top1_accuracy": 0.9120166705255847,
+    "macro_f1": 0.8777534564588333,
+    "ranked_top3_accuracy_no_oracle_no_vetoes": 0.9906614185382419,
+    "oracle_assisted_success_within_1_2_3_cycles": [
+      0.7660466671811891,
+      0.7932906279745826,
+      0.7997736101463816
+    ]
+  },
+  "plan_validity": {
+    "first_pass_invalid": 15097,
+    "corrected_once": 15097,
+    "plan_interventions": 0,
+    "plans_executed_were_all_valid": true
+  },
+  "abstentions_cycle_1": 4398,
+  "safety": {
+    "hard_declines_in_data": 7878,
+    "retry_steps_planned_against_a_true_hard_decline": 406,
+    "payments_with_such_a_retry": 170,
+    "unsafe_payment_rate_of_hard_declines": 0.02157908098502158,
+    "unsafe_payment_rate_upper95_wilson": 0.025028631986920048,
+    "acceptance_limit": 0.03,
+    "meets_limit_by_observed_rate": true,
+    "meets_limit_by_95_upper_bound": true,
+    "contact_steps_without_consent": 0,
+    "safety_escalations": 7708,
+    "escalations_with_true_cause_risk_blocked": 4593
+  },
+  "intervention_reasons": {
+    "SAFETY_ESCALATION:risk_blocked_hypothesis": 7708,
+    "DIAGNOSIS_INTERVENTION:cycles_exhausted": 75
+  },
+  "held_out_split": {
+    "final_test_failures": 38871,
+    "final_test_worlds": 12,
+    "final_test_seeds": [
+      500000,
+      500001,
+      500002,
+      500003,
+      501000,
+      501001,
+      501002,
+      501003,
+      502000,
+      502001,
+      502002,
+      502003
+    ],
+    "earlier_cache_files": 33,
+    "payment_id_overlap_with_train_validation_test": 0,
+    "world_seed_overlap": []
+  },
+  "batch_gate_vs_api_adapter_mismatches_of_150": 0
+}

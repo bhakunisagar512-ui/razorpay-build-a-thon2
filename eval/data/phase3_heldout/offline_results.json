@@ -1,0 +1,69 @@
+{
+  "total_payments": 38871,
+  "terminal": {
+    "SIMULATED_RECOVERY_SUCCESS": 27287,
+    "PLAN_INTERVENTION": 0,
+    "DIAGNOSIS_INTERVENTION": 27,
+    "SAFETY_ESCALATION": 11557
+  },
+  "non_terminal": 0,
+  "reconciles": true,
+  "total_failures_plan_plus_diagnosis": 27,
+  "simulated_recovery_success_by_cycle": {
+    "cycle_1": 26412,
+    "cycle_2": 736,
+    "cycle_3": 139
+  },
+  "simulated_recovery_success_rate": 0.7019886290550796,
+  "diagnosis": {
+    "top1_accuracy": 0.9120166705255847,
+    "macro_f1": 0.8777534564588333,
+    "ranked_top3_accuracy_no_oracle_no_vetoes": 0.9906614185382419,
+    "oracle_assisted_success_within_1_2_3_cycles": [
+      0.6794782742918886,
+      0.6984126984126984,
+      0.7019886290550796
+    ]
+  },
+  "plan_validity": {
+    "first_pass_invalid": 15387,
+    "corrected_once": 15387,
+    "plan_interventions": 0,
+    "plans_executed_were_all_valid": true
+  },
+  "abstentions_cycle_1": 8048,
+  "safety": {
+    "hard_declines_in_data": 7878,
+    "retry_steps_planned_against_a_true_hard_decline": 69,
+    "payments_with_such_a_retry": 23,
+    "contact_steps_without_consent": 0,
+    "safety_escalations": 11557,
+    "escalations_with_true_cause_risk_blocked": 4609
+  },
+  "intervention_reasons": {
+    "SAFETY_ESCALATION:risk_blocked_hypothesis": 11557,
+    "DIAGNOSIS_INTERVENTION:cycles_exhausted": 27
+  },
+  "held_out_split": {
+    "final_test_failures": 38871,
+    "final_test_worlds": 12,
+    "final_test_seeds": [
+      500000,
+      500001,
+      500002,
+      500003,
+      501000,
+      501001,
+      501002,
+      501003,
+      502000,
+      502001,
+      502002,
+      502003
+    ],
+    "earlier_cache_files": 33,
+    "payment_id_overlap_with_train_validation_test": 0,
+    "world_seed_overlap": []
+  },
+  "batch_gate_vs_api_adapter_mismatches_of_150": 0
+}

@@ -1,0 +1,240 @@
+{
+  "held_out_split": {
+    "final_test_failures": 38871,
+    "final_test_worlds": 12,
+    "final_test_seeds": [
+      500000,
+      500001,
+      500002,
+      500003,
+      501000,
+      501001,
+      501002,
+      501003,
+      502000,
+      502001,
+      502002,
+      502003
+    ],
+    "earlier_cache_files": 33,
+    "payment_id_overlap_with_train_validation_test": 0,
+    "world_seed_overlap": []
+  },
+  "thresholds": [
+    0.2
+  ],
+  "budget": 0.1,
+  "configs": {
+    "A": {
+      "true_risk_payments_with_a_retry": 143,
+      "true_risk_payments_with_a_retry_detected": 122,
+      "true_risk_payments_with_a_retry_missed": 21,
+      "true_risk_unsafe_retry_steps": 350,
+      "card_expired_payments": 3264,
+      "card_expired_payments_with_a_retry": 27,
+      "card_expired_unsafe_retry_steps": 56,
+      "payments": 38871,
+      "terminal": {
+        "SIMULATED_RECOVERY_SUCCESS": 31088,
+        "PLAN_INTERVENTION": 0,
+        "DIAGNOSIS_INTERVENTION": 75,
+        "SAFETY_ESCALATION": 7708
+      },
+      "reconciles": true,
+      "simulated_recovery_success": 31088,
+      "simulated_recovery_rate": 0.7997736101463816,
+      "success_by_cycle": {
+        "cycle_1": 29777,
+        "cycle_2": 1059,
+        "cycle_3": 252
+      },
+      "safety_escalations_total": 7708,
+      "genuine_escalations": 4593,
+      "false_escalations": 3115,
+      "escalation_precision": 0.5958744161909704,
+      "escalation_source": {
+        "reassessment_supported": 1157,
+        "gate_evidence": 3657,
+        "reassessment_unsupported": 2894
+      },
+      "true_risk_blocked": 4614,
+      "true_risk_detected": 4593,
+      "true_risk_missed": 21,
+      "true_risk_recall": 0.9954486345903771,
+      "missed_true_risk_outcomes": {
+        "DIAGNOSIS_INTERVENTION": 21
+      },
+      "missed_true_risk_with_a_retry": 21,
+      "unsupported_risk_selections": 2894,
+      "unsafe_retry_steps": 406,
+      "unsafe_retry_payments": 170,
+      "true_hard_declines": 7878,
+      "unsafe_payment_rate": 0.02157908098502158,
+      "unsafe_payment_rate_upper95_wilson": 0.025028631986920048,
+      "acceptance_limit": 0.03,
+      "meets_limit_by_observed_rate": true,
+      "meets_limit_by_95_upper_bound": true,
+      "plan_interventions": 0,
+      "diagnosis_interventions": 75,
+      "diagnosis_intervention_reasons": {
+        "cycles_exhausted": 75
+      },
+      "cycle1_abstentions_budget_or_other_fallback": 4398,
+      "contact_steps_without_consent": 0
+    },
+    "B_0.20": {
+      "true_risk_payments_with_a_retry": 157,
+      "true_risk_payments_with_a_retry_detected": 0,
+      "true_risk_payments_with_a_retry_missed": 157,
+      "true_risk_unsafe_retry_steps": 606,
+      "card_expired_payments": 3264,
+      "card_expired_payments_with_a_retry": 28,
+      "card_expired_unsafe_retry_steps": 61,
+      "payments": 38871,
+      "terminal": {
+        "SIMULATED_RECOVERY_SUCCESS": 30986,
+        "PLAN_INTERVENTION": 0,
+        "DIAGNOSIS_INTERVENTION": 1637,
+        "SAFETY_ESCALATION": 6248
+      },
+      "reconciles": true,
+      "simulated_recovery_success": 30986,
+      "simulated_recovery_rate": 0.7971495459339868,
+      "success_by_cycle": {
+        "cycle_1": 29727,
+        "cycle_2": 977,
+        "cycle_3": 282
+      },
+      "safety_escalations_total": 6248,
+      "genuine_escalations": 4231,
+      "false_escalations": 2017,
+      "escalation_precision": 0.6771766965428937,
+      "escalation_source": {
+        "independent_detection": 2541,
+        "gate_evidence": 3657,
+        "reassessment_supported": 50
+      },
+      "true_risk_blocked": 4614,
+      "true_risk_detected": 4231,
+      "true_risk_missed": 383,
+      "true_risk_recall": 0.9169917641959254,
+      "missed_true_risk_outcomes": {
+        "DIAGNOSIS_INTERVENTION": 383
+      },
+      "missed_true_risk_with_a_retry": 157,
+      "unsupported_risk_selections": 0,
+      "unsafe_retry_steps": 667,
+      "unsafe_retry_payments": 185,
+      "true_hard_declines": 7878,
+      "unsafe_payment_rate": 0.023483117542523482,
+      "unsafe_payment_rate_upper95_wilson": 0.02706661066259955,
+      "acceptance_limit": 0.03,
+      "meets_limit_by_observed_rate": true,
+      "meets_limit_by_95_upper_bound": true,
+      "plan_interventions": 0,
+      "diagnosis_interventions": 1637,
+      "diagnosis_intervention_reasons": {
+        "no_permissible_hypothesis": 1414,
+        "cycles_exhausted": 223
+      },
+      "cycle1_abstentions_budget_or_other_fallback": 1933,
+      "contact_steps_without_consent": 0
+    },
+    "APP": {
+      "true_risk_payments_with_a_retry": 157,
+      "true_risk_payments_with_a_retry_detected": 0,
+      "true_risk_payments_with_a_retry_missed": 157,
+      "true_risk_unsafe_retry_steps": 606,
+      "card_expired_payments": 3264,
+      "card_expired_payments_with_a_retry": 28,
+      "card_expired_unsafe_retry_steps": 61,
+      "payments": 38871,
+      "terminal": {
+        "SIMULATED_RECOVERY_SUCCESS": 30986,
+        "PLAN_INTERVENTION": 0,
+        "DIAGNOSIS_INTERVENTION": 1637,
+        "SAFETY_ESCALATION": 6248
+      },
+      "reconciles": true,
+      "simulated_recovery_success": 30986,
+      "simulated_recovery_rate": 0.7971495459339868,
+      "success_by_cycle": {
+        "cycle_1": 29727,
+        "cycle_2": 977,
+        "cycle_3": 282
+      },
+      "safety_escalations_total": 6248,
+      "genuine_escalations": 4231,
+      "false_escalations": 2017,
+      "escalation_precision": 0.6771766965428937,
+      "escalation_source": {
+        "independent_detection": 2541,
+        "gate_evidence": 3657,
+        "reassessment_supported": 50
+      },
+      "true_risk_blocked": 4614,
+      "true_risk_detected": 4231,
+      "true_risk_missed": 383,
+      "true_risk_recall": 0.9169917641959254,
+      "missed_true_risk_outcomes": {
+        "DIAGNOSIS_INTERVENTION": 383
+      },
+      "missed_true_risk_with_a_retry": 157,
+      "unsupported_risk_selections": 0,
+      "unsafe_retry_steps": 667,
+      "unsafe_retry_payments": 185,
+      "true_hard_declines": 7878,
+      "unsafe_payment_rate": 0.023483117542523482,
+      "unsafe_payment_rate_upper95_wilson": 0.02706661066259955,
+      "acceptance_limit": 0.03,
+      "meets_limit_by_observed_rate": true,
+      "meets_limit_by_95_upper_bound": true,
+      "plan_interventions": 0,
+      "diagnosis_interventions": 1637,
+      "diagnosis_intervention_reasons": {
+        "no_permissible_hypothesis": 1414,
+        "cycles_exhausted": 223
+      },
+      "cycle1_abstentions_budget_or_other_fallback": 1933,
+      "contact_steps_without_consent": 0
+    }
+  },
+  "A_reproduces_saved_10pct_baseline": {
+    "per_payment_identical": true,
+    "terminal_matches": true,
+    "success_by_cycle_matches": true,
+    "unsafe_matches": true
+  },
+  "APP_parity_with_approved_20pct_reference": {
+    "per_payment_identical_to_reference_B_0.20": true,
+    "matches_saved_sweep_B_0.20": {
+      "simulated_recovery_success": true,
+      "safety_escalations_total": true,
+      "genuine_escalations": true,
+      "false_escalations": true,
+      "unsafe_retry_steps": true,
+      "unsafe_retry_payments": true,
+      "diagnosis_interventions": true,
+      "terminal": true,
+      "true_risk_missed": true
+    }
+  },
+  "transitions_A_to_B": {
+    "B_0.20": {
+      "DIAGNOSIS_INTERVENTION->DIAGNOSIS_INTERVENTION": 75,
+      "SAFETY_ESCALATION->DIAGNOSIS_INTERVENTION": 1562,
+      "SAFETY_ESCALATION->SAFETY_ESCALATION": 6064,
+      "SAFETY_ESCALATION->SIMULATED_RECOVERY_SUCCESS": 82,
+      "SIMULATED_RECOVERY_SUCCESS->SAFETY_ESCALATION": 184,
+      "SIMULATED_RECOVERY_SUCCESS->SIMULATED_RECOVERY_SUCCESS": 30904
+    },
+    "APP": {
+      "DIAGNOSIS_INTERVENTION->DIAGNOSIS_INTERVENTION": 75,
+      "SAFETY_ESCALATION->DIAGNOSIS_INTERVENTION": 1562,
+      "SAFETY_ESCALATION->SAFETY_ESCALATION": 6064,
+      "SAFETY_ESCALATION->SIMULATED_RECOVERY_SUCCESS": 82,
+      "SIMULATED_RECOVERY_SUCCESS->SAFETY_ESCALATION": 184,
+      "SIMULATED_RECOVERY_SUCCESS->SIMULATED_RECOVERY_SUCCESS": 30904
+    }
+  }
+}

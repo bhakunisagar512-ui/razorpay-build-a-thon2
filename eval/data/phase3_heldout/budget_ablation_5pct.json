@@ -1,0 +1,205 @@
+{
+  "held_out_split": {
+    "final_test_failures": 38871,
+    "final_test_worlds": 12,
+    "final_test_seeds": [
+      500000,
+      500001,
+      500002,
+      500003,
+      501000,
+      501001,
+      501002,
+      501003,
+      502000,
+      502001,
+      502002,
+      502003
+    ],
+    "earlier_cache_files": 33,
+    "payment_id_overlap_with_train_validation_test": 0,
+    "world_seed_overlap": []
+  },
+  "failures": 38871,
+  "configs": {
+    "A_0.01": {
+      "budget": 0.01,
+      "simulated_recovery_success": 27287,
+      "simulated_recovery_success_rate": 0.7019886290550796,
+      "success_by_cycle": {
+        "cycle_1": 26412,
+        "cycle_2": 736,
+        "cycle_3": 139
+      },
+      "safety_escalations_total": 11557,
+      "false_safety_escalations": 6948,
+      "true_risk_blocked_escalated": 4609,
+      "plan_interventions": 0,
+      "diagnosis_interventions": 27,
+      "unsafe_retry_steps_vs_true_hard_decline": 69,
+      "unsafe_retry_payments": 23,
+      "true_hard_declines": 7878,
+      "true_hard_declines_with_a_retry": 23,
+      "unsafe_payment_rate_of_hard_declines": 0.0029195227215029194,
+      "unsafe_payment_rate_upper95_wilson": 0.004377330006423539,
+      "contact_steps_without_consent": 0,
+      "cycle1_abstentions": 8048,
+      "cycle1_abstentions_from_hard_mass_budget": 5008,
+      "terminal": {
+        "SIMULATED_RECOVERY_SUCCESS": 27287,
+        "PLAN_INTERVENTION": 0,
+        "DIAGNOSIS_INTERVENTION": 27,
+        "SAFETY_ESCALATION": 11557
+      },
+      "reconciles": true,
+      "escalation_attribution": {
+        "escalated_in_cycle_1_by_gate_or_hard_signal": 3655,
+        "escalated_in_cycle_2_or_3_after_reassessment_chose_RISK_BLOCKED": 7902,
+        "of_which_budget_disabled_would_have_chosen_a_retry_capable_hypothesis": 6277,
+        "of_which_budget_disabled_would_still_have_chosen_a_hard_hypothesis": 1625,
+        "of_which_no_permissible_hypothesis_even_without_budget": 0,
+        "false_escalations_that_are_budget_caused": 5636,
+        "true_cause_of_budget_caused_escalations": {
+          "BD_USER_ABANDONED_OTP": 336,
+          "BD_INSUFFICIENT_FUNDS": 3058,
+          "TD_PSP_TIMEOUT": 1228,
+          "TD_ISSUER_DOWN": 945,
+          "RISK_BLOCKED": 641,
+          "CARD_EXPIRED": 69
+        }
+      },
+      "diagnosis_accuracy_top1": 0.9120166705255847
+    },
+    "B_0.03": {
+      "budget": 0.03,
+      "simulated_recovery_success": 29412,
+      "simulated_recovery_success_rate": 0.7566566334799723,
+      "success_by_cycle": {
+        "cycle_1": 28302,
+        "cycle_2": 915,
+        "cycle_3": 195
+      },
+      "safety_escalations_total": 9408,
+      "false_safety_escalations": 4803,
+      "true_risk_blocked_escalated": 4605,
+      "plan_interventions": 0,
+      "diagnosis_interventions": 51,
+      "unsafe_retry_steps_vs_true_hard_decline": 143,
+      "unsafe_retry_payments": 54,
+      "true_hard_declines": 7878,
+      "true_hard_declines_with_a_retry": 54,
+      "unsafe_payment_rate_of_hard_declines": 0.006854531607006854,
+      "unsafe_payment_rate_upper95_wilson": 0.008932214883375013,
+      "contact_steps_without_consent": 0,
+      "cycle1_abstentions": 6051,
+      "cycle1_abstentions_from_hard_mass_budget": 2995,
+      "terminal": {
+        "SIMULATED_RECOVERY_SUCCESS": 29412,
+        "PLAN_INTERVENTION": 0,
+        "DIAGNOSIS_INTERVENTION": 51,
+        "SAFETY_ESCALATION": 9408
+      },
+      "reconciles": true,
+      "escalation_attribution": {
+        "escalated_in_cycle_1_by_gate_or_hard_signal": 3655,
+        "escalated_in_cycle_2_or_3_after_reassessment_chose_RISK_BLOCKED": 5753,
+        "of_which_budget_disabled_would_have_chosen_a_retry_capable_hypothesis": 4093,
+        "of_which_budget_disabled_would_still_have_chosen_a_hard_hypothesis": 1660,
+        "of_which_no_permissible_hypothesis_even_without_budget": 0,
+        "false_escalations_that_are_budget_caused": 3479,
+        "true_cause_of_budget_caused_escalations": {
+          "BD_USER_ABANDONED_OTP": 265,
+          "BD_INSUFFICIENT_FUNDS": 2022,
+          "TD_PSP_TIMEOUT": 587,
+          "RISK_BLOCKED": 614,
+          "CARD_EXPIRED": 68,
+          "TD_ISSUER_DOWN": 537
+        }
+      },
+      "diagnosis_accuracy_top1": 0.9120166705255847
+    },
+    "E_0.05": {
+      "budget": 0.05,
+      "simulated_recovery_success": 30196,
+      "simulated_recovery_success_rate": 0.7768259113477914,
+      "success_by_cycle": {
+        "cycle_1": 28996,
+        "cycle_2": 977,
+        "cycle_3": 223
+      },
+      "safety_escalations_total": 8615,
+      "false_safety_escalations": 4016,
+      "true_risk_blocked_escalated": 4599,
+      "plan_interventions": 0,
+      "diagnosis_interventions": 60,
+      "unsafe_retry_steps_vs_true_hard_decline": 234,
+      "unsafe_retry_payments": 93,
+      "true_hard_declines": 7878,
+      "true_hard_declines_with_a_retry": 93,
+      "unsafe_payment_rate_of_hard_declines": 0.011805026656511805,
+      "unsafe_payment_rate_upper95_wilson": 0.014439313358718087,
+      "contact_steps_without_consent": 0,
+      "cycle1_abstentions": 5290,
+      "cycle1_abstentions_from_hard_mass_budget": 2224,
+      "terminal": {
+        "SIMULATED_RECOVERY_SUCCESS": 30196,
+        "PLAN_INTERVENTION": 0,
+        "DIAGNOSIS_INTERVENTION": 60,
+        "SAFETY_ESCALATION": 8615
+      },
+      "reconciles": true,
+      "escalation_attribution": {
+        "escalated_in_cycle_1_by_gate_or_hard_signal": 3657,
+        "escalated_in_cycle_2_or_3_after_reassessment_chose_RISK_BLOCKED": 4958,
+        "of_which_budget_disabled_would_have_chosen_a_retry_capable_hypothesis": 3261,
+        "of_which_budget_disabled_would_still_have_chosen_a_hard_hypothesis": 1697,
+        "of_which_no_permissible_hypothesis_even_without_budget": 0,
+        "false_escalations_that_are_budget_caused": 2677,
+        "true_cause_of_budget_caused_escalations": {
+          "BD_USER_ABANDONED_OTP": 248,
+          "BD_INSUFFICIENT_FUNDS": 1585,
+          "RISK_BLOCKED": 584,
+          "CARD_EXPIRED": 63,
+          "TD_ISSUER_DOWN": 376,
+          "TD_PSP_TIMEOUT": 405
+        }
+      },
+      "diagnosis_accuracy_top1": 0.9120166705255847
+    }
+  },
+  "baseline_reproduction_of_A": {
+    "per_payment_identical": true,
+    "terminal_matches": true,
+    "success_by_cycle_matches": true,
+    "unsafe_matches": true,
+    "abstentions_match": true
+  },
+  "saved_baseline_reproduction": {
+    "A_0.01": {
+      "simulated_recovery_success": true,
+      "success_by_cycle": true,
+      "safety_escalations_total": true,
+      "false_safety_escalations": true,
+      "unsafe_retry_steps_vs_true_hard_decline": true,
+      "unsafe_retry_payments": true,
+      "plan_interventions": true,
+      "diagnosis_interventions": true,
+      "cycle1_abstentions": true,
+      "cycle1_abstentions_from_hard_mass_budget": true,
+      "terminal": true
+    },
+    "B_0.03": {
+      "simulated_recovery_success": true,
+      "success_by_cycle": true,
+      "safety_escalations_total": true,
+      "false_safety_escalations": true,
+      "unsafe_retry_steps_vs_true_hard_decline": true,
+      "unsafe_retry_payments": true,
+      "plan_interventions": true,
+      "diagnosis_interventions": true,
+      "cycle1_abstentions": true,
+      "cycle1_abstentions_from_hard_mass_budget": true,
+      "terminal": true
+    }
+  }
+}

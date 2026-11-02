@@ -1,0 +1,1804 @@
+{
+  "feature_schema": "payment-features@v2",
+  "seed": 42,
+  "synthetic_only": true,
+  "environment": {
+    "python": "3.11.18",
+    "numpy": "2.4.6",
+    "pandas": "3.1.0",
+    "scikit-learn": "1.9.1"
+  },
+  "legacy_baseline": {
+    "n_generated": 40000,
+    "train_rows": 27962,
+    "dataset_sha256": "3e7cca08c4c34eb2b7c70b75fa5833f27b73107ce03eb1a5a10a952ce96f2408",
+    "metrics": {
+      "n_test": 12038,
+      "abstain_rate": 0.16663897657418175,
+      "stage_mix": {
+        "rules": 0.766572520352218,
+        "gated:low_conf": 0.1079913606911447,
+        "model": 0.06678850307360026,
+        "gated:rules_hard_risk": 0.058647615883037046
+      },
+      "macro_f1_decided": 0.8951411396312761,
+      "per_class_recall": {
+        "BD_INSUFFICIENT_FUNDS": 0.7861501724595383,
+        "BD_USER_ABANDONED_OTP": 0.9456762749445676,
+        "CARD_EXPIRED": 0.8167539267015707,
+        "RISK_BLOCKED": 0.6797642436149313,
+        "TD_ISSUER_DOWN": 0.38392321535692864,
+        "TD_PSP_TIMEOUT": 0.737037037037037
+      },
+      "per_class_precision": {
+        "BD_INSUFFICIENT_FUNDS": 0.8768866528558745,
+        "BD_USER_ABANDONED_OTP": 0.9100284495021337,
+        "CARD_EXPIRED": 0.9512195121951219,
+        "RISK_BLOCKED": 0.9351351351351351,
+        "TD_ISSUER_DOWN": 0.8556149732620321,
+        "TD_PSP_TIMEOUT": 0.9558117195004803
+      },
+      "unsafe_retry_rate": 0.08208955223880597,
+      "unsafe_retry_count": 209,
+      "hard_decline_count": 2546,
+      "macro_f1_all": 0.7974988322413302
+    },
+    "generator_source_sha256": "407fd1434438fe53a14e92b1502ce52cb64b3295b17785df08da31de2a2f092b",
+    "classifier_source_sha256": "3d6b223d2895a47632eaa012de23bfd2521acd58bdc300c54af764b37be6092f",
+    "published_reference": {
+      "path": "eval/data/step4.txt",
+      "sha256": "fd91536fe4379b7e610bd012f406f096fc03e18c923a70b670c91324470aeca4",
+      "note": "Original 40,000-row published metrics are retained unchanged; this report re-evaluates classification only."
+    }
+  },
+  "feature_groups": {
+    "baseline_5": [
+      "gw_error_code",
+      "gw_error_source",
+      "gw_error_step",
+      "method",
+      "instrument_hint"
+    ],
+    "plus_infrastructure": [
+      "gw_error_code",
+      "gw_error_source",
+      "gw_error_step",
+      "method",
+      "instrument_hint",
+      "issuer_attempts_5m",
+      "issuer_failure_rate_5m",
+      "issuer_latency_p95_ms_5m",
+      "psp_attempts_5m",
+      "psp_failure_rate_5m",
+      "psp_latency_p95_ms_5m",
+      "method_attempts_5m",
+      "method_failure_rate_5m",
+      "current_latency_ms"
+    ],
+    "plus_history": [
+      "gw_error_code",
+      "gw_error_source",
+      "gw_error_step",
+      "method",
+      "instrument_hint",
+      "customer_attempts_7d",
+      "customer_successes_7d",
+      "customer_failure_rate_7d",
+      "customer_last_success_age_s",
+      "amount_to_customer_mean_7d",
+      "order_prior_attempts_7d"
+    ],
+    "plus_context": [
+      "gw_error_code",
+      "gw_error_source",
+      "gw_error_step",
+      "method",
+      "instrument_hint",
+      "amount_minor",
+      "log_amount_minor",
+      "hour_ist",
+      "weekday_ist"
+    ],
+    "all_without_identifiers": [
+      "gw_error_code",
+      "gw_error_source",
+      "gw_error_step",
+      "method",
+      "instrument_hint",
+      "amount_minor",
+      "log_amount_minor",
+      "hour_ist",
+      "weekday_ist",
+      "customer_attempts_7d",
+      "customer_successes_7d",
+      "customer_failure_rate_7d",
+      "customer_last_success_age_s",
+      "amount_to_customer_mean_7d",
+      "order_prior_attempts_7d",
+      "issuer_attempts_5m",
+      "issuer_failure_rate_5m",
+      "issuer_latency_p95_ms_5m",
+      "psp_attempts_5m",
+      "psp_failure_rate_5m",
+      "psp_latency_p95_ms_5m",
+      "method_attempts_5m",
+      "method_failure_rate_5m",
+      "current_latency_ms"
+    ],
+    "all_26": [
+      "gw_error_code",
+      "gw_error_source",
+      "gw_error_step",
+      "method",
+      "instrument_hint",
+      "issuer_id",
+      "psp_id",
+      "amount_minor",
+      "log_amount_minor",
+      "hour_ist",
+      "weekday_ist",
+      "customer_attempts_7d",
+      "customer_successes_7d",
+      "customer_failure_rate_7d",
+      "customer_last_success_age_s",
+      "amount_to_customer_mean_7d",
+      "order_prior_attempts_7d",
+      "issuer_attempts_5m",
+      "issuer_failure_rate_5m",
+      "issuer_latency_p95_ms_5m",
+      "psp_attempts_5m",
+      "psp_failure_rate_5m",
+      "psp_latency_p95_ms_5m",
+      "method_attempts_5m",
+      "method_failure_rate_5m",
+      "current_latency_ms"
+    ]
+  },
+  "sequences": {
+    "generator": "sequences@v2",
+    "seed": 42,
+    "feature_schema": "payment-features@v2",
+    "n_attempts": 20000,
+    "n_failures": 12608,
+    "n_successes": 7392,
+    "duplicate_deliveries": 504,
+    "units": "INR minor units (paise)",
+    "synthetic_only": true,
+    "dataset_sha256": "3996fbcca622a3ce879667b8810b2b66bba69a5c51652a9d253982e5ca641f6b",
+    "partition_rows": {
+      "train": 7770,
+      "validation": 2251,
+      "test": 2269
+    },
+    "excluded_failures": 318,
+    "later_success_orders": 790,
+    "split_sha256": {
+      "train": "76372e47b4a7800533810897c99abcdc565fff20c3eec5bff19f3091450e9e6b",
+      "validation": "f3cdfc4d7d6a34da7b233de2c7c2d8cf7530d47d927b125ec19b7caa0dbd586a",
+      "test": "97f472b8ebf81b44096933fe6e036ade51d66be241dd96015c44323ee9e32d88"
+    },
+    "missing_rates": {
+      "gw_error_code": 0.0,
+      "gw_error_source": 0.0,
+      "gw_error_step": 0.0,
+      "method": 0.0,
+      "instrument_hint": 0.0,
+      "issuer_id": 0.0,
+      "psp_id": 0.0,
+      "amount_minor": 0.0,
+      "log_amount_minor": 0.0,
+      "hour_ist": 0.0,
+      "weekday_ist": 0.0,
+      "customer_attempts_7d": 0.0,
+      "customer_successes_7d": 0.0,
+      "customer_failure_rate_7d": 0.07360406091370558,
+      "customer_last_success_age_s": 0.4941307106598985,
+      "amount_to_customer_mean_7d": 0.07360406091370558,
+      "order_prior_attempts_7d": 0.0,
+      "issuer_attempts_5m": 0.0,
+      "issuer_failure_rate_5m": 0.0007931472081218274,
+      "issuer_latency_p95_ms_5m": 0.0007931472081218274,
+      "psp_attempts_5m": 0.0,
+      "psp_failure_rate_5m": 7.931472081218273e-05,
+      "psp_latency_p95_ms_5m": 7.931472081218273e-05,
+      "method_attempts_5m": 0.0,
+      "method_failure_rate_5m": 0.0037277918781725887,
+      "current_latency_ms": 0.0
+    }
+  },
+  "validation": {
+    "baseline_5": {
+      "n_test": 2251,
+      "abstain_rate": 0.050644158151932475,
+      "stage_mix": {
+        "rules": 0.7876499333629498,
+        "model": 0.16170590848511773,
+        "gated:rules_hard_risk": 0.037760995113282986,
+        "gated:low_conf": 0.01288316303864949
+      },
+      "macro_f1_decided": 0.730613663520753,
+      "per_class_recall": {
+        "BD_INSUFFICIENT_FUNDS": 0.9379635873229939,
+        "BD_USER_ABANDONED_OTP": 0.946236559139785,
+        "CARD_EXPIRED": 0.8387096774193549,
+        "RISK_BLOCKED": 0.6766917293233082,
+        "TD_ISSUER_DOWN": 0.0,
+        "TD_PSP_TIMEOUT": 0.7286432160804021
+      },
+      "per_class_precision": {
+        "BD_INSUFFICIENT_FUNDS": 0.9298128342245989,
+        "BD_USER_ABANDONED_OTP": 0.55,
+        "CARD_EXPIRED": 1.0,
+        "RISK_BLOCKED": 1.0,
+        "TD_ISSUER_DOWN": 0.0,
+        "TD_PSP_TIMEOUT": 1.0
+      },
+      "unsafe_retry_rate": 0.09292035398230089,
+      "unsafe_retry_count": 42,
+      "hard_decline_count": 452,
+      "macro_f1_all": 0.6986669076152192
+    },
+    "plus_infrastructure": {
+      "n_test": 2251,
+      "abstain_rate": 0.037316748111950244,
+      "stage_mix": {
+        "rules": 0.7894269213682807,
+        "model": 0.173256330519769,
+        "gated:rules_hard_risk": 0.03598400710795202,
+        "gated:low_conf": 0.0013327410039982231
+      },
+      "macro_f1_decided": 0.7449114050028157,
+      "per_class_recall": {
+        "BD_INSUFFICIENT_FUNDS": 0.9453809844908968,
+        "BD_USER_ABANDONED_OTP": 0.946236559139785,
+        "CARD_EXPIRED": 0.8387096774193549,
+        "RISK_BLOCKED": 0.6766917293233082,
+        "TD_ISSUER_DOWN": 0.0,
+        "TD_PSP_TIMEOUT": 0.9346733668341709
+      },
+      "per_class_precision": {
+        "BD_INSUFFICIENT_FUNDS": 0.9511533242876526,
+        "BD_USER_ABANDONED_OTP": 0.546583850931677,
+        "CARD_EXPIRED": 1.0,
+        "RISK_BLOCKED": 1.0,
+        "TD_ISSUER_DOWN": 0.0,
+        "TD_PSP_TIMEOUT": 0.9738219895287958
+      },
+      "unsafe_retry_rate": 0.11061946902654868,
+      "unsafe_retry_count": 50,
+      "hard_decline_count": 452,
+      "macro_f1_all": 0.7190789165482085
+    },
+    "plus_history": {
+      "n_test": 2251,
+      "abstain_rate": 0.056419369169258105,
+      "stage_mix": {
+        "rules": 0.7836517103509552,
+        "model": 0.15992892047978677,
+        "gated:rules_hard_risk": 0.04175921812527766,
+        "gated:low_conf": 0.014215904042647711,
+        "gated:hard_decline_risk": 0.000444247001332741
+      },
+      "macro_f1_decided": 0.8245443339584871,
+      "per_class_recall": {
+        "BD_INSUFFICIENT_FUNDS": 0.8894133513149022,
+        "BD_USER_ABANDONED_OTP": 0.9354838709677419,
+        "CARD_EXPIRED": 0.8279569892473119,
+        "RISK_BLOCKED": 0.6992481203007519,
+        "TD_ISSUER_DOWN": 0.5833333333333334,
+        "TD_PSP_TIMEOUT": 0.8090452261306532
+      },
+      "per_class_precision": {
+        "BD_INSUFFICIENT_FUNDS": 0.9475574712643678,
+        "BD_USER_ABANDONED_OTP": 0.5471698113207547,
+        "CARD_EXPIRED": 1.0,
+        "RISK_BLOCKED": 0.9538461538461539,
+        "TD_ISSUER_DOWN": 0.6363636363636364,
+        "TD_PSP_TIMEOUT": 0.7970297029702971
+      },
+      "unsafe_retry_rate": 0.08849557522123894,
+      "unsafe_retry_count": 40,
+      "hard_decline_count": 452,
+      "macro_f1_all": 0.7887588938926847
+    },
+    "plus_context": {
+      "n_test": 2251,
+      "abstain_rate": 0.06263882718791648,
+      "stage_mix": {
+        "rules": 0.7876499333629498,
+        "model": 0.14971123944913373,
+        "gated:rules_hard_risk": 0.037760995113282986,
+        "gated:low_conf": 0.02310084406930253,
+        "gated:hard_decline_risk": 0.001776988005330964
+      },
+      "macro_f1_decided": 0.7406599142182687,
+      "per_class_recall": {
+        "BD_INSUFFICIENT_FUNDS": 0.8732299393122049,
+        "BD_USER_ABANDONED_OTP": 0.946236559139785,
+        "CARD_EXPIRED": 0.8387096774193549,
+        "RISK_BLOCKED": 0.6766917293233082,
+        "TD_ISSUER_DOWN": 0.125,
+        "TD_PSP_TIMEOUT": 0.8140703517587939
+      },
+      "per_class_precision": {
+        "BD_INSUFFICIENT_FUNDS": 0.9473299195318216,
+        "BD_USER_ABANDONED_OTP": 0.546583850931677,
+        "CARD_EXPIRED": 0.9629629629629629,
+        "RISK_BLOCKED": 1.0,
+        "TD_ISSUER_DOWN": 0.13043478260869565,
+        "TD_PSP_TIMEOUT": 0.7465437788018433
+      },
+      "unsafe_retry_rate": 0.11504424778761062,
+      "unsafe_retry_count": 52,
+      "hard_decline_count": 452,
+      "macro_f1_all": 0.7019862759993133
+    },
+    "all_without_identifiers": {
+      "n_test": 2251,
+      "abstain_rate": 0.03642825410928476,
+      "stage_mix": {
+        "rules": 0.7912039093736117,
+        "model": 0.17236783651710352,
+        "gated:rules_hard_risk": 0.034207019102621056,
+        "gated:low_conf": 0.001776988005330964,
+        "gated:hard_decline_risk": 0.000444247001332741
+      },
+      "macro_f1_decided": 0.8764717120609058,
+      "per_class_recall": {
+        "BD_INSUFFICIENT_FUNDS": 0.9433580579905597,
+        "BD_USER_ABANDONED_OTP": 0.946236559139785,
+        "CARD_EXPIRED": 0.8440860215053764,
+        "RISK_BLOCKED": 0.6879699248120301,
+        "TD_ISSUER_DOWN": 0.5833333333333334,
+        "TD_PSP_TIMEOUT": 0.9396984924623115
+      },
+      "per_class_precision": {
+        "BD_INSUFFICIENT_FUNDS": 0.9562542720437457,
+        "BD_USER_ABANDONED_OTP": 0.55,
+        "CARD_EXPIRED": 0.9874213836477987,
+        "RISK_BLOCKED": 1.0,
+        "TD_ISSUER_DOWN": 1.0,
+        "TD_PSP_TIMEOUT": 0.9842105263157894
+      },
+      "unsafe_retry_rate": 0.08849557522123894,
+      "unsafe_retry_count": 40,
+      "hard_decline_count": 452,
+      "macro_f1_all": 0.8448309918715492
+    },
+    "all_26": {
+      "n_test": 2251,
+      "abstain_rate": 0.034207019102621056,
+      "stage_mix": {
+        "rules": 0.7920924033762772,
+        "model": 0.17370057752110174,
+        "gated:rules_hard_risk": 0.03331852509995557,
+        "gated:hard_decline_risk": 0.000444247001332741,
+        "gated:low_conf": 0.000444247001332741
+      },
+      "macro_f1_decided": 0.8756142579423352,
+      "per_class_recall": {
+        "BD_INSUFFICIENT_FUNDS": 0.9447066756574511,
+        "BD_USER_ABANDONED_OTP": 0.946236559139785,
+        "CARD_EXPIRED": 0.8440860215053764,
+        "RISK_BLOCKED": 0.6879699248120301,
+        "TD_ISSUER_DOWN": 0.5833333333333334,
+        "TD_PSP_TIMEOUT": 0.9447236180904522
+      },
+      "per_class_precision": {
+        "BD_INSUFFICIENT_FUNDS": 0.9556616643929059,
+        "BD_USER_ABANDONED_OTP": 0.55,
+        "CARD_EXPIRED": 0.9874213836477987,
+        "RISK_BLOCKED": 1.0,
+        "TD_ISSUER_DOWN": 1.0,
+        "TD_PSP_TIMEOUT": 0.9791666666666666
+      },
+      "unsafe_retry_rate": 0.09070796460176991,
+      "unsafe_retry_count": 41,
+      "hard_decline_count": 452,
+      "macro_f1_all": 0.8449288992672703
+    }
+  },
+  "provisional_selection": {
+    "name": "all_26",
+    "rule": "Highest validation macro_f1_all, no higher unsafe_retry_rate than baseline, abstention <= baseline + 0.10",
+    "production_promoted": false
+  },
+  "temporal_test": {
+    "baseline_5": {
+      "n_test": 2269,
+      "abstain_rate": 0.08109299250771265,
+      "stage_mix": {
+        "rules": 0.746584398413398,
+        "model": 0.17232260907888938,
+        "gated:rules_hard_risk": 0.06787130894667254,
+        "gated:low_conf": 0.013221683561040106
+      },
+      "macro_f1_decided": 0.7254834409806011,
+      "per_class_recall": {
+        "BD_INSUFFICIENT_FUNDS": 0.9373333333333334,
+        "BD_USER_ABANDONED_OTP": 0.9468085106382979,
+        "CARD_EXPIRED": 0.8516746411483254,
+        "RISK_BLOCKED": 0.6699029126213593,
+        "TD_ISSUER_DOWN": 0.0,
+        "TD_PSP_TIMEOUT": 0.6904761904761905
+      },
+      "per_class_precision": {
+        "BD_INSUFFICIENT_FUNDS": 0.9354624085163007,
+        "BD_USER_ABANDONED_OTP": 0.536144578313253,
+        "CARD_EXPIRED": 0.9888888888888889,
+        "RISK_BLOCKED": 1.0,
+        "TD_ISSUER_DOWN": 0.0,
+        "TD_PSP_TIMEOUT": 1.0
+      },
+      "unsafe_retry_rate": 0.07915057915057915,
+      "unsafe_retry_count": 41,
+      "hard_decline_count": 518,
+      "macro_f1_all": 0.6925677343290092
+    },
+    "plus_infrastructure": {
+      "n_test": 2269,
+      "abstain_rate": 0.048920229175848394,
+      "stage_mix": {
+        "rules": 0.7677390921110622,
+        "model": 0.18334067871308946,
+        "gated:rules_hard_risk": 0.04671661524900837,
+        "gated:low_conf": 0.0022036139268400176
+      },
+      "macro_f1_decided": 0.8455033527211707,
+      "per_class_recall": {
+        "BD_INSUFFICIENT_FUNDS": 0.946,
+        "BD_USER_ABANDONED_OTP": 0.9468085106382979,
+        "CARD_EXPIRED": 0.84688995215311,
+        "RISK_BLOCKED": 0.6699029126213593,
+        "TD_ISSUER_DOWN": 0.5043478260869565,
+        "TD_PSP_TIMEOUT": 0.6904761904761905
+      },
+      "per_class_precision": {
+        "BD_INSUFFICIENT_FUNDS": 0.9391131700860358,
+        "BD_USER_ABANDONED_OTP": 0.5329341317365269,
+        "CARD_EXPIRED": 0.9888268156424581,
+        "RISK_BLOCKED": 1.0,
+        "TD_ISSUER_DOWN": 0.8923076923076924,
+        "TD_PSP_TIMEOUT": 1.0
+      },
+      "unsafe_retry_rate": 0.09845559845559845,
+      "unsafe_retry_count": 51,
+      "hard_decline_count": 518,
+      "macro_f1_all": 0.8000964851316194
+    },
+    "plus_history": {
+      "n_test": 2269,
+      "abstain_rate": 0.07095636844424857,
+      "stage_mix": {
+        "rules": 0.756721022476862,
+        "model": 0.17232260907888938,
+        "gated:rules_hard_risk": 0.05773468488320846,
+        "gated:low_conf": 0.0123402379903041,
+        "gated:hard_decline_risk": 0.0008814455707360071
+      },
+      "macro_f1_decided": 0.7719573541275104,
+      "per_class_recall": {
+        "BD_INSUFFICIENT_FUNDS": 0.8773333333333333,
+        "BD_USER_ABANDONED_OTP": 0.9361702127659575,
+        "CARD_EXPIRED": 0.84688995215311,
+        "RISK_BLOCKED": 0.6763754045307443,
+        "TD_ISSUER_DOWN": 0.48695652173913045,
+        "TD_PSP_TIMEOUT": 0.7857142857142857
+      },
+      "per_class_precision": {
+        "BD_INSUFFICIENT_FUNDS": 0.9557007988380537,
+        "BD_USER_ABANDONED_OTP": 0.5333333333333333,
+        "CARD_EXPIRED": 0.9888268156424581,
+        "RISK_BLOCKED": 0.9675925925925926,
+        "TD_ISSUER_DOWN": 0.8888888888888888,
+        "TD_PSP_TIMEOUT": 0.3055555555555556
+      },
+      "unsafe_retry_rate": 0.07528957528957529,
+      "unsafe_retry_count": 39,
+      "hard_decline_count": 518,
+      "macro_f1_all": 0.7286922703403768
+    },
+    "plus_context": {
+      "n_test": 2269,
+      "abstain_rate": 0.0740414279418246,
+      "stage_mix": {
+        "rules": 0.74614367562803,
+        "model": 0.17981489643014545,
+        "gated:rules_hard_risk": 0.06831203173204055,
+        "gated:low_conf": 0.004407227853680035,
+        "gated:hard_decline_risk": 0.0013221683561040105
+      },
+      "macro_f1_decided": 0.7276578192698552,
+      "per_class_recall": {
+        "BD_INSUFFICIENT_FUNDS": 0.9206666666666666,
+        "BD_USER_ABANDONED_OTP": 0.9468085106382979,
+        "CARD_EXPIRED": 0.8516746411483254,
+        "RISK_BLOCKED": 0.6731391585760518,
+        "TD_ISSUER_DOWN": 0.06086956521739131,
+        "TD_PSP_TIMEOUT": 0.6904761904761905
+      },
+      "per_class_precision": {
+        "BD_INSUFFICIENT_FUNDS": 0.9375424304141209,
+        "BD_USER_ABANDONED_OTP": 0.5266272189349113,
+        "CARD_EXPIRED": 0.9834254143646409,
+        "RISK_BLOCKED": 0.9765258215962441,
+        "TD_ISSUER_DOWN": 0.2916666666666667,
+        "TD_PSP_TIMEOUT": 0.7073170731707317
+      },
+      "unsafe_retry_rate": 0.0888030888030888,
+      "unsafe_retry_count": 46,
+      "hard_decline_count": 518,
+      "macro_f1_all": 0.6858506642470713
+    },
+    "all_without_identifiers": {
+      "n_test": 2269,
+      "abstain_rate": 0.048920229175848394,
+      "stage_mix": {
+        "rules": 0.7690612604671662,
+        "model": 0.18201851035698546,
+        "gated:rules_hard_risk": 0.045394446892904367,
+        "gated:low_conf": 0.0022036139268400176,
+        "gated:hard_decline_risk": 0.0013221683561040105
+      },
+      "macro_f1_decided": 0.8473042481246719,
+      "per_class_recall": {
+        "BD_INSUFFICIENT_FUNDS": 0.9473333333333334,
+        "BD_USER_ABANDONED_OTP": 0.9361702127659575,
+        "CARD_EXPIRED": 0.861244019138756,
+        "RISK_BLOCKED": 0.6763754045307443,
+        "TD_ISSUER_DOWN": 0.5130434782608696,
+        "TD_PSP_TIMEOUT": 0.7142857142857143
+      },
+      "per_class_precision": {
+        "BD_INSUFFICIENT_FUNDS": 0.9423076923076923,
+        "BD_USER_ABANDONED_OTP": 0.5333333333333333,
+        "CARD_EXPIRED": 0.9836065573770492,
+        "RISK_BLOCKED": 1.0,
+        "TD_ISSUER_DOWN": 0.9833333333333333,
+        "TD_PSP_TIMEOUT": 0.9090909090909091
+      },
+      "unsafe_retry_rate": 0.07335907335907337,
+      "unsafe_retry_count": 38,
+      "hard_decline_count": 518,
+      "macro_f1_all": 0.803992229583035
+    },
+    "all_26": {
+      "n_test": 2269,
+      "abstain_rate": 0.04759806081974438,
+      "stage_mix": {
+        "rules": 0.7695019832525342,
+        "model": 0.18289995592772146,
+        "gated:rules_hard_risk": 0.04495372410753636,
+        "gated:low_conf": 0.0017628911414720142,
+        "gated:hard_decline_risk": 0.0008814455707360071
+      },
+      "macro_f1_decided": 0.8449643596736515,
+      "per_class_recall": {
+        "BD_INSUFFICIENT_FUNDS": 0.948,
+        "BD_USER_ABANDONED_OTP": 0.9361702127659575,
+        "CARD_EXPIRED": 0.861244019138756,
+        "RISK_BLOCKED": 0.6763754045307443,
+        "TD_ISSUER_DOWN": 0.4956521739130435,
+        "TD_PSP_TIMEOUT": 0.7142857142857143
+      },
+      "per_class_precision": {
+        "BD_INSUFFICIENT_FUNDS": 0.9386138613861386,
+        "BD_USER_ABANDONED_OTP": 0.5333333333333333,
+        "CARD_EXPIRED": 0.989010989010989,
+        "RISK_BLOCKED": 1.0,
+        "TD_ISSUER_DOWN": 0.9827586206896551,
+        "TD_PSP_TIMEOUT": 0.9375
+      },
+      "unsafe_retry_rate": 0.07335907335907337,
+      "unsafe_retry_count": 38,
+      "hard_decline_count": 518,
+      "macro_f1_all": 0.8033760882485121
+    }
+  },
+  "frozen_legacy_on_sequences": {
+    "n_test": 2269,
+    "abstain_rate": 0.1890700749228735,
+    "stage_mix": {
+      "rules": 0.7866901718818863,
+      "gated:low_conf": 0.16130453944468928,
+      "gated:rules_hard_risk": 0.027765535478184222,
+      "model": 0.024239753195240195
+    },
+    "macro_f1_decided": 0.8516941326878964,
+    "per_class_recall": {
+      "BD_INSUFFICIENT_FUNDS": 0.7546666666666667,
+      "BD_USER_ABANDONED_OTP": 0.9468085106382979,
+      "CARD_EXPIRED": 0.8516746411483254,
+      "RISK_BLOCKED": 0.6699029126213593,
+      "TD_ISSUER_DOWN": 0.391304347826087,
+      "TD_PSP_TIMEOUT": 0.6904761904761905
+    },
+    "per_class_precision": {
+      "BD_INSUFFICIENT_FUNDS": 0.9700085689802913,
+      "BD_USER_ABANDONED_OTP": 0.536144578313253,
+      "CARD_EXPIRED": 0.9888888888888889,
+      "RISK_BLOCKED": 1.0,
+      "TD_ISSUER_DOWN": 0.4945054945054945,
+      "TD_PSP_TIMEOUT": 1.0
+    },
+    "unsafe_retry_rate": 0.14092664092664092,
+    "unsafe_retry_count": 73,
+    "hard_decline_count": 518,
+    "macro_f1_all": 0.7507994269540968
+  },
+  "scenarios": {
+    "issuer_outage": {
+      "generator": "stress-world@v1:issuer_outage",
+      "seed": 901,
+      "feature_schema": "payment-features@v2",
+      "n_attempts": 4000,
+      "n_failures": 2093,
+      "n_successes": 1907,
+      "duplicate_deliveries": 167,
+      "units": "INR minor units (paise)",
+      "synthetic_only": true,
+      "dataset_sha256": "5937df045c928ca35a360500a7cfcba3df72db6eeeb5cc0f1b3fab97e44cae03",
+      "frozen_legacy_baseline": {
+        "n_test": 2093,
+        "abstain_rate": 0.28475871954132825,
+        "stage_mix": {
+          "rules": 0.7018633540372671,
+          "gated:low_conf": 0.1782130912565695,
+          "gated:rules_hard_risk": 0.10654562828475872,
+          "model": 0.013377926421404682
+        },
+        "macro_f1_decided": 1.0,
+        "per_class_recall": {
+          "BD_INSUFFICIENT_FUNDS": 0.8067010309278351,
+          "BD_USER_ABANDONED_OTP": 0.826271186440678,
+          "CARD_EXPIRED": 0.9405940594059405,
+          "RISK_BLOCKED": 0.8012048192771084,
+          "TD_ISSUER_DOWN": 0.36363636363636365,
+          "TD_PSP_TIMEOUT": 0.8780487804878049
+        },
+        "per_class_precision": {
+          "BD_INSUFFICIENT_FUNDS": 1.0,
+          "BD_USER_ABANDONED_OTP": 1.0,
+          "CARD_EXPIRED": 1.0,
+          "RISK_BLOCKED": 1.0,
+          "TD_ISSUER_DOWN": 1.0,
+          "TD_PSP_TIMEOUT": 1.0
+        },
+        "unsafe_retry_rate": 0.0,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 534,
+        "macro_f1_all": 0.8542167510082614
+      },
+      "feature_groups": {
+        "baseline_5": {
+          "n_test": 2093,
+          "abstain_rate": 0.23984710941232681,
+          "stage_mix": {
+            "rules": 0.6139512661251791,
+            "gated:rules_hard_risk": 0.19445771619684663,
+            "model": 0.14620162446249402,
+            "gated:low_conf": 0.045389393215480175
+          },
+          "macro_f1_decided": 0.7822732152703219,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.961340206185567,
+            "BD_USER_ABANDONED_OTP": 0.826271186440678,
+            "CARD_EXPIRED": 0.9405940594059405,
+            "RISK_BLOCKED": 0.8012048192771084,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.8780487804878049
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.8252212389380531,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 1.0,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 1.0
+          },
+          "unsafe_retry_rate": 0.09176029962546817,
+          "unsafe_retry_count": 49,
+          "hard_decline_count": 534,
+          "macro_f1_all": 0.7645087375128014
+        },
+        "plus_infrastructure": {
+          "n_test": 2093,
+          "abstain_rate": 0.20783564261825133,
+          "stage_mix": {
+            "rules": 0.6096512183468705,
+            "gated:rules_hard_risk": 0.19875776397515527,
+            "model": 0.18251313903487817,
+            "gated:low_conf": 0.005255613951266125,
+            "gated:hard_decline_risk": 0.003822264691829909
+          },
+          "macro_f1_decided": 0.7603993645185586,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9587628865979382,
+            "BD_USER_ABANDONED_OTP": 0.8305084745762712,
+            "CARD_EXPIRED": 0.9504950495049505,
+            "RISK_BLOCKED": 0.8012048192771084,
+            "TD_ISSUER_DOWN": 0.001976284584980237,
+            "TD_PSP_TIMEOUT": 0.8780487804878049
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.7864693446088795,
+            "BD_USER_ABANDONED_OTP": 0.9560975609756097,
+            "CARD_EXPIRED": 0.9411764705882353,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 1.0,
+            "TD_PSP_TIMEOUT": 1.0
+          },
+          "unsafe_retry_rate": 0.13108614232209737,
+          "unsafe_retry_count": 70,
+          "hard_decline_count": 534,
+          "macro_f1_all": 0.7545758350487318
+        },
+        "plus_history": {
+          "n_test": 2093,
+          "abstain_rate": 0.02150023889154324,
+          "stage_mix": {
+            "rules": 0.8064978499761108,
+            "model": 0.17200191113234592,
+            "gated:low_conf": 0.015289058767319636,
+            "gated:hard_decline_risk": 0.004300047778308648,
+            "gated:rules_hard_risk": 0.0019111323459149545
+          },
+          "macro_f1_decided": 0.8456262753143503,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9394329896907216,
+            "BD_USER_ABANDONED_OTP": 0.8305084745762712,
+            "CARD_EXPIRED": 0.9405940594059405,
+            "RISK_BLOCKED": 0.8644578313253012,
+            "TD_ISSUER_DOWN": 0.8043478260869565,
+            "TD_PSP_TIMEOUT": 1.0
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.9089775561097256,
+            "BD_USER_ABANDONED_OTP": 0.9949238578680203,
+            "CARD_EXPIRED": 0.9947643979057592,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 0.9878640776699029,
+            "TD_PSP_TIMEOUT": 0.2578616352201258
+          },
+          "unsafe_retry_rate": 0.06928838951310862,
+          "unsafe_retry_count": 37,
+          "hard_decline_count": 534,
+          "macro_f1_all": 0.8366999350534016
+        },
+        "plus_context": {
+          "n_test": 2093,
+          "abstain_rate": 0.13521261347348304,
+          "stage_mix": {
+            "rules": 0.6865742952699474,
+            "model": 0.1782130912565695,
+            "gated:rules_hard_risk": 0.12183468705207835,
+            "gated:low_conf": 0.012900143334925944,
+            "gated:hard_decline_risk": 0.00047778308647873863
+          },
+          "macro_f1_decided": 0.883459799933243,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9896907216494846,
+            "BD_USER_ABANDONED_OTP": 0.826271186440678,
+            "CARD_EXPIRED": 0.900990099009901,
+            "RISK_BLOCKED": 0.8102409638554217,
+            "TD_ISSUER_DOWN": 0.33992094861660077,
+            "TD_PSP_TIMEOUT": 0.8780487804878049
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.8430296377607025,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 0.9837837837837838,
+            "RISK_BLOCKED": 0.9405594405594405,
+            "TD_ISSUER_DOWN": 0.9148936170212766,
+            "TD_PSP_TIMEOUT": 0.8
+          },
+          "unsafe_retry_rate": 0.12359550561797752,
+          "unsafe_retry_count": 66,
+          "hard_decline_count": 534,
+          "macro_f1_all": 0.8265615934065966
+        },
+        "all_without_identifiers": {
+          "n_test": 2093,
+          "abstain_rate": 0.01098901098901099,
+          "stage_mix": {
+            "rules": 0.8041089345437171,
+            "model": 0.18490205446727187,
+            "gated:low_conf": 0.006211180124223602,
+            "gated:rules_hard_risk": 0.004300047778308648,
+            "gated:hard_decline_risk": 0.00047778308647873863
+          },
+          "macro_f1_decided": 0.9122345360844376,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 1.0,
+            "BD_USER_ABANDONED_OTP": 0.8389830508474576,
+            "CARD_EXPIRED": 0.9504950495049505,
+            "RISK_BLOCKED": 0.8012048192771084,
+            "TD_ISSUER_DOWN": 0.7885375494071146,
+            "TD_PSP_TIMEOUT": 0.9024390243902439
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.8083333333333333,
+            "BD_USER_ABANDONED_OTP": 0.9850746268656716,
+            "CARD_EXPIRED": 0.9411764705882353,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 1.0,
+            "TD_PSP_TIMEOUT": 0.925
+          },
+          "unsafe_retry_rate": 0.13108614232209737,
+          "unsafe_retry_count": 70,
+          "hard_decline_count": 534,
+          "macro_f1_all": 0.9051634706520414
+        },
+        "all_26": {
+          "n_test": 2093,
+          "abstain_rate": 0.009077878643096034,
+          "stage_mix": {
+            "rules": 0.8036311514572384,
+            "model": 0.18729096989966554,
+            "gated:rules_hard_risk": 0.004777830864787387,
+            "gated:low_conf": 0.0033444816053511705,
+            "gated:hard_decline_risk": 0.0009555661729574773
+          },
+          "macro_f1_decided": 0.9109508349093353,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 1.0,
+            "BD_USER_ABANDONED_OTP": 0.847457627118644,
+            "CARD_EXPIRED": 0.9554455445544554,
+            "RISK_BLOCKED": 0.8012048192771084,
+            "TD_ISSUER_DOWN": 0.7845849802371542,
+            "TD_PSP_TIMEOUT": 0.8780487804878049
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.8049792531120332,
+            "BD_USER_ABANDONED_OTP": 0.975609756097561,
+            "CARD_EXPIRED": 0.946078431372549,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 1.0,
+            "TD_PSP_TIMEOUT": 0.9473684210526315
+          },
+          "unsafe_retry_rate": 0.13295880149812733,
+          "unsafe_retry_count": 71,
+          "hard_decline_count": 534,
+          "macro_f1_all": 0.9050063635289485
+        }
+      }
+    },
+    "psp_degradation": {
+      "generator": "stress-world@v1:psp_degradation",
+      "seed": 902,
+      "feature_schema": "payment-features@v2",
+      "n_attempts": 4000,
+      "n_failures": 2335,
+      "n_successes": 1665,
+      "duplicate_deliveries": 186,
+      "units": "INR minor units (paise)",
+      "synthetic_only": true,
+      "dataset_sha256": "46e0289e65dbba1a36528d509adfbb3743e60ab27e7c384fdbf39eb86c136098",
+      "frozen_legacy_baseline": {
+        "n_test": 2335,
+        "abstain_rate": 0.20042826552462525,
+        "stage_mix": {
+          "rules": 0.7875802997858672,
+          "gated:low_conf": 0.19143468950749465,
+          "model": 0.011991434689507495,
+          "gated:rules_hard_risk": 0.008993576017130621
+        },
+        "macro_f1_decided": 1.0,
+        "per_class_recall": {
+          "BD_INSUFFICIENT_FUNDS": 0.7916666666666666,
+          "BD_USER_ABANDONED_OTP": 0.8104265402843602,
+          "CARD_EXPIRED": 0.9209302325581395,
+          "RISK_BLOCKED": 0.8012048192771084,
+          "TD_ISSUER_DOWN": 0.3191489361702128,
+          "TD_PSP_TIMEOUT": 0.7985611510791367
+        },
+        "per_class_precision": {
+          "BD_INSUFFICIENT_FUNDS": 1.0,
+          "BD_USER_ABANDONED_OTP": 1.0,
+          "CARD_EXPIRED": 1.0,
+          "RISK_BLOCKED": 1.0,
+          "TD_ISSUER_DOWN": 1.0,
+          "TD_PSP_TIMEOUT": 1.0
+        },
+        "unsafe_retry_rate": 0.0,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 547,
+        "macro_f1_all": 0.8332249559183639
+      },
+      "feature_groups": {
+        "baseline_5": {
+          "n_test": 2335,
+          "abstain_rate": 0.06252676659528908,
+          "stage_mix": {
+            "rules": 0.7811563169164882,
+            "model": 0.15631691648822268,
+            "gated:low_conf": 0.047109207708779445,
+            "gated:rules_hard_risk": 0.015417558886509636
+          },
+          "macro_f1_decided": 0.7667393651041378,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9612068965517241,
+            "BD_USER_ABANDONED_OTP": 0.8104265402843602,
+            "CARD_EXPIRED": 0.9209302325581395,
+            "RISK_BLOCKED": 0.8012048192771084,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.7985611510791367
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.7533783783783784,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 1.0,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 1.0
+          },
+          "unsafe_retry_rate": 0.09323583180987204,
+          "unsafe_retry_count": 51,
+          "hard_decline_count": 547,
+          "macro_f1_all": 0.7460758012054431
+        },
+        "plus_infrastructure": {
+          "n_test": 2335,
+          "abstain_rate": 0.022698072805139188,
+          "stage_mix": {
+            "rules": 0.7811563169164882,
+            "model": 0.1961456102783726,
+            "gated:rules_hard_risk": 0.015417558886509636,
+            "gated:low_conf": 0.006852248394004282,
+            "gated:hard_decline_risk": 0.00042826552462526765
+          },
+          "macro_f1_decided": 0.7978560485492432,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9511494252873564,
+            "BD_USER_ABANDONED_OTP": 0.8199052132701422,
+            "CARD_EXPIRED": 0.9348837209302325,
+            "RISK_BLOCKED": 0.8012048192771084,
+            "TD_ISSUER_DOWN": 0.0425531914893617,
+            "TD_PSP_TIMEOUT": 0.960431654676259
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.8498074454428755,
+            "BD_USER_ABANDONED_OTP": 0.9774011299435028,
+            "CARD_EXPIRED": 0.95260663507109,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 0.2222222222222222,
+            "TD_PSP_TIMEOUT": 0.9535714285714286
+          },
+          "unsafe_retry_rate": 0.12431444241316271,
+          "unsafe_retry_count": 68,
+          "hard_decline_count": 547,
+          "macro_f1_all": 0.7751819322597421
+        },
+        "plus_history": {
+          "n_test": 2335,
+          "abstain_rate": 0.020985010706638114,
+          "stage_mix": {
+            "rules": 0.7957173447537473,
+            "model": 0.18329764453961456,
+            "gated:low_conf": 0.017558886509635975,
+            "gated:hard_decline_risk": 0.002569593147751606,
+            "gated:rules_hard_risk": 0.0008565310492505353
+          },
+          "macro_f1_decided": 0.8979978995389611,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9152298850574713,
+            "BD_USER_ABANDONED_OTP": 0.8151658767772512,
+            "CARD_EXPIRED": 0.9348837209302325,
+            "RISK_BLOCKED": 0.8674698795180723,
+            "TD_ISSUER_DOWN": 0.7446808510638298,
+            "TD_PSP_TIMEOUT": 0.89568345323741
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.8516042780748663,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 0.9901477832512315,
+            "RISK_BLOCKED": 0.993103448275862,
+            "TD_ISSUER_DOWN": 0.7608695652173914,
+            "TD_PSP_TIMEOUT": 0.9032648125755743
+          },
+          "unsafe_retry_rate": 0.0712979890310786,
+          "unsafe_retry_count": 39,
+          "hard_decline_count": 547,
+          "macro_f1_all": 0.8867262709664329
+        },
+        "plus_context": {
+          "n_test": 2335,
+          "abstain_rate": 0.03297644539614561,
+          "stage_mix": {
+            "rules": 0.7832976445396146,
+            "model": 0.18372591006423983,
+            "gated:low_conf": 0.019700214132762312,
+            "gated:rules_hard_risk": 0.013276231263383297
+          },
+          "macro_f1_decided": 0.8202237678484479,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9913793103448276,
+            "BD_USER_ABANDONED_OTP": 0.8104265402843602,
+            "CARD_EXPIRED": 0.8883720930232558,
+            "RISK_BLOCKED": 0.8192771084337349,
+            "TD_ISSUER_DOWN": 0.2127659574468085,
+            "TD_PSP_TIMEOUT": 0.7997601918465228
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.770949720670391,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 0.9794871794871794,
+            "RISK_BLOCKED": 0.9220338983050848,
+            "TD_ISSUER_DOWN": 0.3333333333333333,
+            "TD_PSP_TIMEOUT": 0.9925595238095238
+          },
+          "unsafe_retry_rate": 0.11151736745886655,
+          "unsafe_retry_count": 61,
+          "hard_decline_count": 547,
+          "macro_f1_all": 0.784588053158496
+        },
+        "all_without_identifiers": {
+          "n_test": 2335,
+          "abstain_rate": 0.014132762312633832,
+          "stage_mix": {
+            "rules": 0.7957173447537473,
+            "model": 0.19014989293361884,
+            "gated:low_conf": 0.012419700214132762,
+            "gated:rules_hard_risk": 0.0008565310492505353,
+            "gated:hard_decline_risk": 0.0008565310492505353
+          },
+          "macro_f1_decided": 0.8826388326129737,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9727011494252874,
+            "BD_USER_ABANDONED_OTP": 0.8104265402843602,
+            "CARD_EXPIRED": 0.9255813953488372,
+            "RISK_BLOCKED": 0.8012048192771084,
+            "TD_ISSUER_DOWN": 0.723404255319149,
+            "TD_PSP_TIMEOUT": 0.9376498800959233
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.8505025125628141,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 0.9707317073170731,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 0.576271186440678,
+            "TD_PSP_TIMEOUT": 0.9714285714285714
+          },
+          "unsafe_retry_rate": 0.13893967093235832,
+          "unsafe_retry_count": 76,
+          "hard_decline_count": 547,
+          "macro_f1_all": 0.8726326066024627
+        },
+        "all_26": {
+          "n_test": 2335,
+          "abstain_rate": 0.007708779443254818,
+          "stage_mix": {
+            "rules": 0.7957173447537473,
+            "model": 0.19657387580299787,
+            "gated:low_conf": 0.00556745182012848,
+            "gated:hard_decline_risk": 0.001284796573875803,
+            "gated:rules_hard_risk": 0.0008565310492505353
+          },
+          "macro_f1_decided": 0.9077555519399826,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9798850574712644,
+            "BD_USER_ABANDONED_OTP": 0.8151658767772512,
+            "CARD_EXPIRED": 0.9302325581395349,
+            "RISK_BLOCKED": 0.8012048192771084,
+            "TD_ISSUER_DOWN": 0.723404255319149,
+            "TD_PSP_TIMEOUT": 0.9496402877697842
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.8357843137254902,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 0.9478672985781991,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 0.918918918918919,
+            "TD_PSP_TIMEOUT": 0.9717791411042945
+          },
+          "unsafe_retry_rate": 0.14076782449725778,
+          "unsafe_retry_count": 77,
+          "hard_decline_count": 547,
+          "macro_f1_all": 0.8998323249310639
+        }
+      }
+    },
+    "unseen_codes": {
+      "generator": "stress-world@v1:unseen_codes",
+      "seed": 903,
+      "feature_schema": "payment-features@v2",
+      "n_attempts": 4000,
+      "n_failures": 1803,
+      "n_successes": 2197,
+      "duplicate_deliveries": 144,
+      "units": "INR minor units (paise)",
+      "synthetic_only": true,
+      "dataset_sha256": "1310c8db1c8e8643ce7fa4bfdd2c2145826aacd92c6cad8d02bcf4647d8db2b1",
+      "frozen_legacy_baseline": {
+        "n_test": 1803,
+        "abstain_rate": 0.7321131447587355,
+        "stage_mix": {
+          "gated:low_conf": 0.7321131447587355,
+          "model": 0.26788685524126454
+        },
+        "macro_f1_decided": 0.2994579945799458,
+        "per_class_recall": {
+          "BD_INSUFFICIENT_FUNDS": 0.2701212789415656,
+          "BD_USER_ABANDONED_OTP": 0.0,
+          "CARD_EXPIRED": 0.5794871794871795,
+          "RISK_BLOCKED": 0.0,
+          "TD_ISSUER_DOWN": 0.0,
+          "TD_PSP_TIMEOUT": 0.0
+        },
+        "per_class_precision": {
+          "BD_INSUFFICIENT_FUNDS": 0.6621621621621622,
+          "BD_USER_ABANDONED_OTP": 0.0,
+          "CARD_EXPIRED": 1.0,
+          "RISK_BLOCKED": 0.0,
+          "TD_ISSUER_DOWN": 0.0,
+          "TD_PSP_TIMEOUT": 0.0
+        },
+        "unsafe_retry_rate": 0.17077798861480076,
+        "unsafe_retry_count": 90,
+        "hard_decline_count": 527,
+        "macro_f1_all": 0.18624634305918564
+      },
+      "feature_groups": {
+        "baseline_5": {
+          "n_test": 1803,
+          "abstain_rate": 0.0,
+          "stage_mix": {
+            "model": 1.0
+          },
+          "macro_f1_decided": 0.23871075016627574,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 1.0,
+            "BD_USER_ABANDONED_OTP": 0.0,
+            "CARD_EXPIRED": 0.5794871794871795,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.0
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.5366863905325444,
+            "BD_USER_ABANDONED_OTP": 0.0,
+            "CARD_EXPIRED": 1.0,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.0
+          },
+          "unsafe_retry_rate": 0.7855787476280834,
+          "unsafe_retry_count": 414,
+          "hard_decline_count": 527,
+          "macro_f1_all": 0.23871075016627574
+        },
+        "plus_infrastructure": {
+          "n_test": 1803,
+          "abstain_rate": 0.03771491957848031,
+          "stage_mix": {
+            "model": 0.9622850804215197,
+            "gated:low_conf": 0.028286189683860232,
+            "gated:hard_decline_risk": 0.009428729894620078
+          },
+          "macro_f1_decided": 0.23354603069194013,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9371554575523704,
+            "BD_USER_ABANDONED_OTP": 0.0,
+            "CARD_EXPIRED": 0.6153846153846154,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.0
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.5383153894870171,
+            "BD_USER_ABANDONED_OTP": 0.0,
+            "CARD_EXPIRED": 0.7843137254901961,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.0
+          },
+          "unsafe_retry_rate": 0.7343453510436433,
+          "unsafe_retry_count": 387,
+          "hard_decline_count": 527,
+          "macro_f1_all": 0.22891410288419747
+        },
+        "plus_history": {
+          "n_test": 1803,
+          "abstain_rate": 0.03826955074875208,
+          "stage_mix": {
+            "model": 0.961730449251248,
+            "gated:low_conf": 0.036051026067665005,
+            "gated:hard_decline_risk": 0.0022185246810870773
+          },
+          "macro_f1_decided": 0.2577613661034251,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 1.0,
+            "BD_USER_ABANDONED_OTP": 0.03333333333333333,
+            "CARD_EXPIRED": 0.5846153846153846,
+            "RISK_BLOCKED": 0.0030120481927710845,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.0
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.5661672908863921,
+            "BD_USER_ABANDONED_OTP": 0.6428571428571429,
+            "CARD_EXPIRED": 0.9827586206896551,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.0
+          },
+          "unsafe_retry_rate": 0.7476280834914611,
+          "unsafe_retry_count": 394,
+          "hard_decline_count": 527,
+          "macro_f1_all": 0.25425041146684707
+        },
+        "plus_context": {
+          "n_test": 1803,
+          "abstain_rate": 0.019412090959511925,
+          "stage_mix": {
+            "model": 0.9805879090404881,
+            "gated:hard_decline_risk": 0.013311148086522463,
+            "gated:low_conf": 0.006100942872989462
+          },
+          "macro_f1_decided": 0.2302181836428412,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 1.0,
+            "BD_USER_ABANDONED_OTP": 0.0,
+            "CARD_EXPIRED": 0.49230769230769234,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.0
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.5503640776699029,
+            "BD_USER_ABANDONED_OTP": 0.0,
+            "CARD_EXPIRED": 0.9504950495049505,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.0
+          },
+          "unsafe_retry_rate": 0.7419354838709677,
+          "unsafe_retry_count": 391,
+          "hard_decline_count": 527,
+          "macro_f1_all": 0.22643817986283743
+        },
+        "all_without_identifiers": {
+          "n_test": 1803,
+          "abstain_rate": 0.006100942872989462,
+          "stage_mix": {
+            "model": 0.9938990571270105,
+            "gated:low_conf": 0.003882418191902385,
+            "gated:hard_decline_risk": 0.0022185246810870773
+          },
+          "macro_f1_decided": 0.23547999062951763,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 1.0,
+            "BD_USER_ABANDONED_OTP": 0.0,
+            "CARD_EXPIRED": 0.6102564102564103,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.0
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.5513677811550152,
+            "BD_USER_ABANDONED_OTP": 0.0,
+            "CARD_EXPIRED": 0.8095238095238095,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.0
+          },
+          "unsafe_retry_rate": 0.7571157495256167,
+          "unsafe_retry_count": 399,
+          "hard_decline_count": 527,
+          "macro_f1_all": 0.23445357996174696
+        },
+        "all_26": {
+          "n_test": 1803,
+          "abstain_rate": 0.00776483638380477,
+          "stage_mix": {
+            "model": 0.9922351636161952,
+            "gated:low_conf": 0.004437049362174155,
+            "gated:hard_decline_risk": 0.0033277870216306157
+          },
+          "macro_f1_decided": 0.2357074277734136,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 1.0,
+            "BD_USER_ABANDONED_OTP": 0.0,
+            "CARD_EXPIRED": 0.6153846153846154,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.0
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.553386211104332,
+            "BD_USER_ABANDONED_OTP": 0.0,
+            "CARD_EXPIRED": 0.8,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.0
+          },
+          "unsafe_retry_rate": 0.7476280834914611,
+          "unsafe_retry_count": 394,
+          "hard_decline_count": 527,
+          "macro_f1_all": 0.2346903924314355
+        }
+      }
+    },
+    "hard_decline_collision": {
+      "generator": "stress-world@v1:hard_decline_collision",
+      "seed": 904,
+      "feature_schema": "payment-features@v2",
+      "n_attempts": 4000,
+      "n_failures": 2526,
+      "n_successes": 1474,
+      "duplicate_deliveries": 202,
+      "units": "INR minor units (paise)",
+      "synthetic_only": true,
+      "dataset_sha256": "5988304848f53f10f75173e25f46e84007825314bf0293ba4a2f555011513bba",
+      "frozen_legacy_baseline": {
+        "n_test": 2526,
+        "abstain_rate": 0.5712589073634204,
+        "stage_mix": {
+          "gated:rules_hard_risk": 0.5031670625494854,
+          "rules": 0.42874109263657956,
+          "gated:low_conf": 0.06809184481393507
+        },
+        "macro_f1_decided": 0.5147167034584254,
+        "per_class_recall": {
+          "BD_INSUFFICIENT_FUNDS": 0.8010291595197255,
+          "BD_USER_ABANDONED_OTP": 0.803030303030303,
+          "CARD_EXPIRED": 0.0,
+          "RISK_BLOCKED": 0.0,
+          "TD_ISSUER_DOWN": 0.45454545454545453,
+          "TD_PSP_TIMEOUT": 0.6857142857142857
+        },
+        "per_class_precision": {
+          "BD_INSUFFICIENT_FUNDS": 1.0,
+          "BD_USER_ABANDONED_OTP": 1.0,
+          "CARD_EXPIRED": 0.0,
+          "RISK_BLOCKED": 0.0,
+          "TD_ISSUER_DOWN": 0.046189376443418015,
+          "TD_PSP_TIMEOUT": 1.0
+        },
+        "unsafe_retry_rate": 0.24789915966386555,
+        "unsafe_retry_count": 413,
+        "hard_decline_count": 1666,
+        "macro_f1_all": 0.4462828127377874
+      },
+      "feature_groups": {
+        "baseline_5": {
+          "n_test": 2526,
+          "abstain_rate": 0.7161520190023754,
+          "stage_mix": {
+            "gated:rules_hard_risk": 0.6745843230403801,
+            "rules": 0.2573238321456849,
+            "gated:low_conf": 0.04156769596199525,
+            "model": 0.026524148851939825
+          },
+          "macro_f1_decided": 0.4800574769703036,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.888507718696398,
+            "BD_USER_ABANDONED_OTP": 0.803030303030303,
+            "CARD_EXPIRED": 0.0,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.6857142857142857
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.9700374531835206,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 0.0,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 1.0
+          },
+          "unsafe_retry_rate": 0.0,
+          "unsafe_retry_count": 0,
+          "hard_decline_count": 1666,
+          "macro_f1_all": 0.43863332626497026
+        },
+        "plus_infrastructure": {
+          "n_test": 2526,
+          "abstain_rate": 0.6955661124307205,
+          "stage_mix": {
+            "gated:rules_hard_risk": 0.6844813935075218,
+            "rules": 0.24742676167854316,
+            "model": 0.057007125890736345,
+            "gated:hard_decline_risk": 0.0055423594615993665,
+            "gated:low_conf": 0.0055423594615993665
+          },
+          "macro_f1_decided": 0.45319715420540346,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.8867924528301887,
+            "BD_USER_ABANDONED_OTP": 0.8080808080808081,
+            "CARD_EXPIRED": 0.0,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.6857142857142857
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.9365942028985508,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 0.0,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 1.0
+          },
+          "unsafe_retry_rate": 0.001800720288115246,
+          "unsafe_retry_count": 3,
+          "hard_decline_count": 1666,
+          "macro_f1_all": 0.43640454774938015
+        },
+        "plus_history": {
+          "n_test": 2526,
+          "abstain_rate": 0.38717339667458434,
+          "stage_mix": {
+            "rules": 0.553840063341251,
+            "gated:rules_hard_risk": 0.37806809184481394,
+            "model": 0.058986539984164685,
+            "gated:low_conf": 0.00791765637371338,
+            "gated:hard_decline_risk": 0.0011876484560570072
+          },
+          "macro_f1_decided": 0.41490299069720565,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9210977701543739,
+            "BD_USER_ABANDONED_OTP": 0.803030303030303,
+            "CARD_EXPIRED": 0.0,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.8636363636363636,
+            "TD_PSP_TIMEOUT": 0.8571428571428571
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.9728260869565217,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 0.0,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.05026455026455026,
+            "TD_PSP_TIMEOUT": 0.37037037037037035
+          },
+          "unsafe_retry_rate": 0.429171668667467,
+          "unsafe_retry_count": 715,
+          "hard_decline_count": 1666,
+          "macro_f1_all": 0.4082088647398805
+        },
+        "plus_context": {
+          "n_test": 2526,
+          "abstain_rate": 0.4845605700712589,
+          "stage_mix": {
+            "gated:rules_hard_risk": 0.48139350752177357,
+            "rules": 0.4505146476642914,
+            "model": 0.06492478226444973,
+            "gated:low_conf": 0.003167062549485352
+          },
+          "macro_f1_decided": 0.45030249883217593,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9948542024013722,
+            "BD_USER_ABANDONED_OTP": 0.803030303030303,
+            "CARD_EXPIRED": 0.0,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.22727272727272727,
+            "TD_PSP_TIMEOUT": 0.7142857142857143
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.9309791332263242,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 0.0,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.020366598778004074,
+            "TD_PSP_TIMEOUT": 0.8928571428571429
+          },
+          "unsafe_retry_rate": 0.28691476590636256,
+          "unsafe_retry_count": 478,
+          "hard_decline_count": 1666,
+          "macro_f1_all": 0.44727460891828713
+        },
+        "all_without_identifiers": {
+          "n_test": 2526,
+          "abstain_rate": 0.4600158353127474,
+          "stage_mix": {
+            "rules": 0.4754552652414885,
+            "gated:rules_hard_risk": 0.4564528899445764,
+            "model": 0.06452889944576405,
+            "gated:low_conf": 0.001979414093428345,
+            "gated:hard_decline_risk": 0.001583531274742676
+          },
+          "macro_f1_decided": 0.47225008801586715,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 1.0,
+            "BD_USER_ABANDONED_OTP": 0.8181818181818182,
+            "CARD_EXPIRED": 0.0,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.8181818181818182,
+            "TD_PSP_TIMEOUT": 0.6857142857142857
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.9403225806451613,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 0.0,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.06533575317604355,
+            "TD_PSP_TIMEOUT": 0.9230769230769231
+          },
+          "unsafe_retry_rate": 0.30912364945978393,
+          "unsafe_retry_count": 515,
+          "hard_decline_count": 1666,
+          "macro_f1_all": 0.4628562011725366
+        },
+        "all_26": {
+          "n_test": 2526,
+          "abstain_rate": 0.4742676167854315,
+          "stage_mix": {
+            "gated:rules_hard_risk": 0.47149643705463185,
+            "rules": 0.4604117181314331,
+            "model": 0.06532066508313539,
+            "gated:low_conf": 0.0023752969121140144,
+            "gated:hard_decline_risk": 0.000395882818685669
+          },
+          "macro_f1_decided": 0.47135054050535086,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 1.0,
+            "BD_USER_ABANDONED_OTP": 0.8080808080808081,
+            "CARD_EXPIRED": 0.0,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.8181818181818182,
+            "TD_PSP_TIMEOUT": 0.6857142857142857
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.9357945425361156,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 0.0,
+            "RISK_BLOCKED": 0.0,
+            "TD_ISSUER_DOWN": 0.07017543859649122,
+            "TD_PSP_TIMEOUT": 0.9230769230769231
+          },
+          "unsafe_retry_rate": 0.2863145258103241,
+          "unsafe_retry_count": 477,
+          "hard_decline_count": 1666,
+          "macro_f1_all": 0.462806068745831
+        }
+      }
+    },
+    "telemetry_gap": {
+      "generator": "stress-world@v1:telemetry_gap",
+      "seed": 905,
+      "feature_schema": "payment-features@v2",
+      "n_attempts": 4000,
+      "n_failures": 1810,
+      "n_successes": 2190,
+      "duplicate_deliveries": 144,
+      "units": "INR minor units (paise)",
+      "synthetic_only": true,
+      "dataset_sha256": "6c2eae73d4dd90b61427f3d702994f7916a4b7864404282434eeefb6310b2f58",
+      "frozen_legacy_baseline": {
+        "n_test": 1810,
+        "abstain_rate": 0.19889502762430938,
+        "stage_mix": {
+          "rules": 0.7834254143646409,
+          "gated:low_conf": 0.1861878453038674,
+          "model": 0.017679558011049725,
+          "gated:rules_hard_risk": 0.01270718232044199
+        },
+        "macro_f1_decided": 1.0,
+        "per_class_recall": {
+          "BD_INSUFFICIENT_FUNDS": 0.7781609195402299,
+          "BD_USER_ABANDONED_OTP": 0.8557377049180328,
+          "CARD_EXPIRED": 0.9552238805970149,
+          "RISK_BLOCKED": 0.8012048192771084,
+          "TD_ISSUER_DOWN": 0.35294117647058826,
+          "TD_PSP_TIMEOUT": 0.7058823529411765
+        },
+        "per_class_precision": {
+          "BD_INSUFFICIENT_FUNDS": 1.0,
+          "BD_USER_ABANDONED_OTP": 1.0,
+          "CARD_EXPIRED": 1.0,
+          "RISK_BLOCKED": 1.0,
+          "TD_ISSUER_DOWN": 1.0,
+          "TD_PSP_TIMEOUT": 1.0
+        },
+        "unsafe_retry_rate": 0.0,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 533,
+        "macro_f1_all": 0.8355934282915126
+      },
+      "feature_groups": {
+        "baseline_5": {
+          "n_test": 1810,
+          "abstain_rate": 0.06906077348066299,
+          "stage_mix": {
+            "rules": 0.7734806629834254,
+            "model": 0.1574585635359116,
+            "gated:low_conf": 0.04640883977900553,
+            "gated:rules_hard_risk": 0.022651933701657457
+          },
+          "macro_f1_decided": 0.7694337813004416,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9402298850574713,
+            "BD_USER_ABANDONED_OTP": 0.8557377049180328,
+            "CARD_EXPIRED": 0.9552238805970149,
+            "RISK_BLOCKED": 0.8012048192771084,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 0.7058823529411765
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.8795698924731182,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 1.0,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 0.0,
+            "TD_PSP_TIMEOUT": 1.0
+          },
+          "unsafe_retry_rate": 0.10318949343339587,
+          "unsafe_retry_count": 55,
+          "hard_decline_count": 533,
+          "macro_f1_all": 0.7542446539248355
+        },
+        "plus_infrastructure": {
+          "n_test": 1810,
+          "abstain_rate": 0.03425414364640884,
+          "stage_mix": {
+            "rules": 0.7740331491712708,
+            "model": 0.19171270718232045,
+            "gated:rules_hard_risk": 0.022099447513812154,
+            "gated:low_conf": 0.011049723756906077,
+            "gated:hard_decline_risk": 0.0011049723756906078
+          },
+          "macro_f1_decided": 0.6764801850215182,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.7781609195402299,
+            "BD_USER_ABANDONED_OTP": 0.8557377049180328,
+            "CARD_EXPIRED": 0.8507462686567164,
+            "RISK_BLOCKED": 0.8012048192771084,
+            "TD_ISSUER_DOWN": 0.0196078431372549,
+            "TD_PSP_TIMEOUT": 1.0
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 1.0,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 1.0,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 1.0,
+            "TD_PSP_TIMEOUT": 0.13709677419354838
+          },
+          "unsafe_retry_rate": 0.150093808630394,
+          "unsafe_retry_count": 80,
+          "hard_decline_count": 533,
+          "macro_f1_all": 0.6476811874534644
+        },
+        "plus_history": {
+          "n_test": 1810,
+          "abstain_rate": 0.062430939226519336,
+          "stage_mix": {
+            "rules": 0.7850828729281768,
+            "model": 0.15248618784530388,
+            "gated:low_conf": 0.02983425414364641,
+            "gated:hard_decline_risk": 0.02154696132596685,
+            "gated:rules_hard_risk": 0.011049723756906077
+          },
+          "macro_f1_decided": 0.8426864929931489,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9172413793103448,
+            "BD_USER_ABANDONED_OTP": 0.8590163934426229,
+            "CARD_EXPIRED": 0.945273631840796,
+            "RISK_BLOCKED": 0.8012048192771084,
+            "TD_ISSUER_DOWN": 0.43137254901960786,
+            "TD_PSP_TIMEOUT": 0.7254901960784313
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.9204152249134948,
+            "BD_USER_ABANDONED_OTP": 0.9961977186311787,
+            "CARD_EXPIRED": 0.9895833333333334,
+            "RISK_BLOCKED": 0.9962546816479401,
+            "TD_ISSUER_DOWN": 0.4583333333333333,
+            "TD_PSP_TIMEOUT": 0.6166666666666667
+          },
+          "unsafe_retry_rate": 0.09943714821763602,
+          "unsafe_retry_count": 53,
+          "hard_decline_count": 533,
+          "macro_f1_all": 0.8012566524672331
+        },
+        "plus_context": {
+          "n_test": 1810,
+          "abstain_rate": 0.03425414364640884,
+          "stage_mix": {
+            "rules": 0.7745856353591161,
+            "model": 0.19116022099447513,
+            "gated:rules_hard_risk": 0.02154696132596685,
+            "gated:low_conf": 0.011049723756906077,
+            "gated:hard_decline_risk": 0.0016574585635359116
+          },
+          "macro_f1_decided": 0.825198457399699,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9862068965517241,
+            "BD_USER_ABANDONED_OTP": 0.8557377049180328,
+            "CARD_EXPIRED": 0.9154228855721394,
+            "RISK_BLOCKED": 0.8102409638554217,
+            "TD_ISSUER_DOWN": 0.13725490196078433,
+            "TD_PSP_TIMEOUT": 0.7450980392156863
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.8956158663883089,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 0.9945945945945946,
+            "RISK_BLOCKED": 0.9607142857142857,
+            "TD_ISSUER_DOWN": 0.3684210526315789,
+            "TD_PSP_TIMEOUT": 0.8444444444444444
+          },
+          "unsafe_retry_rate": 0.10881801125703565,
+          "unsafe_retry_count": 58,
+          "hard_decline_count": 533,
+          "macro_f1_all": 0.7808519745208703
+        },
+        "all_without_identifiers": {
+          "n_test": 1810,
+          "abstain_rate": 0.032044198895027624,
+          "stage_mix": {
+            "rules": 0.7850828729281768,
+            "model": 0.18287292817679557,
+            "gated:low_conf": 0.01878453038674033,
+            "gated:rules_hard_risk": 0.011049723756906077,
+            "gated:hard_decline_risk": 0.0022099447513812156
+          },
+          "macro_f1_decided": 0.8436377401264162,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.9379310344827586,
+            "BD_USER_ABANDONED_OTP": 0.8557377049180328,
+            "CARD_EXPIRED": 0.8955223880597015,
+            "RISK_BLOCKED": 0.8012048192771084,
+            "TD_ISSUER_DOWN": 0.4117647058823529,
+            "TD_PSP_TIMEOUT": 0.9607843137254902
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.9433526011560693,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 1.0,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 1.0,
+            "TD_PSP_TIMEOUT": 0.3081761006289308
+          },
+          "unsafe_retry_rate": 0.14071294559099437,
+          "unsafe_retry_count": 75,
+          "hard_decline_count": 533,
+          "macro_f1_all": 0.7912349144416365
+        },
+        "all_26": {
+          "n_test": 1810,
+          "abstain_rate": 0.04088397790055249,
+          "stage_mix": {
+            "rules": 0.7850828729281768,
+            "model": 0.17403314917127072,
+            "gated:low_conf": 0.0281767955801105,
+            "gated:rules_hard_risk": 0.011049723756906077,
+            "gated:hard_decline_risk": 0.0016574585635359116
+          },
+          "macro_f1_decided": 0.8187677141717807,
+          "per_class_recall": {
+            "BD_INSUFFICIENT_FUNDS": 0.860919540229885,
+            "BD_USER_ABANDONED_OTP": 0.8557377049180328,
+            "CARD_EXPIRED": 0.8805970149253731,
+            "RISK_BLOCKED": 0.8012048192771084,
+            "TD_ISSUER_DOWN": 0.4117647058823529,
+            "TD_PSP_TIMEOUT": 0.9803921568627451
+          },
+          "per_class_precision": {
+            "BD_INSUFFICIENT_FUNDS": 0.9457070707070707,
+            "BD_USER_ABANDONED_OTP": 1.0,
+            "CARD_EXPIRED": 1.0,
+            "RISK_BLOCKED": 1.0,
+            "TD_ISSUER_DOWN": 1.0,
+            "TD_PSP_TIMEOUT": 0.228310502283105
+          },
+          "unsafe_retry_rate": 0.1425891181988743,
+          "unsafe_retry_count": 76,
+          "hard_decline_count": 533,
+          "macro_f1_all": 0.7672381562853081
+        }
+      }
+    }
+  },
+  "robustness_review": {
+    "validation_selected_group": "all_26",
+    "scenarios_with_higher_unsafe_retry_rate": [
+      "issuer_outage",
+      "psp_degradation",
+      "hard_decline_collision",
+      "telemetry_gap"
+    ],
+    "recommendation": "Keep serving baseline; feature candidates require further safety validation",
+    "scenario_results_used_to_retune": false
+  }
+}

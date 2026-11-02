@@ -84,18 +84,17 @@ docker compose restart worker >/dev/null
 say "running policy invariant tests..."
 docker compose exec -T api pytest -q tests/ || die "policy tests failed"
 
-say "smoke test: firing a simulated CARD_EXPIRED failure..."
-RESP=$(curl -sf -X POST localhost:8000/simulate/failure \
-        -H 'content-type: application/json' -d '{"cause":"CARD_EXPIRED"}') \
-    || die "simulate endpoint failed"
-echo "$RESP" | grep -q '"card_update_link"' \
-    && say "engine correctly issued a card-update link (zero retries)" \
-    || warn "unexpected plan shape — inspect: $RESP"
+say "smoke test: the revenue pipeline answers and the audit chain verifies..."
+curl -sf localhost:8000/revenue/catalog | grep -q '"PAYMENT_FAILURE"' \
+    && say "revenue pipeline is serving (four event types)" \
+    || die "the revenue catalog did not answer"
+docker compose logs --tail 20 worker 2>&1 | grep -q "RevenueRecoveryWorkflow" \
+    && say "worker is serving RevenueRecoveryWorkflow" \
+    || warn "the worker has not announced RevenueRecoveryWorkflow yet; check: docker compose logs worker"
 
-say "verifying audit hash chain..."
 curl -sf localhost:8000/audit/verify | grep -q '"valid":true' \
     && say "audit chain verifies" \
-    || warn "audit chain check did not return valid=true yet"
+    || warn "audit chain did not return valid=true"
 
 # ---------------------------------------------------------------- done ------
 cat <<BANNER
@@ -107,11 +106,9 @@ cat <<BANNER
      Temporal UI  http://localhost:8080
 
    Try:
-     make fire-expired     CARD_EXPIRED  -> refuses to retry
-     make fire-issuer      TD_ISSUER_DOWN -> instant rail switch
-     make verify-audit     hash-chain verification
-     make eval-policy      headline uplift number
-     make logs             follow api + worker
+     http://localhost:8000/ui   the testing console (four event types, simulated payment pages)
+     make verify-audit          hash-chain verification
+     make logs                  follow api + worker
 
    Stop:     ./setup.sh --down
    Fresh DB: ./setup.sh --reset

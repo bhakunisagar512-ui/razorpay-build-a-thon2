@@ -1,0 +1,193 @@
+{
+ "seq": {
+  "attempts": 26558,
+  "failures": 13240,
+  "fail_rate": 0.4985315159274042,
+  "class_dist": {
+   "BD_INSUFFICIENT_FUNDS": 0.4028,
+   "RISK_BLOCKED": 0.1644,
+   "TD_PSP_TIMEOUT": 0.1463,
+   "CARD_EXPIRED": 0.121,
+   "TD_ISSUER_DOWN": 0.0974,
+   "BD_USER_ABANDONED_OTP": 0.0681
+  },
+  "method_dist_attempts": {
+   "card": 0.501,
+   "upi": 0.4,
+   "netbanking": 0.099
+  },
+  "n_customers": 1666,
+  "n_issuers": 4,
+  "n_psp": 2,
+  "duration_days": 3,
+  "orders_w_multi_attempt": 0.22515,
+  "majority_ceiling": {
+   "tuple": [
+    0.8105740181268882,
+    10
+   ],
+   "tuple+method": [
+    0.8183534743202417,
+    26
+   ],
+   "tuple+method+hint": [
+    0.8463746223564955,
+    40
+   ],
+   "baseline5": [
+    0.8463746223564955,
+    40
+   ],
+   "method+hint": [
+    0.5050604229607251,
+    5
+   ]
+  },
+  "hint_vs_expired": {
+   "BD_INSUFFICIENT_FUNDS": {
+    "expired": 0.0,
+    "unknown": 0.356,
+    "valid": 0.447
+   },
+   "BD_USER_ABANDONED_OTP": {
+    "expired": 0.0,
+    "unknown": 0.103,
+    "valid": 0.134
+   },
+   "CARD_EXPIRED": {
+    "expired": 0.915,
+    "unknown": 0.195,
+    "valid": 0.0
+   },
+   "RISK_BLOCKED": {
+    "expired": 0.085,
+    "unknown": 0.14,
+    "valid": 0.151
+   },
+   "TD_ISSUER_DOWN": {
+    "expired": 0.0,
+    "unknown": 0.079,
+    "valid": 0.102
+   },
+   "TD_PSP_TIMEOUT": {
+    "expired": 0.0,
+    "unknown": 0.127,
+    "valid": 0.166
+   }
+  },
+  "expired_hint_given_expired": 0.8451935081148564,
+  "customer_fail_rate_quantiles": {
+   "0.1": 0.125,
+   "0.5": 0.417,
+   "0.9": 0.857,
+   "0.99": 1.0
+  },
+  "risk_methods": {
+   "card": 0.462,
+   "upi": 0.429,
+   "netbanking": 0.109
+  },
+  "risk_customers_success_rate": 0.0,
+  "latency_by_cause": {
+   "BD_INSUFFICIENT_FUNDS": 225.0,
+   "BD_USER_ABANDONED_OTP": 222.0,
+   "CARD_EXPIRED": 237.0,
+   "RISK_BLOCKED": 238.0,
+   "TD_ISSUER_DOWN": 416.0,
+   "TD_PSP_TIMEOUT": 807.0
+  },
+  "issuer_fail_by_cause_corr": {
+   "BD_INSUFFICIENT_FUNDS": 0.466,
+   "BD_USER_ABANDONED_OTP": 0.477,
+   "CARD_EXPIRED": 0.503,
+   "RISK_BLOCKED": 0.497,
+   "TD_ISSUER_DOWN": 0.843,
+   "TD_PSP_TIMEOUT": 0.583
+  },
+  "psp_fail_by_cause": {
+   "BD_INSUFFICIENT_FUNDS": 0.473,
+   "BD_USER_ABANDONED_OTP": 0.482,
+   "CARD_EXPIRED": 0.497,
+   "RISK_BLOCKED": 0.497,
+   "TD_ISSUER_DOWN": 0.583,
+   "TD_PSP_TIMEOUT": 0.695
+  }
+ },
+ "scenarios": {
+  "issuer_outage": {
+   "n": 2093,
+   "dist": {
+    "BD_INSUFFICIENT_FUNDS": 0.371,
+    "TD_ISSUER_DOWN": 0.242,
+    "RISK_BLOCKED": 0.159,
+    "BD_USER_ABANDONED_OTP": 0.113,
+    "CARD_EXPIRED": 0.097,
+    "TD_PSP_TIMEOUT": 0.02
+   },
+   "tuple_purity": [
+    0.8934543717152413,
+    26
+   ]
+  },
+  "psp_degradation": {
+   "n": 2353,
+   "dist": {
+    "TD_PSP_TIMEOUT": 0.364,
+    "BD_INSUFFICIENT_FUNDS": 0.282,
+    "RISK_BLOCKED": 0.141,
+    "BD_USER_ABANDONED_OTP": 0.1,
+    "CARD_EXPIRED": 0.093,
+    "TD_ISSUER_DOWN": 0.02
+   },
+   "tuple_purity": [
+    0.8814279643008924,
+    26
+   ]
+  },
+  "unseen_codes": {
+   "n": 1814,
+   "dist": {
+    "BD_INSUFFICIENT_FUNDS": 0.487,
+    "RISK_BLOCKED": 0.183,
+    "BD_USER_ABANDONED_OTP": 0.149,
+    "CARD_EXPIRED": 0.128,
+    "TD_ISSUER_DOWN": 0.031,
+    "TD_PSP_TIMEOUT": 0.022
+   },
+   "tuple_purity": [
+    1.0,
+    21
+   ]
+  },
+  "hard_decline_collision": {
+   "n": 2512,
+   "dist": {
+    "RISK_BLOCKED": 0.395,
+    "CARD_EXPIRED": 0.263,
+    "BD_INSUFFICIENT_FUNDS": 0.24,
+    "BD_USER_ABANDONED_OTP": 0.076,
+    "TD_ISSUER_DOWN": 0.014,
+    "TD_PSP_TIMEOUT": 0.012
+   },
+   "tuple_purity": [
+    0.7245222929936306,
+    14
+   ]
+  },
+  "telemetry_gap": {
+   "n": 1824,
+   "dist": {
+    "BD_INSUFFICIENT_FUNDS": 0.496,
+    "RISK_BLOCKED": 0.182,
+    "BD_USER_ABANDONED_OTP": 0.149,
+    "CARD_EXPIRED": 0.122,
+    "TD_ISSUER_DOWN": 0.03,
+    "TD_PSP_TIMEOUT": 0.021
+   },
+   "tuple_purity": [
+    0.9199561403508771,
+    26
+   ]
+  }
+ }
+}

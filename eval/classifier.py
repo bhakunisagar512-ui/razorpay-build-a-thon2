@@ -1,16 +1,12 @@
 """
-Three-stage cause classifier.
+Two-stage cause classifier.
 
 Stage 1 — RULES: deterministic mapping for observable tuples that are
    near-unambiguous. Versioned, reviewable, no training required.
 Stage 2 — MODEL: probabilistic fallback for the collision zone (the tuples
    several causes emit). Gradient boosting over one-hot features, calibrated.
 
-Stage 3 — LLM TRIAGE: last resort for tuples stages 1 and 2 both declined.
-   Rules and the GBM only know codes seen in training; real gateways emit a long
-   tail. The LLM maps an unseen code string onto the taxonomy — semantic work a
-   one-hot GBM cannot do. It PROPOSES; the safety gate below disposes. Disabled
-   without an API key, in which case behaviour is identical to two stages.
+Anything stages 1 and 2 both decline is returned as AMBIGUOUS. (An LLM tier that used to sit here was removed: there is no runtime LLM.)
 
 SAFETY GATE (the part that matters more than accuracy):
    Misclassifications are not symmetric. Predicting BD_INSUFFICIENT_FUNDS when
@@ -20,8 +16,7 @@ SAFETY GATE (the part that matters more than accuracy):
    we return AMBIGUOUS and the policy engine takes the conservative path.
    We deliberately trade recall on retryable causes for a low unsafe-retry rate;
    the achieved rate and its frontier against uplift are reported by step4.
-   The gate applies identically to all three stages — an LLM proposal gets no
-   more trust than a rule hit.
+   The gate applies identically to both stages.
 """
 from __future__ import annotations
 import hashlib
@@ -82,32 +77,6 @@ class CauseClassifier:
         return self
 
     # ---- stage 3 ----
-    @staticmethod
-    def _tier3(row, hard_mass: float, fb_conf: float, fb_stage: str
-               ) -> tuple[str, float, str]:
-        """Last resort, reached only when stages 1 and 2 have both abstained.
-
-        The LLM PROPOSES; this function disposes. Its output passes through the
-        same hard-decline mass gate as every other stage, so a hallucinated
-        retryable cause on a payment the model thinks is a hard decline is
-        rejected exactly as a bad rule hit would be. Every failure path returns
-        the caller's original abstention, so the floor cannot move down.
-        """
-        from services.app.adapters import llm_triage
-
-        if not llm_triage.available():
-            return str(Cause.AMBIGUOUS), fb_conf, fb_stage
-        res = llm_triage.triage(
-            gw_error_code=row.gw_error_code, gw_error_source=row.gw_error_source,
-            gw_error_step=row.gw_error_step, method=row.method,
-            instrument_hint=getattr(row, "instrument_hint", "na"))
-        if not res.ok:
-            return str(Cause.AMBIGUOUS), fb_conf, f"{fb_stage}+llm_abstain"
-        # THE gate: a retryable proposal cannot survive high hard-decline mass.
-        if res.cause not in HARD_CAUSES and hard_mass > HARD_DECLINE_MASS_LIMIT:
-            return str(Cause.AMBIGUOUS), fb_conf, f"{fb_stage}+llm_gated"
-        return res.cause, res.confidence, "llm_triage"
-
     def predict_row(self, row) -> tuple[str, float, str]:
         """Returns (cause, confidence, stage)."""
         hit = self.rule_hit(row)
@@ -128,20 +97,15 @@ class CauseClassifier:
         top = int(np.argmax(proba))
         cause, conf = self.classes_[top], float(proba[top])
         if conf < CONF_THRESHOLD:
-            return self._tier3(row, hard_mass, conf, "gated:low_conf")
+            return str(Cause.AMBIGUOUS), conf, "gated:low_conf"
         if cause not in HARD_CAUSES and hard_mass > HARD_DECLINE_MASS_LIMIT:
-            return self._tier3(row, hard_mass, conf, "gated:hard_decline_risk")
+            return str(Cause.AMBIGUOUS), conf, "gated:hard_decline_risk"
         return cause, conf, "model"
 
-    def predict_df(self, df: pd.DataFrame, use_llm: bool = False) -> pd.DataFrame:
+    def predict_df(self, df: pd.DataFrame) -> pd.DataFrame:
         """Vectorised: one batched predict_proba for the whole frame.
-
-        use_llm routes stage-2 abstentions through tier 3. Off by default so the
-        headline eval stays offline and deterministic; the triage eval turns it
-        on. Triage is cached on the observable tuple, so even 40,000 rows cost
-        only as many calls as there are distinct tuples."""
+        """
         out = df.copy()
-        rows = list(df.itertuples(index=False)) if use_llm else None
         proba = self.model.predict_proba(self.enc.transform(df[FEATURES]).toarray())
         hard_idx = [i for i, c in enumerate(self.classes_) if c in HARD_CAUSES]
         hard_mass = proba[:, hard_idx].sum(axis=1)
@@ -163,14 +127,10 @@ class CauseClassifier:
                 else:
                     causes.append(rule[i]); confs.append(1 - hard_mass[i]); stages.append("rules")
             elif top_conf[i] < CONF_THRESHOLD:
-                c, cf, st = (self._tier3(rows[i], hard_mass[i], top_conf[i], "gated:low_conf")
-                             if use_llm else
-                             (str(Cause.AMBIGUOUS), top_conf[i], "gated:low_conf"))
+                c, cf, st = str(Cause.AMBIGUOUS), top_conf[i], "gated:low_conf"
                 causes.append(c); confs.append(cf); stages.append(st)
             elif top_cause[i] not in HARD_CAUSES and hard_mass[i] > HARD_DECLINE_MASS_LIMIT:
-                c, cf, st = (self._tier3(rows[i], hard_mass[i], top_conf[i], "gated:hard_decline_risk")
-                             if use_llm else
-                             (str(Cause.AMBIGUOUS), top_conf[i], "gated:hard_decline_risk"))
+                c, cf, st = str(Cause.AMBIGUOUS), top_conf[i], "gated:hard_decline_risk"
                 causes.append(c); confs.append(cf); stages.append(st)
             else:
                 causes.append(top_cause[i]); confs.append(top_conf[i]); stages.append("model")

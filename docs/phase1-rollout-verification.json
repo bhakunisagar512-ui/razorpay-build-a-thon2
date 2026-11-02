@@ -1,0 +1,68 @@
+{
+  "run": "phase1_verify_dac2aa10e780",
+  "verified_at_utc": "2026-10-29T02:31:47.672165+00:00",
+  "execution_mode": "mock",
+  "checks": {
+    "health_and_migration": "passed",
+    "real_worker_execution_and_activity_deduplication": "passed",
+    "concurrent_webhook_deduplication": "passed",
+    "capture_redelivery_single_credit_and_timer_stop": "passed",
+    "capture_before_failure_delivery": "passed",
+    "consent_revoked_during_workflow": "passed",
+    "audit_chain_and_outbox_drain": "passed"
+  },
+  "payments": [
+    {
+      "payment_id": "pay_sim_29fb1b7401",
+      "workflow_id": "recovery-pay_sim_29fb1b7401",
+      "status": "COMPLETED",
+      "history_events": 30
+    },
+    {
+      "payment_id": "pay_phase1_verify_dac2aa10e780_settle_a_0",
+      "workflow_id": "recovery-pay_phase1_verify_dac2aa10e780_settle_a_0",
+      "status": "COMPLETED",
+      "history_events": 23
+    },
+    {
+      "payment_id": "pay_phase1_verify_dac2aa10e780_settle_b_0",
+      "workflow_id": "recovery-pay_phase1_verify_dac2aa10e780_settle_b_0",
+      "status": "COMPLETED",
+      "history_events": 23
+    },
+    {
+      "payment_id": "pay_phase1_verify_dac2aa10e780_reordered_0",
+      "workflow_id": "recovery-pay_phase1_verify_dac2aa10e780_reordered_0",
+      "status": "COMPLETED",
+      "history_events": 30
+    },
+    {
+      "payment_id": "pay_sim_a0984615fb",
+      "workflow_id": "recovery-pay_sim_a0984615fb",
+      "status": "COMPLETED",
+      "history_events": 30
+    }
+  ],
+  "migrations": [
+    "001_init.sql",
+    "002_recovery_correctness.sql"
+  ],
+  "audit": {
+    "valid": true,
+    "rows_checked": 150
+  },
+  "pending_dispatches": 0,
+  "metrics": {
+    "holdout": {
+      "n": 9,
+      "recovery_rate": 0.0,
+      "net_inr": 0.0
+    },
+    "treatment": {
+      "n": 30,
+      "recovery_rate": 0.06666666666666667,
+      "net_inr": 998.0
+    }
+  },
+  "result": "passed"
+}

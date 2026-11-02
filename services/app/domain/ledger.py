@@ -10,6 +10,7 @@ def _digest(body: dict) -> str:
 
 def append(conn, *, entity_type: str, entity_id: str, actor: str,
            action: str, payload: dict, policy_ver: str | None = None) -> str:
+    conn.execute(text("SELECT pg_advisory_xact_lock(82719001)"))
     prev = conn.execute(text("SELECT hash FROM audit_log ORDER BY seq DESC LIMIT 1")).scalar() or GENESIS
     event = {"entity_type": entity_type, "entity_id": entity_id, "actor": actor,
              "action": action, "payload": payload, "policy_ver": policy_ver}

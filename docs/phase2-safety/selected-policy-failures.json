@@ -1,0 +1,88 @@
+[
+  {
+    "payment_id": "pay_stress_telemetry_gap_61004_0000530",
+    "partition": "confirmation/telemetry_gap",
+    "feature_group": "all_26",
+    "calibration": "sigmoid",
+    "policy": "revised_tuned",
+    "true_cause": "CARD_EXPIRED",
+    "predicted_cause": "BD_INSUFFICIENT_FUNDS",
+    "model_prediction": "BD_INSUFFICIENT_FUNDS",
+    "class_probabilities": {
+      "BD_INSUFFICIENT_FUNDS": 0.9640439001531963,
+      "BD_USER_ABANDONED_OTP": 0.008975350802495875,
+      "CARD_EXPIRED": 0.014924668331234764,
+      "RISK_BLOCKED": 0.002608681454440796,
+      "TD_ISSUER_DOWN": 0.0042299406952251055,
+      "TD_PSP_TIMEOUT": 0.005217458563407085
+    },
+    "uncalibrated_class_probabilities": {
+      "BD_INSUFFICIENT_FUNDS": 0.9999976903507269,
+      "BD_USER_ABANDONED_OTP": 3.143795109302047e-09,
+      "CARD_EXPIRED": 6.013435047492673e-07,
+      "RISK_BLOCKED": 2.4168154948766833e-09,
+      "TD_ISSUER_DOWN": 2.995299716458359e-09,
+      "TD_PSP_TIMEOUT": 1.6997498578809468e-06
+    },
+    "rule_result": null,
+    "known_error_tuple": true,
+    "instrument_hint": "unknown",
+    "hard_decline_mass": 0.01753334978567556,
+    "confidence": 0.9640439001531963,
+    "thresholds": {
+      "min_confidence": 0.6,
+      "max_hard_mass": 0.03,
+      "retry_enabled": true
+    },
+    "final_gate_decision": "reliable_diagnosis",
+    "retry_allowed": true,
+    "diagnostic_flags": {
+      "incorrect_model_classification": true,
+      "confident_wrong_prediction": true,
+      "rule_overrode_model": false
+    }
+  },
+  {
+    "payment_id": "pay_stress_telemetry_gap_61004_0001795",
+    "partition": "confirmation/telemetry_gap",
+    "feature_group": "all_26",
+    "calibration": "sigmoid",
+    "policy": "revised_tuned",
+    "true_cause": "CARD_EXPIRED",
+    "predicted_cause": "BD_INSUFFICIENT_FUNDS",
+    "model_prediction": "BD_INSUFFICIENT_FUNDS",
+    "class_probabilities": {
+      "BD_INSUFFICIENT_FUNDS": 0.9371658980077748,
+      "BD_USER_ABANDONED_OTP": 0.025045015811992134,
+      "CARD_EXPIRED": 0.020528695004221137,
+      "RISK_BLOCKED": 0.004551351693359198,
+      "TD_ISSUER_DOWN": 0.008400855159196792,
+      "TD_PSP_TIMEOUT": 0.004308184323455811
+    },
+    "uncalibrated_class_probabilities": {
+      "BD_INSUFFICIENT_FUNDS": 0.9999968447779323,
+      "BD_USER_ABANDONED_OTP": 1.7534589029631014e-07,
+      "CARD_EXPIRED": 1.634467732429686e-06,
+      "RISK_BLOCKED": 4.962932021202501e-08,
+      "TD_ISSUER_DOWN": 1.9644137699032018e-07,
+      "TD_PSP_TIMEOUT": 1.0993377477603474e-06
+    },
+    "rule_result": null,
+    "known_error_tuple": true,
+    "instrument_hint": "unknown",
+    "hard_decline_mass": 0.025080046697580335,
+    "confidence": 0.9371658980077748,
+    "thresholds": {
+      "min_confidence": 0.6,
+      "max_hard_mass": 0.03,
+      "retry_enabled": true
+    },
+    "final_gate_decision": "reliable_diagnosis",
+    "retry_allowed": true,
+    "diagnostic_flags": {
+      "incorrect_model_classification": true,
+      "confident_wrong_prediction": true,
+      "rule_overrode_model": false
+    }
+  }
+]

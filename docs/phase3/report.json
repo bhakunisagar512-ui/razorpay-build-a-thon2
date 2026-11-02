@@ -1,0 +1,5699 @@
+{
+  "protocol": {
+    "train_worlds": 4,
+    "validation_worlds": 2,
+    "test_worlds": 3,
+    "shifted_market_test_worlds": 2,
+    "orders_per_world": 24000,
+    "scenarios": [
+      "calm",
+      "typical",
+      "stressed"
+    ],
+    "gate": {
+      "confidence": 0.6,
+      "hard_mass": 0.03
+    },
+    "model": "HistGradientBoosting max_iter=200 random_state=0 (one-hot categoricals), unchanged recipe",
+    "selection_rules": {
+      "group": "95% paired-bootstrap lower bound of macro-F1 effect > 0 in >= 2 of 3 scenarios, for drop-from-57 OR add-to-26",
+      "feature": "within retained groups: leave-one-out dlogloss > 0.001 OR permutation dlogloss > 0.002, in >= 2 of 3 scenarios",
+      "scope": "only the 31 new candidates are screened; the existing 26 are always kept"
+    },
+    "source_signature": "5b99f6ac06a50bcc2312c7e04f6fa9f0dc988a35ad7ad1a1ba9468788dfe8b6d",
+    "synthetic_only": true,
+    "serving_changed": false
+  },
+  "in_scenario": {
+    "calm": {
+      "baseline_5": {
+        "n_features": 5,
+        "evaluation": {
+          "test": {
+            "n_failures": 7377,
+            "worlds": 3,
+            "macro_f1": {
+              "mean_over_worlds": 0.6097633308780989,
+              "sd_over_worlds": 0.011134628244601177,
+              "pooled": 0.6117146720200399
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.7656652840939723,
+              "pooled": 0.765622881930324
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.7969166913726653,
+                "recall": 0.8924302788844621,
+                "f1": 0.8419733750978857,
+                "support": 3012
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.8309608540925267,
+                "recall": 0.8708624708624708,
+                "f1": 0.8504438880036421,
+                "support": 2145
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.6195965417867435,
+                "recall": 0.42322834645669294,
+                "f1": 0.5029239766081871,
+                "support": 508
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.5676229508196722,
+                "recall": 0.5918803418803419,
+                "f1": 0.5794979079497908,
+                "support": 936
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.65625,
+                "recall": 0.168,
+                "f1": 0.267515923566879,
+                "support": 250
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.7615176151761518,
+                "recall": 0.5342205323193916,
+                "f1": 0.6279329608938548,
+                "support": 526
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2688,
+                  134,
+                  38,
+                  128,
+                  9,
+                  15
+                ],
+                [
+                  140,
+                  1868,
+                  38,
+                  54,
+                  2,
+                  43
+                ],
+                [
+                  190,
+                  29,
+                  215,
+                  74,
+                  0,
+                  0
+                ],
+                [
+                  210,
+                  97,
+                  43,
+                  554,
+                  5,
+                  27
+                ],
+                [
+                  126,
+                  34,
+                  5,
+                  40,
+                  42,
+                  3
+                ],
+                [
+                  19,
+                  86,
+                  8,
+                  126,
+                  6,
+                  281
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.3295991351697873,
+              "hard_decline_brier": 0.09372752866033926,
+              "top_label_ece_10_bins": 0.016547541968701847,
+              "hard_decline_ece_10_bins": 0.010041982711406662,
+              "logloss": 0.6889709688056069
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.3333311799984258,
+              "hard_decline_brier": 0.09393882425997169,
+              "top_label_ece_10_bins": 0.02007235726711804,
+              "hard_decline_ece_10_bins": 0.014037147582289437,
+              "logloss": 0.6687068956406506
+            },
+            "unsafe_retry_raw": {
+              "count": 432,
+              "hard_declines": 1444,
+              "rate": 0.29916897506925205,
+              "upper95": 0.3196271359630925
+            },
+            "unsafe_retry_gated": {
+              "count": 12,
+              "hard_declines": 1444,
+              "rate": 0.008310249307479225,
+              "upper95": 0.01342967842241601,
+              "per_world_counts": [
+                5,
+                1,
+                6
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.4482368428022745,
+            "gate_abstention_rate": 0.523112376304731,
+            "gate_true_retryable_recall": 0.28352692713833155
+          },
+          "shifted_market_test": {
+            "n_failures": 6213,
+            "worlds": 2,
+            "macro_f1": {
+              "mean_over_worlds": 0.6247446203259157,
+              "sd_over_worlds": 0.004210953956321819,
+              "pooled": 0.6246513830962112
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.8112045733781885,
+              "pooled": 0.8110413648800902
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.8736664795058956,
+                "recall": 0.916102443332352,
+                "f1": 0.894381376634574,
+                "support": 3397
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.8204472843450479,
+                "recall": 0.8663967611336032,
+                "f1": 0.8427961929766984,
+                "support": 1482
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.5943396226415094,
+                "recall": 0.4405594405594406,
+                "f1": 0.5060240963855421,
+                "support": 286
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.5522620904836193,
+                "recall": 0.5654952076677316,
+                "f1": 0.5588003157063931,
+                "support": 626
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.7076923076923077,
+                "recall": 0.25136612021857924,
+                "f1": 0.3709677419354839,
+                "support": 183
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.6964285714285714,
+                "recall": 0.4895397489539749,
+                "f1": 0.5749385749385749,
+                "support": 239
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  3112,
+                  145,
+                  30,
+                  88,
+                  6,
+                  16
+                ],
+                [
+                  109,
+                  1284,
+                  22,
+                  43,
+                  2,
+                  22
+                ],
+                [
+                  100,
+                  11,
+                  126,
+                  49,
+                  0,
+                  0
+                ],
+                [
+                  155,
+                  69,
+                  31,
+                  354,
+                  4,
+                  13
+                ],
+                [
+                  74,
+                  24,
+                  2,
+                  37,
+                  46,
+                  0
+                ],
+                [
+                  12,
+                  32,
+                  1,
+                  70,
+                  7,
+                  117
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.2747794360708376,
+              "hard_decline_brier": 0.07712401865958812,
+              "top_label_ece_10_bins": 0.013473983878413913,
+              "hard_decline_ece_10_bins": 0.017721520757719017,
+              "logloss": 0.581901865583785
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.27608120326921776,
+              "hard_decline_brier": 0.07703526465999525,
+              "top_label_ece_10_bins": 0.025866967485595395,
+              "hard_decline_ece_10_bins": 0.021479034117121487,
+              "logloss": 0.5652181070401493
+            },
+            "unsafe_retry_raw": {
+              "count": 272,
+              "hard_declines": 912,
+              "rate": 0.2982456140350877,
+              "upper95": 0.3241730721337139
+            },
+            "unsafe_retry_gated": {
+              "count": 9,
+              "hard_declines": 912,
+              "rate": 0.009868421052631578,
+              "upper95": 0.017157341344153653,
+              "per_world_counts": [
+                4,
+                5
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.4488876066525948,
+            "gate_abstention_rate": 0.5477225173024304,
+            "gate_true_retryable_recall": 0.29091385179366325
+          }
+        },
+        "generic_reason_subset": {
+          "test": {
+            "n_failures": 1124,
+            "macro_f1": 0.5437485177341783,
+            "accuracy": 0.6628113879003559
+          },
+          "shifted_market_test": {
+            "n_failures": 898,
+            "macro_f1": 0.5227252459953791,
+            "accuracy": 0.6926503340757239
+          }
+        },
+        "latency": {
+          "single_row_ms_median": 11.841636999861294,
+          "single_row_ms_p95": 23.603907600022456,
+          "batch_rows_per_second": 9471.50516611572
+        }
+      },
+      "existing_26": {
+        "n_features": 26,
+        "evaluation": {
+          "test": {
+            "n_failures": 7377,
+            "worlds": 3,
+            "macro_f1": {
+              "mean_over_worlds": 0.6991848856788123,
+              "sd_over_worlds": 0.009569136947765948,
+              "pooled": 0.6997627271742717
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.8068445380047455,
+              "pooled": 0.8068320455469703
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.8626356589147287,
+                "recall": 0.9236387782204515,
+                "f1": 0.8920955587622255,
+                "support": 3012
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.8426051560379919,
+                "recall": 0.8685314685314686,
+                "f1": 0.8553719008264463,
+                "support": 2145
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.6072874493927125,
+                "recall": 0.5905511811023622,
+                "f1": 0.5988023952095808,
+                "support": 508
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.6394176931690929,
+                "recall": 0.6100427350427351,
+                "f1": 0.6243849097867687,
+                "support": 936
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.782258064516129,
+                "recall": 0.388,
+                "f1": 0.5187165775401069,
+                "support": 250
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.7883720930232558,
+                "recall": 0.6444866920152091,
+                "f1": 0.7092050209205021,
+                "support": 526
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2782,
+                  84,
+                  57,
+                  80,
+                  5,
+                  4
+                ],
+                [
+                  103,
+                  1863,
+                  57,
+                  65,
+                  4,
+                  53
+                ],
+                [
+                  100,
+                  47,
+                  300,
+                  57,
+                  3,
+                  1
+                ],
+                [
+                  163,
+                  98,
+                  67,
+                  571,
+                  10,
+                  27
+                ],
+                [
+                  58,
+                  32,
+                  7,
+                  50,
+                  97,
+                  6
+                ],
+                [
+                  19,
+                  87,
+                  6,
+                  70,
+                  5,
+                  339
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.2929526269889682,
+              "hard_decline_brier": 0.0865977639048268,
+              "top_label_ece_10_bins": 0.0964170069494361,
+              "hard_decline_ece_10_bins": 0.054322228605406545,
+              "logloss": 0.6302596913313598
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.2697063667336501,
+              "hard_decline_brier": 0.08062475129581999,
+              "top_label_ece_10_bins": 0.009729395519394094,
+              "hard_decline_ece_10_bins": 0.01622812569083934,
+              "logloss": 0.5180673595049353
+            },
+            "unsafe_retry_raw": {
+              "count": 304,
+              "hard_declines": 1444,
+              "rate": 0.21052631578947367,
+              "upper95": 0.22894939172932638
+            },
+            "unsafe_retry_gated": {
+              "count": 14,
+              "hard_declines": 1444,
+              "rate": 0.009695290858725761,
+              "upper95": 0.015115439502130278,
+              "per_world_counts": [
+                6,
+                2,
+                6
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.5507168147781525,
+            "gate_abstention_rate": 0.40300935339568933,
+            "gate_true_retryable_recall": 0.4295142555438226
+          },
+          "shifted_market_test": {
+            "n_failures": 6213,
+            "worlds": 2,
+            "macro_f1": {
+              "mean_over_worlds": 0.6860197513062969,
+              "sd_over_worlds": 0.003970839133912155,
+              "pooled": 0.6865679907539463
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.8404256245519071,
+              "pooled": 0.8403347819089007
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.9078498293515358,
+                "recall": 0.9396526346776568,
+                "f1": 0.9234775061478374,
+                "support": 3397
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.8409825468648998,
+                "recall": 0.8778677462887989,
+                "f1": 0.8590293826345329,
+                "support": 1482
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.6405693950177936,
+                "recall": 0.6293706293706294,
+                "f1": 0.6349206349206349,
+                "support": 286
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.5910652920962199,
+                "recall": 0.549520766773163,
+                "f1": 0.5695364238410596,
+                "support": 626
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.7912087912087912,
+                "recall": 0.39344262295081966,
+                "f1": 0.5255474452554745,
+                "support": 183
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.673469387755102,
+                "recall": 0.5523012552301255,
+                "f1": 0.6068965517241379,
+                "support": 239
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  3192,
+                  77,
+                  23,
+                  89,
+                  9,
+                  7
+                ],
+                [
+                  75,
+                  1301,
+                  35,
+                  43,
+                  1,
+                  27
+                ],
+                [
+                  52,
+                  22,
+                  180,
+                  30,
+                  0,
+                  2
+                ],
+                [
+                  142,
+                  77,
+                  34,
+                  344,
+                  4,
+                  25
+                ],
+                [
+                  37,
+                  25,
+                  6,
+                  40,
+                  72,
+                  3
+                ],
+                [
+                  18,
+                  45,
+                  3,
+                  36,
+                  5,
+                  132
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.24342344748224573,
+              "hard_decline_brier": 0.072445452376309,
+              "top_label_ece_10_bins": 0.07745249703261087,
+              "hard_decline_ece_10_bins": 0.04584970957232717,
+              "logloss": 0.5434897000271551
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.22941076481413583,
+              "hard_decline_brier": 0.06803426088365576,
+              "top_label_ece_10_bins": 0.014499702637261521,
+              "hard_decline_ece_10_bins": 0.012099672906291482,
+              "logloss": 0.4519260243344366
+            },
+            "unsafe_retry_raw": {
+              "count": 225,
+              "hard_declines": 912,
+              "rate": 0.24671052631578946,
+              "upper95": 0.27132881862808134
+            },
+            "unsafe_retry_gated": {
+              "count": 10,
+              "hard_declines": 912,
+              "rate": 0.010964912280701754,
+              "upper95": 0.018527936607000618,
+              "per_world_counts": [
+                6,
+                4
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.5454145010565048,
+            "gate_abstention_rate": 0.39594398841139544,
+            "gate_true_retryable_recall": 0.5040586540979314
+          }
+        },
+        "generic_reason_subset": {
+          "test": {
+            "n_failures": 1124,
+            "macro_f1": 0.620591015662738,
+            "accuracy": 0.7322064056939501
+          },
+          "shifted_market_test": {
+            "n_failures": 898,
+            "macro_f1": 0.5810658643778422,
+            "accuracy": 0.7282850779510023
+          }
+        },
+        "latency": {
+          "single_row_ms_median": 15.144511000016792,
+          "single_row_ms_p95": 21.218134249897947,
+          "batch_rows_per_second": 11861.40704989147
+        }
+      },
+      "expanded_57": {
+        "n_features": 57,
+        "evaluation": {
+          "test": {
+            "n_failures": 7377,
+            "worlds": 3,
+            "macro_f1": {
+              "mean_over_worlds": 0.9245410901033354,
+              "sd_over_worlds": 0.018210249329294163,
+              "pooled": 0.9250751794053663
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.9543137410611111,
+              "pooled": 0.9543174732275993
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.972652388797364,
+                "recall": 0.9800796812749004,
+                "f1": 0.9763519100380353,
+                "support": 3012
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.9647919524462735,
+                "recall": 0.9836829836829837,
+                "f1": 0.974145891043398,
+                "support": 2145
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.9430255402750491,
+                "recall": 0.9448818897637795,
+                "f1": 0.943952802359882,
+                "support": 508
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.8947927736450585,
+                "recall": 0.8995726495726496,
+                "f1": 0.8971763452317528,
+                "support": 936
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.9345794392523364,
+                "recall": 0.8,
+                "f1": 0.8620689655172413,
+                "support": 250
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.9287169042769857,
+                "recall": 0.8669201520912547,
+                "f1": 0.8967551622418879,
+                "support": 526
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2952,
+                  8,
+                  10,
+                  33,
+                  5,
+                  4
+                ],
+                [
+                  11,
+                  2110,
+                  1,
+                  7,
+                  3,
+                  13
+                ],
+                [
+                  2,
+                  0,
+                  480,
+                  25,
+                  0,
+                  1
+                ],
+                [
+                  57,
+                  7,
+                  18,
+                  842,
+                  3,
+                  9
+                ],
+                [
+                  5,
+                  17,
+                  0,
+                  20,
+                  200,
+                  8
+                ],
+                [
+                  8,
+                  45,
+                  0,
+                  14,
+                  3,
+                  456
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.07751995494430268,
+              "hard_decline_brier": 0.01827778850884218,
+              "top_label_ece_10_bins": 0.03484961011801525,
+              "hard_decline_ece_10_bins": 0.01670063614321656,
+              "logloss": 0.238399956472819
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.06748519190993403,
+              "hard_decline_brier": 0.01655661927695311,
+              "top_label_ece_10_bins": 0.006923557786978872,
+              "hard_decline_ece_10_bins": 0.006936191532058951,
+              "logloss": 0.13720614692285685
+            },
+            "unsafe_retry_raw": {
+              "count": 72,
+              "hard_declines": 1444,
+              "rate": 0.04986149584487535,
+              "upper95": 0.060333511306437125
+            },
+            "unsafe_retry_gated": {
+              "count": 5,
+              "hard_declines": 1444,
+              "rate": 0.0034626038781163434,
+              "upper95": 0.007266604120984507,
+              "per_world_counts": [
+                2,
+                3,
+                0
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.9021769186147376,
+            "gate_abstention_rate": 0.07320048800325335,
+            "gate_true_retryable_recall": 0.885427666314678
+          },
+          "shifted_market_test": {
+            "n_failures": 6213,
+            "worlds": 2,
+            "macro_f1": {
+              "mean_over_worlds": 0.9182216137159572,
+              "sd_over_worlds": 0.0034055074821213475,
+              "pooled": 0.9184024785613253
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.959987502119954,
+              "pooled": 0.9599227426364075
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.9768396364702433,
+                "recall": 0.98086546953194,
+                "f1": 0.9788484136310224,
+                "support": 3397
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.9708416169648774,
+                "recall": 0.9885290148448043,
+                "f1": 0.9796054831160147,
+                "support": 1482
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.9466192170818505,
+                "recall": 0.9300699300699301,
+                "f1": 0.9382716049382716,
+                "support": 286
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.8642745709828393,
+                "recall": 0.8849840255591054,
+                "f1": 0.8745067087608525,
+                "support": 626
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.9266666666666666,
+                "recall": 0.7595628415300546,
+                "f1": 0.8348348348348348,
+                "support": 183
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.9411764705882353,
+                "recall": 0.8702928870292888,
+                "f1": 0.9043478260869565,
+                "support": 239
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  3332,
+                  10,
+                  2,
+                  46,
+                  5,
+                  2
+                ],
+                [
+                  6,
+                  1465,
+                  0,
+                  3,
+                  1,
+                  7
+                ],
+                [
+                  4,
+                  0,
+                  266,
+                  16,
+                  0,
+                  0
+                ],
+                [
+                  50,
+                  6,
+                  12,
+                  554,
+                  3,
+                  1
+                ],
+                [
+                  13,
+                  12,
+                  1,
+                  15,
+                  139,
+                  3
+                ],
+                [
+                  6,
+                  16,
+                  0,
+                  7,
+                  2,
+                  208
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.06939066035554033,
+              "hard_decline_brier": 0.018139556092945323,
+              "top_label_ece_10_bins": 0.030347153580649367,
+              "hard_decline_ece_10_bins": 0.015854707588530408,
+              "logloss": 0.22615476979928276
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.061463521013837924,
+              "hard_decline_brier": 0.016082928613408667,
+              "top_label_ece_10_bins": 0.006851127151098243,
+              "hard_decline_ece_10_bins": 0.004175991473625726,
+              "logloss": 0.12568307451197297
+            },
+            "unsafe_retry_raw": {
+              "count": 58,
+              "hard_declines": 912,
+              "rate": 0.06359649122807018,
+              "upper95": 0.07851979471299708
+            },
+            "unsafe_retry_gated": {
+              "count": 10,
+              "hard_declines": 912,
+              "rate": 0.010964912280701754,
+              "upper95": 0.018527936607000618,
+              "per_world_counts": [
+                4,
+                6
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.9008530279206604,
+            "gate_abstention_rate": 0.06148398519233864,
+            "gate_true_retryable_recall": 0.914637339617701
+          }
+        },
+        "generic_reason_subset": {
+          "test": {
+            "n_failures": 1124,
+            "macro_f1": 0.705719184392708,
+            "accuracy": 0.8202846975088968
+          },
+          "shifted_market_test": {
+            "n_failures": 898,
+            "macro_f1": 0.6400173776914116,
+            "accuracy": 0.8028953229398663
+          }
+        },
+        "latency": {
+          "single_row_ms_median": 20.556556000201454,
+          "single_row_ms_p95": 33.36262975010412,
+          "batch_rows_per_second": 10164.051656061782
+        }
+      },
+      "selected": {
+        "n_features": 42,
+        "evaluation": {
+          "test": {
+            "n_failures": 7377,
+            "worlds": 3,
+            "macro_f1": {
+              "mean_over_worlds": 0.9316273519382436,
+              "sd_over_worlds": 0.017991637176118985,
+              "pooled": 0.9323586574680874
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.9581163178662825,
+              "pooled": 0.9581130540870273
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.9758438120450033,
+                "recall": 0.9790836653386454,
+                "f1": 0.9774610540271793,
+                "support": 3012
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.9701286764705882,
+                "recall": 0.9841491841491842,
+                "f1": 0.9770886368896089,
+                "support": 2145
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.937984496124031,
+                "recall": 0.952755905511811,
+                "f1": 0.9453125,
+                "support": 508
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.9015873015873016,
+                "recall": 0.9102564102564102,
+                "f1": 0.9059011164274322,
+                "support": 936
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.9490740740740741,
+                "recall": 0.82,
+                "f1": 0.8798283261802575,
+                "support": 250
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.9302788844621513,
+                "recall": 0.8878326996197718,
+                "f1": 0.9085603112840467,
+                "support": 526
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2949,
+                  8,
+                  12,
+                  35,
+                  5,
+                  3
+                ],
+                [
+                  8,
+                  2111,
+                  1,
+                  7,
+                  3,
+                  15
+                ],
+                [
+                  3,
+                  0,
+                  484,
+                  20,
+                  0,
+                  1
+                ],
+                [
+                  49,
+                  8,
+                  19,
+                  852,
+                  1,
+                  7
+                ],
+                [
+                  5,
+                  13,
+                  0,
+                  18,
+                  205,
+                  9
+                ],
+                [
+                  8,
+                  36,
+                  0,
+                  13,
+                  2,
+                  467
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.07427178228334541,
+              "hard_decline_brier": 0.0184918655117636,
+              "top_label_ece_10_bins": 0.031459098814323905,
+              "hard_decline_ece_10_bins": 0.016341274556740448,
+              "logloss": 0.23742732365424343
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.0657028371506014,
+              "hard_decline_brier": 0.01639915031326736,
+              "top_label_ece_10_bins": 0.0074940041677823655,
+              "hard_decline_ece_10_bins": 0.005746593095558368,
+              "logloss": 0.13572698113346024
+            },
+            "unsafe_retry_raw": {
+              "count": 61,
+              "hard_declines": 1444,
+              "rate": 0.04224376731301939,
+              "upper95": 0.05201745214543814
+            },
+            "unsafe_retry_gated": {
+              "count": 5,
+              "hard_declines": 1444,
+              "rate": 0.0034626038781163434,
+              "upper95": 0.007266604120984507,
+              "per_world_counts": [
+                0,
+                4,
+                1
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.9076415536722436,
+            "gate_abstention_rate": 0.06954046360309069,
+            "gate_true_retryable_recall": 0.8883315733896515
+          },
+          "shifted_market_test": {
+            "n_failures": 6213,
+            "worlds": 2,
+            "macro_f1": {
+              "mean_over_worlds": 0.9190636032340618,
+              "sd_over_worlds": 0.0023313358285975525,
+              "pooled": 0.9193797406905498
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.9604219630960077,
+              "pooled": 0.9604056011588604
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.9796939376103591,
+                "recall": 0.979982337356491,
+                "f1": 0.9798381162619573,
+                "support": 3397
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.9701789264413518,
+                "recall": 0.9878542510121457,
+                "f1": 0.9789368104312939,
+                "support": 1482
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.9233449477351916,
+                "recall": 0.9265734265734266,
+                "f1": 0.924956369982548,
+                "support": 286
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.867601246105919,
+                "recall": 0.889776357827476,
+                "f1": 0.8785488958990536,
+                "support": 626
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.934640522875817,
+                "recall": 0.7814207650273224,
+                "f1": 0.8511904761904762,
+                "support": 183
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.9330357142857143,
+                "recall": 0.8744769874476988,
+                "f1": 0.9028077753779697,
+                "support": 239
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  3329,
+                  12,
+                  4,
+                  44,
+                  5,
+                  3
+                ],
+                [
+                  4,
+                  1464,
+                  0,
+                  4,
+                  2,
+                  8
+                ],
+                [
+                  2,
+                  0,
+                  265,
+                  19,
+                  0,
+                  0
+                ],
+                [
+                  45,
+                  6,
+                  16,
+                  557,
+                  1,
+                  1
+                ],
+                [
+                  12,
+                  10,
+                  2,
+                  13,
+                  143,
+                  3
+                ],
+                [
+                  6,
+                  17,
+                  0,
+                  5,
+                  2,
+                  209
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.06959431970627637,
+              "hard_decline_brier": 0.018168627876181714,
+              "top_label_ece_10_bins": 0.03058893839853106,
+              "hard_decline_ece_10_bins": 0.016259834563086592,
+              "logloss": 0.23032069220245482
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.061084906369821515,
+              "hard_decline_brier": 0.016089640564437496,
+              "top_label_ece_10_bins": 0.0031647534396123615,
+              "hard_decline_ece_10_bins": 0.0032361618478081583,
+              "logloss": 0.12572907345371812
+            },
+            "unsafe_retry_raw": {
+              "count": 49,
+              "hard_declines": 912,
+              "rate": 0.0537280701754386,
+              "upper95": 0.06767373424372866
+            },
+            "unsafe_retry_gated": {
+              "count": 13,
+              "hard_declines": 912,
+              "rate": 0.01425438596491228,
+              "upper95": 0.022567579866167427,
+              "per_world_counts": [
+                6,
+                7
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.9026160242351489,
+            "gate_abstention_rate": 0.05923064542089168,
+            "gate_true_retryable_recall": 0.9164702801780571
+          }
+        },
+        "generic_reason_subset": {
+          "test": {
+            "n_failures": 1124,
+            "macro_f1": 0.7250457973763477,
+            "accuracy": 0.8300711743772242
+          },
+          "shifted_market_test": {
+            "n_failures": 898,
+            "macro_f1": 0.6836978805284984,
+            "accuracy": 0.811804008908686
+          }
+        },
+        "latency": {
+          "single_row_ms_median": 17.195203000028414,
+          "single_row_ms_p95": 19.779038750289143,
+          "batch_rows_per_second": 13527.778922010817
+        }
+      }
+    },
+    "typical": {
+      "baseline_5": {
+        "n_features": 5,
+        "evaluation": {
+          "test": {
+            "n_failures": 8670,
+            "worlds": 3,
+            "macro_f1": {
+              "mean_over_worlds": 0.6088410225600628,
+              "sd_over_worlds": 0.01433958487549787,
+              "pooled": 0.6134347510991018
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.7490381680213861,
+              "pooled": 0.7525951557093425
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.7940298507462686,
+                "recall": 0.8677342823250297,
+                "f1": 0.8292475556185348,
+                "support": 3372
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.8072084325059503,
+                "recall": 0.8864824495892457,
+                "f1": 0.8449902117814557,
+                "support": 2678
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.5956375838926175,
+                "recall": 0.45050761421319796,
+                "f1": 0.5130057803468208,
+                "support": 788
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.5641025641025641,
+                "recall": 0.5424657534246575,
+                "f1": 0.553072625698324,
+                "support": 1095
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.6639344262295082,
+                "recall": 0.3,
+                "f1": 0.413265306122449,
+                "support": 270
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.7142857142857143,
+                "recall": 0.41755888650963596,
+                "f1": 0.527027027027027,
+                "support": 467
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2926,
+                  216,
+                  78,
+                  126,
+                  20,
+                  6
+                ],
+                [
+                  155,
+                  2374,
+                  61,
+                  62,
+                  7,
+                  19
+                ],
+                [
+                  231,
+                  67,
+                  355,
+                  128,
+                  0,
+                  7
+                ],
+                [
+                  229,
+                  134,
+                  89,
+                  594,
+                  10,
+                  39
+                ],
+                [
+                  118,
+                  31,
+                  7,
+                  26,
+                  81,
+                  7
+                ],
+                [
+                  26,
+                  119,
+                  6,
+                  117,
+                  4,
+                  195
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.3363290047508838,
+              "hard_decline_brier": 0.09636092223030604,
+              "top_label_ece_10_bins": 0.011395495653474422,
+              "hard_decline_ece_10_bins": 0.015155473116527755,
+              "logloss": 0.6424271782637891
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.3363844724344654,
+              "hard_decline_brier": 0.09667547291608167,
+              "top_label_ece_10_bins": 0.012781563605074148,
+              "hard_decline_ece_10_bins": 0.016665211813104167,
+              "logloss": 0.6425412041543976
+            },
+            "unsafe_retry_raw": {
+              "count": 516,
+              "hard_declines": 1883,
+              "rate": 0.2740308019118428,
+              "upper95": 0.2914570750512786
+            },
+            "unsafe_retry_gated": {
+              "count": 5,
+              "hard_declines": 1883,
+              "rate": 0.0026553372278279343,
+              "upper95": 0.0055749606711654725,
+              "per_world_counts": [
+                0,
+                1,
+                4
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.4344223460486824,
+            "gate_abstention_rate": 0.5290657439446367,
+            "gate_true_retryable_recall": 0.24069116573375518
+          },
+          "shifted_market_test": {
+            "n_failures": 6238,
+            "worlds": 2,
+            "macro_f1": {
+              "mean_over_worlds": 0.6050277513492119,
+              "sd_over_worlds": 0.007116831279922322,
+              "pooled": 0.607858468823056
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.758141526040822,
+              "pooled": 0.7616223148445015
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.8082919914953933,
+                "recall": 0.8844513377278015,
+                "f1": 0.8446583965932235,
+                "support": 2579
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.8163059889280322,
+                "recall": 0.8815217391304347,
+                "f1": 0.8476613535406323,
+                "support": 1840
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.5404761904761904,
+                "recall": 0.442495126705653,
+                "f1": 0.4866023579849946,
+                "support": 513
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.5932203389830508,
+                "recall": 0.5455635491606715,
+                "f1": 0.5683947532792005,
+                "support": 834
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.6463414634146342,
+                "recall": 0.2717948717948718,
+                "f1": 0.38267148014440433,
+                "support": 195
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.70625,
+                "recall": 0.40794223826714804,
+                "f1": 0.517162471395881,
+                "support": 277
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2281,
+                  138,
+                  47,
+                  89,
+                  21,
+                  3
+                ],
+                [
+                  106,
+                  1622,
+                  45,
+                  52,
+                  3,
+                  12
+                ],
+                [
+                  158,
+                  44,
+                  227,
+                  80,
+                  0,
+                  4
+                ],
+                [
+                  180,
+                  95,
+                  76,
+                  455,
+                  2,
+                  26
+                ],
+                [
+                  81,
+                  25,
+                  13,
+                  21,
+                  53,
+                  2
+                ],
+                [
+                  16,
+                  63,
+                  12,
+                  70,
+                  3,
+                  113
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.33137436015121113,
+              "hard_decline_brier": 0.09685040100451899,
+              "top_label_ece_10_bins": 0.013195141719939163,
+              "hard_decline_ece_10_bins": 0.01259181086636537,
+              "logloss": 0.6429579283484881
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.3316282158815429,
+              "hard_decline_brier": 0.09715289310770422,
+              "top_label_ece_10_bins": 0.011620666612527917,
+              "hard_decline_ece_10_bins": 0.011974888152064786,
+              "logloss": 0.6423875257510582
+            },
+            "unsafe_retry_raw": {
+              "count": 370,
+              "hard_declines": 1347,
+              "rate": 0.2746844840386043,
+              "upper95": 0.2954131533225231
+            },
+            "unsafe_retry_gated": {
+              "count": 5,
+              "hard_declines": 1347,
+              "rate": 0.003711952487008166,
+              "upper95": 0.00778881416972151,
+              "per_world_counts": [
+                4,
+                1
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.43028129051805786,
+            "gate_abstention_rate": 0.5309394036550177,
+            "gate_true_retryable_recall": 0.24385447394296952
+          }
+        },
+        "generic_reason_subset": {
+          "test": {
+            "n_failures": 2221,
+            "macro_f1": 0.5202094764011113,
+            "accuracy": 0.6461053579468707
+          },
+          "shifted_market_test": {
+            "n_failures": 1595,
+            "macro_f1": 0.5441652728063512,
+            "accuracy": 0.6796238244514107
+          }
+        },
+        "latency": {
+          "single_row_ms_median": 4.460127499896771,
+          "single_row_ms_p95": 6.17309200006275,
+          "batch_rows_per_second": 56119.884643864745
+        }
+      },
+      "existing_26": {
+        "n_features": 26,
+        "evaluation": {
+          "test": {
+            "n_failures": 8670,
+            "worlds": 3,
+            "macro_f1": {
+              "mean_over_worlds": 0.6907265849247813,
+              "sd_over_worlds": 0.029650479884899134,
+              "pooled": 0.6977904038797801
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.7974438196032142,
+              "pooled": 0.7996539792387544
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.867221106968741,
+                "recall": 0.896797153024911,
+                "f1": 0.8817611896777956,
+                "support": 3372
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.8347457627118644,
+                "recall": 0.8827483196415236,
+                "f1": 0.8580762250453721,
+                "support": 2678
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.6768837803320562,
+                "recall": 0.6725888324873096,
+                "f1": 0.6747294716740929,
+                "support": 788
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.6308457711442786,
+                "recall": 0.5789954337899543,
+                "f1": 0.6038095238095238,
+                "support": 1095
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.7222222222222222,
+                "recall": 0.48148148148148145,
+                "f1": 0.5777777777777777,
+                "support": 270
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.6553524804177546,
+                "recall": 0.5374732334047109,
+                "f1": 0.5905882352941176,
+                "support": 467
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  3024,
+                  128,
+                  62,
+                  123,
+                  25,
+                  10
+                ],
+                [
+                  116,
+                  2364,
+                  75,
+                  53,
+                  7,
+                  63
+                ],
+                [
+                  105,
+                  74,
+                  530,
+                  75,
+                  1,
+                  3
+                ],
+                [
+                  164,
+                  139,
+                  95,
+                  634,
+                  15,
+                  48
+                ],
+                [
+                  63,
+                  25,
+                  8,
+                  36,
+                  130,
+                  8
+                ],
+                [
+                  15,
+                  102,
+                  13,
+                  84,
+                  2,
+                  251
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.2834768136274617,
+              "hard_decline_brier": 0.08237705886454776,
+              "top_label_ece_10_bins": 0.026202946171360843,
+              "hard_decline_ece_10_bins": 0.018626737628098734,
+              "logloss": 0.5401854053073477
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.28276408571732153,
+              "hard_decline_brier": 0.08216657787717341,
+              "top_label_ece_10_bins": 0.01735152480016513,
+              "hard_decline_ece_10_bins": 0.015629044977384075,
+              "logloss": 0.5386585153765926
+            },
+            "unsafe_retry_raw": {
+              "count": 336,
+              "hard_declines": 1883,
+              "rate": 0.17843866171003717,
+              "upper95": 0.19358603447444664
+            },
+            "unsafe_retry_gated": {
+              "count": 12,
+              "hard_declines": 1883,
+              "rate": 0.006372809346787042,
+              "upper95": 0.010304907431215673,
+              "per_world_counts": [
+                3,
+                6,
+                3
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.5522770239011594,
+            "gate_abstention_rate": 0.37531718569780853,
+            "gate_true_retryable_recall": 0.4373326843514237
+          },
+          "shifted_market_test": {
+            "n_failures": 6238,
+            "worlds": 2,
+            "macro_f1": {
+              "mean_over_worlds": 0.6903397200988618,
+              "sd_over_worlds": 0.017531393966247047,
+              "pooled": 0.6959194116463482
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.8065704677528683,
+              "pooled": 0.8085924975953831
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.883589936162223,
+                "recall": 0.912369135323769,
+                "f1": 0.8977489507821442,
+                "support": 2579
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.8383419689119171,
+                "recall": 0.8793478260869565,
+                "f1": 0.8583554376657825,
+                "support": 1840
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.6397058823529411,
+                "recall": 0.6783625730994152,
+                "f1": 0.6584673604541155,
+                "support": 513
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.6526458616010855,
+                "recall": 0.5767386091127098,
+                "f1": 0.6123488224061108,
+                "support": 834
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.711864406779661,
+                "recall": 0.4307692307692308,
+                "f1": 0.536741214057508,
+                "support": 195
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.6504065040650406,
+                "recall": 0.5776173285198556,
+                "f1": 0.6118546845124283,
+                "support": 277
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2353,
+                  78,
+                  37,
+                  89,
+                  18,
+                  4
+                ],
+                [
+                  60,
+                  1618,
+                  66,
+                  49,
+                  2,
+                  45
+                ],
+                [
+                  59,
+                  55,
+                  348,
+                  45,
+                  2,
+                  4
+                ],
+                [
+                  144,
+                  98,
+                  73,
+                  481,
+                  9,
+                  29
+                ],
+                [
+                  32,
+                  29,
+                  12,
+                  34,
+                  84,
+                  4
+                ],
+                [
+                  15,
+                  52,
+                  8,
+                  39,
+                  3,
+                  160
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.2712932477234982,
+              "hard_decline_brier": 0.08158269521006192,
+              "top_label_ece_10_bins": 0.02090214497556871,
+              "hard_decline_ece_10_bins": 0.020577351606909565,
+              "logloss": 0.5248202086852419
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.2712878962206622,
+              "hard_decline_brier": 0.0812928694515606,
+              "top_label_ece_10_bins": 0.007700864998347787,
+              "hard_decline_ece_10_bins": 0.014034593769826877,
+              "logloss": 0.5233362036108826
+            },
+            "unsafe_retry_raw": {
+              "count": 247,
+              "hard_declines": 1347,
+              "rate": 0.18337045285820341,
+              "upper95": 0.2015919225764219
+            },
+            "unsafe_retry_gated": {
+              "count": 15,
+              "hard_declines": 1347,
+              "rate": 0.011135857461024499,
+              "upper95": 0.017095523298045406,
+              "per_world_counts": [
+                8,
+                7
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.5492373250962609,
+            "gate_abstention_rate": 0.37303622956075666,
+            "gate_true_retryable_recall": 0.4549328089151098
+          }
+        },
+        "generic_reason_subset": {
+          "test": {
+            "n_failures": 2221,
+            "macro_f1": 0.608370114790718,
+            "accuracy": 0.7181449797388564
+          },
+          "shifted_market_test": {
+            "n_failures": 1595,
+            "macro_f1": 0.6053824678196108,
+            "accuracy": 0.7304075235109718
+          }
+        },
+        "latency": {
+          "single_row_ms_median": 10.042031500006487,
+          "single_row_ms_p95": 12.646660350060301,
+          "batch_rows_per_second": 35610.19203572353
+        }
+      },
+      "expanded_57": {
+        "n_features": 57,
+        "evaluation": {
+          "test": {
+            "n_failures": 8670,
+            "worlds": 3,
+            "macro_f1": {
+              "mean_over_worlds": 0.8943402787009561,
+              "sd_over_worlds": 0.015096349965782442,
+              "pooled": 0.8958964362870923
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.9370507197887208,
+              "pooled": 0.9371395617070357
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.9537876572097105,
+                "recall": 0.9670818505338078,
+                "f1": 0.9603887498159328,
+                "support": 3372
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.9639838294744579,
+                "recall": 0.979462285287528,
+                "f1": 0.9716614187812558,
+                "support": 2678
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.9287564766839378,
+                "recall": 0.9098984771573604,
+                "f1": 0.9192307692307692,
+                "support": 788
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.8486486486486486,
+                "recall": 0.8602739726027397,
+                "f1": 0.854421768707483,
+                "support": 1095
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.9013452914798207,
+                "recall": 0.7444444444444445,
+                "f1": 0.8154158215010142,
+                "support": 270
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.8964705882352941,
+                "recall": 0.815845824411135,
+                "f1": 0.8542600896860987,
+                "support": 467
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  3261,
+                  27,
+                  11,
+                  54,
+                  13,
+                  6
+                ],
+                [
+                  23,
+                  2623,
+                  0,
+                  12,
+                  3,
+                  17
+                ],
+                [
+                  17,
+                  0,
+                  717,
+                  50,
+                  1,
+                  3
+                ],
+                [
+                  88,
+                  13,
+                  34,
+                  942,
+                  5,
+                  13
+                ],
+                [
+                  22,
+                  16,
+                  9,
+                  17,
+                  201,
+                  5
+                ],
+                [
+                  8,
+                  42,
+                  1,
+                  35,
+                  0,
+                  381
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.09352385622937595,
+              "hard_decline_brier": 0.025230644513541508,
+              "top_label_ece_10_bins": 0.01709060590935937,
+              "hard_decline_ece_10_bins": 0.009733530325916392,
+              "logloss": 0.1842605860978137
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.09157032318175101,
+              "hard_decline_brier": 0.025049861242069142,
+              "top_label_ece_10_bins": 0.009411803256508916,
+              "hard_decline_ece_10_bins": 0.007023022145721141,
+              "logloss": 0.18025218080081504
+            },
+            "unsafe_retry_raw": {
+              "count": 127,
+              "hard_declines": 1883,
+              "rate": 0.06744556558682953,
+              "upper95": 0.07772817312004765
+            },
+            "unsafe_retry_gated": {
+              "count": 8,
+              "hard_declines": 1883,
+              "rate": 0.004248539564524694,
+              "upper95": 0.00765267712308744,
+              "per_world_counts": [
+                3,
+                0,
+                5
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.8409609161207708,
+            "gate_abstention_rate": 0.12168396770472895,
+            "gate_true_retryable_recall": 0.787052810902896
+          },
+          "shifted_market_test": {
+            "n_failures": 6238,
+            "worlds": 2,
+            "macro_f1": {
+              "mean_over_worlds": 0.8826746426021903,
+              "sd_over_worlds": 0.011333678376672708,
+              "pooled": 0.8849222722808228
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.93597821693074,
+              "pooled": 0.9363578069894197
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.960919540229885,
+                "recall": 0.9724699495928655,
+                "f1": 0.9666602428213529,
+                "support": 2579
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.9636752136752137,
+                "recall": 0.9804347826086957,
+                "f1": 0.9719827586206896,
+                "support": 1840
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.9106796116504854,
+                "recall": 0.9142300194931774,
+                "f1": 0.9124513618677043,
+                "support": 513
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.8470873786407767,
+                "recall": 0.8369304556354916,
+                "f1": 0.841978287092883,
+                "support": 834
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.852760736196319,
+                "recall": 0.7128205128205128,
+                "f1": 0.776536312849162,
+                "support": 195
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.8779527559055118,
+                "recall": 0.8050541516245487,
+                "f1": 0.839924670433145,
+                "support": 277
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2508,
+                  12,
+                  6,
+                  39,
+                  8,
+                  6
+                ],
+                [
+                  10,
+                  1804,
+                  2,
+                  8,
+                  5,
+                  11
+                ],
+                [
+                  5,
+                  2,
+                  469,
+                  35,
+                  1,
+                  1
+                ],
+                [
+                  70,
+                  16,
+                  32,
+                  698,
+                  8,
+                  10
+                ],
+                [
+                  11,
+                  17,
+                  4,
+                  21,
+                  139,
+                  3
+                ],
+                [
+                  6,
+                  21,
+                  2,
+                  23,
+                  2,
+                  223
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.09429860898092347,
+              "hard_decline_brier": 0.026838869984465153,
+              "top_label_ece_10_bins": 0.017559838119158,
+              "hard_decline_ece_10_bins": 0.01062316207236473,
+              "logloss": 0.1850070637371127
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.0928767324092076,
+              "hard_decline_brier": 0.026633270684143884,
+              "top_label_ece_10_bins": 0.006925609267422585,
+              "hard_decline_ece_10_bins": 0.004690217390409942,
+              "logloss": 0.18084301345760967
+            },
+            "unsafe_retry_raw": {
+              "count": 95,
+              "hard_declines": 1347,
+              "rate": 0.07052709725315516,
+              "upper95": 0.08308536811967909
+            },
+            "unsafe_retry_gated": {
+              "count": 9,
+              "hard_declines": 1347,
+              "rate": 0.0066815144766146995,
+              "upper95": 0.01163038825239899,
+              "per_world_counts": [
+                7,
+                2
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.8380978444291438,
+            "gate_abstention_rate": 0.11991022763706316,
+            "gate_true_retryable_recall": 0.7961324156014421
+          }
+        },
+        "generic_reason_subset": {
+          "test": {
+            "n_failures": 2221,
+            "macro_f1": 0.7428899439502339,
+            "accuracy": 0.8325078793336335
+          },
+          "shifted_market_test": {
+            "n_failures": 1595,
+            "macro_f1": 0.6931867932730892,
+            "accuracy": 0.8288401253918495
+          }
+        },
+        "latency": {
+          "single_row_ms_median": 13.482835999866438,
+          "single_row_ms_p95": 16.895893749756393,
+          "batch_rows_per_second": 32194.28866891255
+        }
+      },
+      "selected": {
+        "n_features": 42,
+        "evaluation": {
+          "test": {
+            "n_failures": 8670,
+            "worlds": 3,
+            "macro_f1": {
+              "mean_over_worlds": 0.8956424264578625,
+              "sd_over_worlds": 0.017526484397190147,
+              "pooled": 0.8984525259550177
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.9379874902474249,
+              "pooled": 0.9381776239907728
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.9564449676280165,
+                "recall": 0.9638196915776986,
+                "f1": 0.9601181683899557,
+                "support": 3372
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.9658339456282146,
+                "recall": 0.9817027632561613,
+                "f1": 0.9737037037037037,
+                "support": 2678
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.9315245478036176,
+                "recall": 0.9149746192893401,
+                "f1": 0.9231754161331626,
+                "support": 788
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.8432769367764915,
+                "recall": 0.8648401826484018,
+                "f1": 0.8539224526600541,
+                "support": 1095
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.8991228070175439,
+                "recall": 0.7592592592592593,
+                "f1": 0.8232931726907631,
+                "support": 270
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.8988235294117647,
+                "recall": 0.8179871520342612,
+                "f1": 0.8565022421524664,
+                "support": 467
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  3250,
+                  25,
+                  12,
+                  64,
+                  15,
+                  6
+                ],
+                [
+                  19,
+                  2629,
+                  0,
+                  11,
+                  3,
+                  16
+                ],
+                [
+                  13,
+                  1,
+                  721,
+                  50,
+                  1,
+                  2
+                ],
+                [
+                  86,
+                  13,
+                  31,
+                  947,
+                  4,
+                  14
+                ],
+                [
+                  20,
+                  13,
+                  9,
+                  18,
+                  205,
+                  5
+                ],
+                [
+                  10,
+                  41,
+                  1,
+                  33,
+                  0,
+                  382
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.09259911260434295,
+              "hard_decline_brier": 0.02517817028712404,
+              "top_label_ece_10_bins": 0.016284303786993415,
+              "hard_decline_ece_10_bins": 0.009050422641460876,
+              "logloss": 0.18348901585262484
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.09097121951480953,
+              "hard_decline_brier": 0.0250233061361508,
+              "top_label_ece_10_bins": 0.006262359437054026,
+              "hard_decline_ece_10_bins": 0.0077293474991018025,
+              "logloss": 0.17966667247130735
+            },
+            "unsafe_retry_raw": {
+              "count": 120,
+              "hard_declines": 1883,
+              "rate": 0.06372809346787042,
+              "upper95": 0.07376869306430851
+            },
+            "unsafe_retry_gated": {
+              "count": 5,
+              "hard_declines": 1883,
+              "rate": 0.0026553372278279343,
+              "upper95": 0.0055749606711654725,
+              "per_world_counts": [
+                1,
+                1,
+                3
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.8395866060502589,
+            "gate_abstention_rate": 0.12433679354094579,
+            "gate_true_retryable_recall": 0.7790216597712338
+          },
+          "shifted_market_test": {
+            "n_failures": 6238,
+            "worlds": 2,
+            "macro_f1": {
+              "mean_over_worlds": 0.8852285563198277,
+              "sd_over_worlds": 0.0005730715533372415,
+              "pooled": 0.8879502481115232
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.9345123741379675,
+              "pooled": 0.9353959602436679
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.9573732718894009,
+                "recall": 0.9666537417603722,
+                "f1": 0.9619911248311789,
+                "support": 2579
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.9682454251883746,
+                "recall": 0.9777173913043479,
+                "f1": 0.9729583558680368,
+                "support": 1840
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.9110251450676983,
+                "recall": 0.9181286549707602,
+                "f1": 0.9145631067961165,
+                "support": 513
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.8421686746987952,
+                "recall": 0.8381294964028777,
+                "f1": 0.8401442307692307,
+                "support": 834
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.8383233532934131,
+                "recall": 0.717948717948718,
+                "f1": 0.7734806629834254,
+                "support": 195
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.8893129770992366,
+                "recall": 0.8411552346570397,
+                "f1": 0.8645640074211502,
+                "support": 277
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2493,
+                  12,
+                  9,
+                  49,
+                  11,
+                  5
+                ],
+                [
+                  12,
+                  1799,
+                  2,
+                  8,
+                  5,
+                  14
+                ],
+                [
+                  6,
+                  1,
+                  471,
+                  34,
+                  1,
+                  0
+                ],
+                [
+                  77,
+                  16,
+                  29,
+                  699,
+                  7,
+                  6
+                ],
+                [
+                  10,
+                  17,
+                  4,
+                  20,
+                  140,
+                  4
+                ],
+                [
+                  6,
+                  13,
+                  2,
+                  20,
+                  3,
+                  233
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.09674251499392195,
+              "hard_decline_brier": 0.027541274108942693,
+              "top_label_ece_10_bins": 0.018191278224992488,
+              "hard_decline_ece_10_bins": 0.011316825776100884,
+              "logloss": 0.18966201616100667
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.09519826272783229,
+              "hard_decline_brier": 0.027246227836219713,
+              "top_label_ece_10_bins": 0.006104700379568536,
+              "hard_decline_ece_10_bins": 0.003486745082337958,
+              "logloss": 0.18502895394589597
+            },
+            "unsafe_retry_raw": {
+              "count": 97,
+              "hard_declines": 1347,
+              "rate": 0.07201187824795843,
+              "upper95": 0.08467805083986943
+            },
+            "unsafe_retry_gated": {
+              "count": 6,
+              "hard_declines": 1347,
+              "rate": 0.004454342984409799,
+              "upper95": 0.008772624481662071,
+              "per_world_counts": [
+                4,
+                2
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.8354144155792431,
+            "gate_abstention_rate": 0.1295286950945816,
+            "gate_true_retryable_recall": 0.7915437561455261
+          }
+        },
+        "generic_reason_subset": {
+          "test": {
+            "n_failures": 2221,
+            "macro_f1": 0.7489669201504933,
+            "accuracy": 0.8338586222422333
+          },
+          "shifted_market_test": {
+            "n_failures": 1595,
+            "macro_f1": 0.7057675443334747,
+            "accuracy": 0.8213166144200627
+          }
+        },
+        "latency": {
+          "single_row_ms_median": 11.504072000207088,
+          "single_row_ms_p95": 14.402989099721706,
+          "batch_rows_per_second": 31196.034759369897
+        }
+      }
+    },
+    "stressed": {
+      "baseline_5": {
+        "n_features": 5,
+        "evaluation": {
+          "test": {
+            "n_failures": 11576,
+            "worlds": 3,
+            "macro_f1": {
+              "mean_over_worlds": 0.6399821999231604,
+              "sd_over_worlds": 0.00498291571149224,
+              "pooled": 0.6470924963096372
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.7125410046904527,
+              "pooled": 0.7125086385625432
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.6887586964481874,
+                "recall": 0.7473182359952324,
+                "f1": 0.7168445121951219,
+                "support": 2517
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.8358746881064597,
+                "recall": 0.8481012658227848,
+                "f1": 0.8419435911756492,
+                "support": 3555
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.4703023758099352,
+                "recall": 0.7444444444444445,
+                "f1": 0.5764394440767704,
+                "support": 1170
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.585603112840467,
+                "recall": 0.4016010673782522,
+                "f1": 0.47645429362880887,
+                "support": 1499
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.7839335180055401,
+                "recall": 0.33690476190476193,
+                "f1": 0.47127393838467946,
+                "support": 840
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.7991987981972959,
+                "recall": 0.8,
+                "f1": 0.7995991983967936,
+                "support": 1995
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  1881,
+                  186,
+                  304,
+                  60,
+                  58,
+                  28
+                ],
+                [
+                  122,
+                  3015,
+                  170,
+                  63,
+                  3,
+                  182
+                ],
+                [
+                  140,
+                  51,
+                  871,
+                  80,
+                  0,
+                  28
+                ],
+                [
+                  299,
+                  159,
+                  293,
+                  602,
+                  10,
+                  136
+                ],
+                [
+                  232,
+                  103,
+                  131,
+                  64,
+                  283,
+                  27
+                ],
+                [
+                  57,
+                  93,
+                  83,
+                  159,
+                  7,
+                  1596
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.3908258943793443,
+              "hard_decline_brier": 0.10696291236017891,
+              "top_label_ece_10_bins": 0.017088159273553463,
+              "hard_decline_ece_10_bins": 0.014031685001763518,
+              "logloss": 0.7574813375747524
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.3901979823075565,
+              "hard_decline_brier": 0.10712287753465913,
+              "top_label_ece_10_bins": 0.015566732647261501,
+              "hard_decline_ece_10_bins": 0.016652456212324068,
+              "logloss": 0.7576529428552128
+            },
+            "unsafe_retry_raw": {
+              "count": 613,
+              "hard_declines": 2669,
+              "rate": 0.22967403521918323,
+              "upper95": 0.24346985060807091
+            },
+            "unsafe_retry_gated": {
+              "count": 18,
+              "hard_declines": 2669,
+              "rate": 0.0067440989134507304,
+              "upper95": 0.009984371664519091,
+              "per_world_counts": [
+                6,
+                6,
+                6
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.46949240824706795,
+            "gate_abstention_rate": 0.518054595715273,
+            "gate_true_retryable_recall": 0.3266068759342302
+          },
+          "shifted_market_test": {
+            "n_failures": 8466,
+            "worlds": 2,
+            "macro_f1": {
+              "mean_over_worlds": 0.6531337466332131,
+              "sd_over_worlds": 0.031738876502770436,
+              "pooled": 0.6616775214279744
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.7333674080213657,
+              "pooled": 0.7334042050555162
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.7859765051395007,
+                "recall": 0.8006731488406881,
+                "f1": 0.7932567617636161,
+                "support": 2674
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.8472113118617439,
+                "recall": 0.8458823529411764,
+                "f1": 0.8465463108320251,
+                "support": 2550
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.4973056197074673,
+                "recall": 0.745958429561201,
+                "f1": 0.5967667436489608,
+                "support": 866
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.6385911179173047,
+                "recall": 0.3919172932330827,
+                "f1": 0.4857309260337799,
+                "support": 1064
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.7233333333333334,
+                "recall": 0.38271604938271603,
+                "f1": 0.5005767012687428,
+                "support": 567
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.6684322033898306,
+                "recall": 0.8469798657718121,
+                "f1": 0.7471876850207223,
+                "support": 745
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2141,
+                  133,
+                  235,
+                  55,
+                  79,
+                  31
+                ],
+                [
+                  89,
+                  2157,
+                  119,
+                  38,
+                  0,
+                  147
+                ],
+                [
+                  91,
+                  42,
+                  646,
+                  72,
+                  0,
+                  15
+                ],
+                [
+                  216,
+                  128,
+                  207,
+                  417,
+                  4,
+                  92
+                ],
+                [
+                  156,
+                  60,
+                  68,
+                  38,
+                  217,
+                  28
+                ],
+                [
+                  31,
+                  26,
+                  24,
+                  33,
+                  0,
+                  631
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.36114186616265814,
+              "hard_decline_brier": 0.0994021336123743,
+              "top_label_ece_10_bins": 0.009440565542905337,
+              "hard_decline_ece_10_bins": 0.020705340231371903,
+              "logloss": 0.696660907941649
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.36212661350206665,
+              "hard_decline_brier": 0.09964922046549587,
+              "top_label_ece_10_bins": 0.019995907240321797,
+              "hard_decline_ece_10_bins": 0.02297993754835294,
+              "logloss": 0.6985985264910517
+            },
+            "unsafe_retry_raw": {
+              "count": 418,
+              "hard_declines": 1930,
+              "rate": 0.21658031088082902,
+              "upper95": 0.23257646175178498
+            },
+            "unsafe_retry_gated": {
+              "count": 7,
+              "hard_declines": 1930,
+              "rate": 0.003626943005181347,
+              "upper95": 0.00680164616601794,
+              "per_world_counts": [
+                3,
+                4
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.49103335365757117,
+            "gate_abstention_rate": 0.5252775809118828,
+            "gate_true_retryable_recall": 0.32187656798795783
+          }
+        },
+        "generic_reason_subset": {
+          "test": {
+            "n_failures": 4309,
+            "macro_f1": 0.6175761901114635,
+            "accuracy": 0.6407519145973544
+          },
+          "shifted_market_test": {
+            "n_failures": 3313,
+            "macro_f1": 0.618154837375366,
+            "accuracy": 0.6592212496226985
+          }
+        },
+        "latency": {
+          "single_row_ms_median": 5.135226499987766,
+          "single_row_ms_p95": 13.643265200016685,
+          "batch_rows_per_second": 49309.51151391087
+        }
+      },
+      "existing_26": {
+        "n_features": 26,
+        "evaluation": {
+          "test": {
+            "n_failures": 11576,
+            "worlds": 3,
+            "macro_f1": {
+              "mean_over_worlds": 0.7364895134663083,
+              "sd_over_worlds": 0.02165009926130565,
+              "pooled": 0.7453196538361678
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.7894115173364723,
+              "pooled": 0.7899101589495507
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.7806338028169014,
+                "recall": 0.8808104886769964,
+                "f1": 0.8277020720552548,
+                "support": 2517
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.8411039657020365,
+                "recall": 0.8829817158931083,
+                "f1": 0.8615342390558529,
+                "support": 3555
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.6204906204906205,
+                "recall": 0.7350427350427351,
+                "f1": 0.672926447574335,
+                "support": 1170
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.6441368078175895,
+                "recall": 0.5276851234156104,
+                "f1": 0.5801246791345801,
+                "support": 1499
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.8290441176470589,
+                "recall": 0.5369047619047619,
+                "f1": 0.6517341040462428,
+                "support": 840
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.9133261105092091,
+                "recall": 0.8451127819548873,
+                "f1": 0.877896381150742,
+                "support": 1995
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2217,
+                  124,
+                  74,
+                  69,
+                  24,
+                  9
+                ],
+                [
+                  87,
+                  3139,
+                  155,
+                  84,
+                  12,
+                  78
+                ],
+                [
+                  115,
+                  85,
+                  860,
+                  95,
+                  5,
+                  10
+                ],
+                [
+                  270,
+                  161,
+                  190,
+                  791,
+                  36,
+                  51
+                ],
+                [
+                  129,
+                  87,
+                  68,
+                  93,
+                  451,
+                  12
+                ],
+                [
+                  22,
+                  136,
+                  39,
+                  96,
+                  16,
+                  1686
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.29927249252294325,
+              "hard_decline_brier": 0.086746370804684,
+              "top_label_ece_10_bins": 0.034160677799585246,
+              "hard_decline_ece_10_bins": 0.0209632834598389,
+              "logloss": 0.5874414933945344
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.29612490839159267,
+              "hard_decline_brier": 0.08604677606742091,
+              "top_label_ece_10_bins": 0.01125595653671508,
+              "hard_decline_ece_10_bins": 0.013636736316066054,
+              "logloss": 0.5755589641661286
+            },
+            "unsafe_retry_raw": {
+              "count": 487,
+              "hard_declines": 2669,
+              "rate": 0.1824653428250281,
+              "upper95": 0.19520582377220835
+            },
+            "unsafe_retry_gated": {
+              "count": 28,
+              "hard_declines": 2669,
+              "rate": 0.01049082053203447,
+              "upper95": 0.014355227216657926,
+              "per_world_counts": [
+                10,
+                11,
+                7
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.6106857050149279,
+            "gate_abstention_rate": 0.35884588804422946,
+            "gate_true_retryable_recall": 0.49252615844544095
+          },
+          "shifted_market_test": {
+            "n_failures": 8466,
+            "worlds": 2,
+            "macro_f1": {
+              "mean_over_worlds": 0.7278523533317263,
+              "sd_over_worlds": 0.05988972067519907,
+              "pooled": 0.7448786380775245
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.7949969650922821,
+              "pooled": 0.7949444838176234
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.8464566929133859,
+                "recall": 0.8844427823485415,
+                "f1": 0.8650329188002926,
+                "support": 2674
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.8497153700189753,
+                "recall": 0.8780392156862745,
+                "f1": 0.8636451301832209,
+                "support": 2550
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.6457711442786069,
+                "recall": 0.7494226327944573,
+                "f1": 0.6937466595403528,
+                "support": 866
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.6257594167679222,
+                "recall": 0.48402255639097747,
+                "f1": 0.5458399576046635,
+                "support": 1064
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.8104265402843602,
+                "recall": 0.6031746031746031,
+                "f1": 0.6916076845298281,
+                "support": 567
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.7878017789072427,
+                "recall": 0.8322147651006712,
+                "f1": 0.8093994778067886,
+                "support": 745
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2365,
+                  105,
+                  56,
+                  92,
+                  41,
+                  15
+                ],
+                [
+                  65,
+                  2239,
+                  102,
+                  63,
+                  9,
+                  72
+                ],
+                [
+                  81,
+                  58,
+                  649,
+                  63,
+                  4,
+                  11
+                ],
+                [
+                  198,
+                  136,
+                  148,
+                  515,
+                  21,
+                  46
+                ],
+                [
+                  74,
+                  50,
+                  30,
+                  48,
+                  342,
+                  23
+                ],
+                [
+                  11,
+                  47,
+                  20,
+                  42,
+                  5,
+                  620
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.28928585467466794,
+              "hard_decline_brier": 0.08556801502018734,
+              "top_label_ece_10_bins": 0.032326114403163776,
+              "hard_decline_ece_10_bins": 0.022898412602284878,
+              "logloss": 0.5553970832725692
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.2874396467514276,
+              "hard_decline_brier": 0.08516432274163585,
+              "top_label_ece_10_bins": 0.008254281306763077,
+              "hard_decline_ece_10_bins": 0.015396928988370558,
+              "logloss": 0.5517824729258204
+            },
+            "unsafe_retry_raw": {
+              "count": 361,
+              "hard_declines": 1930,
+              "rate": 0.18704663212435232,
+              "upper95": 0.20225512973285031
+            },
+            "unsafe_retry_gated": {
+              "count": 18,
+              "hard_declines": 1930,
+              "rate": 0.00932642487046632,
+              "upper95": 0.01379877073258673,
+              "per_world_counts": [
+                9,
+                9
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.6172368440775176,
+            "gate_abstention_rate": 0.37656508386487125,
+            "gate_true_retryable_recall": 0.4769192172604114
+          }
+        },
+        "generic_reason_subset": {
+          "test": {
+            "n_failures": 4309,
+            "macro_f1": 0.7137838264178721,
+            "accuracy": 0.7291715015084707
+          },
+          "shifted_market_test": {
+            "n_failures": 3313,
+            "macro_f1": 0.7089564481702447,
+            "accuracy": 0.7331723513431935
+          }
+        },
+        "latency": {
+          "single_row_ms_median": 9.689824500128452,
+          "single_row_ms_p95": 11.9428265498982,
+          "batch_rows_per_second": 31081.50811572575
+        }
+      },
+      "expanded_57": {
+        "n_features": 57,
+        "evaluation": {
+          "test": {
+            "n_failures": 11576,
+            "worlds": 3,
+            "macro_f1": {
+              "mean_over_worlds": 0.8825731966222126,
+              "sd_over_worlds": 0.015090660083606393,
+              "pooled": 0.8875701947914711
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.9087418664985668,
+              "pooled": 0.9089495507947477
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.9009111617312073,
+                "recall": 0.9427890345649583,
+                "f1": 0.9213744903902155,
+                "support": 2517
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.9572697003329633,
+                "recall": 0.9704641350210971,
+                "f1": 0.9638217628160357,
+                "support": 3555
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.9022939677145284,
+                "recall": 0.9076923076923077,
+                "f1": 0.9049850873455475,
+                "support": 1170
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.768220617202889,
+                "recall": 0.7805203468979319,
+                "f1": 0.7743216412971542,
+                "support": 1499
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.8943758573388203,
+                "recall": 0.7761904761904762,
+                "f1": 0.8311026131293817,
+                "support": 840
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.9507595599790466,
+                "recall": 0.9097744360902256,
+                "f1": 0.9298155737704918,
+                "support": 1995
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2373,
+                  32,
+                  12,
+                  80,
+                  14,
+                  6
+                ],
+                [
+                  27,
+                  3450,
+                  0,
+                  35,
+                  6,
+                  37
+                ],
+                [
+                  13,
+                  4,
+                  1062,
+                  76,
+                  8,
+                  7
+                ],
+                [
+                  160,
+                  33,
+                  74,
+                  1170,
+                  30,
+                  32
+                ],
+                [
+                  49,
+                  26,
+                  20,
+                  81,
+                  652,
+                  12
+                ],
+                [
+                  12,
+                  59,
+                  9,
+                  81,
+                  19,
+                  1815
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.13659453295461602,
+              "hard_decline_brier": 0.03874443421652775,
+              "top_label_ece_10_bins": 0.020946200568591346,
+              "hard_decline_ece_10_bins": 0.012827362707786606,
+              "logloss": 0.27146634133387587
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.13485599659595898,
+              "hard_decline_brier": 0.038226734860783734,
+              "top_label_ece_10_bins": 0.008761870749738871,
+              "hard_decline_ece_10_bins": 0.004249463743064541,
+              "logloss": 0.264067595567291
+            },
+            "unsafe_retry_raw": {
+              "count": 250,
+              "hard_declines": 2669,
+              "rate": 0.09366804046459348,
+              "upper95": 0.10346568465076413
+            },
+            "unsafe_retry_gated": {
+              "count": 23,
+              "hard_declines": 2669,
+              "rate": 0.008617459722742601,
+              "upper95": 0.012186895358946603,
+              "per_world_counts": [
+                5,
+                14,
+                4
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.825782716776259,
+            "gate_abstention_rate": 0.15929509329647545,
+            "gate_true_retryable_recall": 0.7077727952167414
+          },
+          "shifted_market_test": {
+            "n_failures": 8466,
+            "worlds": 2,
+            "macro_f1": {
+              "mean_over_worlds": 0.8801469975969787,
+              "sd_over_worlds": 0.028477244077568766,
+              "pooled": 0.887956322230372
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.9127327146307669,
+              "pooled": 0.9127096621781242
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.9220449601160261,
+                "recall": 0.9510097232610322,
+                "f1": 0.9363033873343152,
+                "support": 2674
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.9662877303018425,
+                "recall": 0.9666666666666667,
+                "f1": 0.9664771613409135,
+                "support": 2550
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.8957189901207464,
+                "recall": 0.9422632794457275,
+                "f1": 0.9184018007878447,
+                "support": 866
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.7690821256038647,
+                "recall": 0.7481203007518797,
+                "f1": 0.7584564078132444,
+                "support": 1064
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.9063745019920318,
+                "recall": 0.8024691358024691,
+                "f1": 0.8512628624883068,
+                "support": 567
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.919605077574048,
+                "recall": 0.8751677852348994,
+                "f1": 0.8968363136176066,
+                "support": 745
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2543,
+                  17,
+                  5,
+                  85,
+                  16,
+                  8
+                ],
+                [
+                  23,
+                  2465,
+                  2,
+                  30,
+                  3,
+                  27
+                ],
+                [
+                  5,
+                  4,
+                  816,
+                  36,
+                  1,
+                  4
+                ],
+                [
+                  141,
+                  20,
+                  76,
+                  796,
+                  19,
+                  12
+                ],
+                [
+                  31,
+                  14,
+                  9,
+                  52,
+                  455,
+                  6
+                ],
+                [
+                  15,
+                  31,
+                  3,
+                  36,
+                  8,
+                  652
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.1293231541647643,
+              "hard_decline_brier": 0.03776896721223276,
+              "top_label_ece_10_bins": 0.019933203366651955,
+              "hard_decline_ece_10_bins": 0.012101266777267463,
+              "logloss": 0.25092958194776754
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.12795187143246006,
+              "hard_decline_brier": 0.037349146231611056,
+              "top_label_ece_10_bins": 0.009362783390256991,
+              "hard_decline_ece_10_bins": 0.0047333675315592676,
+              "logloss": 0.24640528602198344
+            },
+            "unsafe_retry_raw": {
+              "count": 182,
+              "hard_declines": 1930,
+              "rate": 0.09430051813471503,
+              "upper95": 0.10596409503966095
+            },
+            "unsafe_retry_gated": {
+              "count": 16,
+              "hard_declines": 1930,
+              "rate": 0.008290155440414507,
+              "upper95": 0.012564195586646924,
+              "per_world_counts": [
+                2,
+                14
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.8319904970112292,
+            "gate_abstention_rate": 0.16182376565083864,
+            "gate_true_retryable_recall": 0.7225288509784245
+          }
+        },
+        "generic_reason_subset": {
+          "test": {
+            "n_failures": 4309,
+            "macro_f1": 0.8236236010693302,
+            "accuracy": 0.8231608261777674
+          },
+          "shifted_market_test": {
+            "n_failures": 3313,
+            "macro_f1": 0.8334845127097434,
+            "accuracy": 0.8385149411409598
+          }
+        },
+        "latency": {
+          "single_row_ms_median": 14.792946500165272,
+          "single_row_ms_p95": 19.762659349817113,
+          "batch_rows_per_second": 26279.617654794205
+        }
+      },
+      "selected": {
+        "n_features": 42,
+        "evaluation": {
+          "test": {
+            "n_failures": 11576,
+            "worlds": 3,
+            "macro_f1": {
+              "mean_over_worlds": 0.8777400381839593,
+              "sd_over_worlds": 0.017490750546251297,
+              "pooled": 0.8829072627842818
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.9057249580673679,
+              "pooled": 0.9060124395300622
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.8894284646992903,
+                "recall": 0.9459674215335717,
+                "f1": 0.9168271082017713,
+                "support": 2517
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.9558701082431307,
+                "recall": 0.9687763713080169,
+                "f1": 0.9622799664710813,
+                "support": 3555
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.9029535864978903,
+                "recall": 0.9145299145299145,
+                "f1": 0.9087048832271762,
+                "support": 1170
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.7654075546719682,
+                "recall": 0.7705136757838559,
+                "f1": 0.7679521276595744,
+                "support": 1499
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.9011627906976745,
+                "recall": 0.7380952380952381,
+                "f1": 0.8115183246073299,
+                "support": 840
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.9498432601880877,
+                "recall": 0.9112781954887218,
+                "f1": 0.9301611665387567,
+                "support": 1995
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2381,
+                  29,
+                  13,
+                  74,
+                  15,
+                  5
+                ],
+                [
+                  32,
+                  3444,
+                  0,
+                  37,
+                  3,
+                  39
+                ],
+                [
+                  13,
+                  4,
+                  1070,
+                  75,
+                  3,
+                  5
+                ],
+                [
+                  176,
+                  33,
+                  70,
+                  1155,
+                  33,
+                  32
+                ],
+                [
+                  63,
+                  27,
+                  22,
+                  93,
+                  620,
+                  15
+                ],
+                [
+                  12,
+                  66,
+                  10,
+                  75,
+                  14,
+                  1818
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.13846748249372304,
+              "hard_decline_brier": 0.03900541851116469,
+              "top_label_ece_10_bins": 0.02235235685001755,
+              "hard_decline_ece_10_bins": 0.01249943251094531,
+              "logloss": 0.27546735171016684
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.13683061185480663,
+              "hard_decline_brier": 0.038576756051102744,
+              "top_label_ece_10_bins": 0.010052847839477172,
+              "hard_decline_ece_10_bins": 0.006706834634870869,
+              "logloss": 0.2682839803536195
+            },
+            "unsafe_retry_raw": {
+              "count": 262,
+              "hard_declines": 2669,
+              "rate": 0.09816410640689396,
+              "upper95": 0.10815412108596259
+            },
+            "unsafe_retry_gated": {
+              "count": 26,
+              "hard_declines": 2669,
+              "rate": 0.009741476208317721,
+              "upper95": 0.013491358632253368,
+              "per_world_counts": [
+                5,
+                13,
+                8
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.8229274134314489,
+            "gate_abstention_rate": 0.16257774706288874,
+            "gate_true_retryable_recall": 0.7133781763826607
+          },
+          "shifted_market_test": {
+            "n_failures": 8466,
+            "worlds": 2,
+            "macro_f1": {
+              "mean_over_worlds": 0.8786066479919639,
+              "sd_over_worlds": 0.025382011323041017,
+              "pooled": 0.8856877676003928
+            },
+            "accuracy": {
+              "mean_over_worlds": 0.9111888047486887,
+              "pooled": 0.9111741081974959
+            },
+            "per_class": {
+              "BD_INSUFFICIENT_FUNDS": {
+                "precision": 0.9224326292789512,
+                "recall": 0.9472700074794316,
+                "f1": 0.9346863468634686,
+                "support": 2674
+              },
+              "BD_USER_ABANDONED_OTP": {
+                "precision": 0.9678052610914801,
+                "recall": 0.9666666666666667,
+                "f1": 0.9672356288012557,
+                "support": 2550
+              },
+              "CARD_EXPIRED": {
+                "precision": 0.8923418423973363,
+                "recall": 0.9284064665127021,
+                "f1": 0.9100169779286927,
+                "support": 866
+              },
+              "RISK_BLOCKED": {
+                "precision": 0.7663461538461539,
+                "recall": 0.7490601503759399,
+                "f1": 0.7576045627376425,
+                "support": 1064
+              },
+              "TD_ISSUER_DOWN": {
+                "precision": 0.8937007874015748,
+                "recall": 0.800705467372134,
+                "f1": 0.8446511627906976,
+                "support": 567
+              },
+              "TD_PSP_TIMEOUT": {
+                "precision": 0.9129834254143646,
+                "recall": 0.887248322147651,
+                "f1": 0.899931926480599,
+                "support": 745
+              }
+            },
+            "confusion_matrix": {
+              "labels": [
+                "BD_INSUFFICIENT_FUNDS",
+                "BD_USER_ABANDONED_OTP",
+                "CARD_EXPIRED",
+                "RISK_BLOCKED",
+                "TD_ISSUER_DOWN",
+                "TD_PSP_TIMEOUT"
+              ],
+              "rows_true_cols_predicted": [
+                [
+                  2533,
+                  20,
+                  7,
+                  86,
+                  18,
+                  10
+                ],
+                [
+                  21,
+                  2465,
+                  2,
+                  32,
+                  2,
+                  28
+                ],
+                [
+                  10,
+                  5,
+                  804,
+                  38,
+                  5,
+                  4
+                ],
+                [
+                  137,
+                  17,
+                  77,
+                  797,
+                  22,
+                  14
+                ],
+                [
+                  34,
+                  15,
+                  7,
+                  50,
+                  454,
+                  7
+                ],
+                [
+                  11,
+                  25,
+                  4,
+                  37,
+                  7,
+                  661
+                ]
+              ]
+            },
+            "calibration_uncalibrated": {
+              "multiclass_brier": 0.1327377671898075,
+              "hard_decline_brier": 0.038255153029343014,
+              "top_label_ece_10_bins": 0.019834793000834388,
+              "hard_decline_ece_10_bins": 0.012868408607712663,
+              "logloss": 0.2536291087698793
+            },
+            "calibration_sigmoid": {
+              "multiclass_brier": 0.1313152427847165,
+              "hard_decline_brier": 0.0378173050644195,
+              "top_label_ece_10_bins": 0.0077835304684429705,
+              "hard_decline_ece_10_bins": 0.0065055987520771415,
+              "logloss": 0.25038746743187607
+            },
+            "unsafe_retry_raw": {
+              "count": 192,
+              "hard_declines": 1930,
+              "rate": 0.09948186528497409,
+              "upper95": 0.11140321868650568
+            },
+            "unsafe_retry_gated": {
+              "count": 16,
+              "hard_declines": 1930,
+              "rate": 0.008290155440414507,
+              "upper95": 0.012564195586646924,
+              "per_world_counts": [
+                3,
+                13
+              ]
+            },
+            "gated_macro_f1_mean_over_worlds": 0.8286276891654821,
+            "gate_abstention_rate": 0.16253248287266714,
+            "gate_true_retryable_recall": 0.7257902659307577
+          }
+        },
+        "generic_reason_subset": {
+          "test": {
+            "n_failures": 4309,
+            "macro_f1": 0.8137080642629556,
+            "accuracy": 0.8166627987932235
+          },
+          "shifted_market_test": {
+            "n_failures": 3313,
+            "macro_f1": 0.8277681623529691,
+            "accuracy": 0.833383640205252
+          }
+        },
+        "latency": {
+          "single_row_ms_median": 11.895662999904744,
+          "single_row_ms_p95": 15.153215949794681,
+          "batch_rows_per_second": 30786.92709492624
+        }
+      }
+    }
+  },
+  "pooled_training_scenario_test": {
+    "baseline_5": {
+      "n_features": 5,
+      "evaluation": {
+        "calm": {
+          "n_failures": 7377,
+          "worlds": 3,
+          "macro_f1": {
+            "mean_over_worlds": 0.6353876654664586,
+            "sd_over_worlds": 0.006927492983945047,
+            "pooled": 0.63739611986101
+          },
+          "accuracy": {
+            "mean_over_worlds": 0.7706676968930833,
+            "pooled": 0.7706384709231395
+          },
+          "per_class": {
+            "BD_INSUFFICIENT_FUNDS": {
+              "precision": 0.8013146100985957,
+              "recall": 0.8904382470119522,
+              "f1": 0.8435288567384809,
+              "support": 3012
+            },
+            "BD_USER_ABANDONED_OTP": {
+              "precision": 0.8440073193046661,
+              "recall": 0.8601398601398601,
+              "f1": 0.8519972292773031,
+              "support": 2145
+            },
+            "CARD_EXPIRED": {
+              "precision": 0.5785714285714286,
+              "recall": 0.47834645669291337,
+              "f1": 0.5237068965517241,
+              "support": 508
+            },
+            "RISK_BLOCKED": {
+              "precision": 0.6007237635705669,
+              "recall": 0.532051282051282,
+              "f1": 0.5643059490084986,
+              "support": 936
+            },
+            "TD_ISSUER_DOWN": {
+              "precision": 0.7160493827160493,
+              "recall": 0.232,
+              "f1": 0.3504531722054381,
+              "support": 250
+            },
+            "TD_PSP_TIMEOUT": {
+              "precision": 0.6984435797665369,
+              "recall": 0.6825095057034221,
+              "f1": 0.6903846153846154,
+              "support": 526
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "BD_INSUFFICIENT_FUNDS",
+              "BD_USER_ABANDONED_OTP",
+              "CARD_EXPIRED",
+              "RISK_BLOCKED",
+              "TD_ISSUER_DOWN",
+              "TD_PSP_TIMEOUT"
+            ],
+            "rows_true_cols_predicted": [
+              [
+                2682,
+                133,
+                52,
+                112,
+                15,
+                18
+              ],
+              [
+                137,
+                1845,
+                40,
+                51,
+                1,
+                71
+              ],
+              [
+                185,
+                26,
+                243,
+                51,
+                0,
+                3
+              ],
+              [
+                211,
+                99,
+                67,
+                498,
+                4,
+                57
+              ],
+              [
+                113,
+                30,
+                9,
+                34,
+                58,
+                6
+              ],
+              [
+                19,
+                53,
+                9,
+                83,
+                3,
+                359
+              ]
+            ]
+          },
+          "calibration_uncalibrated": {
+            "multiclass_brier": 0.32565704795899403,
+            "hard_decline_brier": 0.09333012405115874,
+            "top_label_ece_10_bins": 0.024300270346061532,
+            "hard_decline_ece_10_bins": 0.01813842073654545,
+            "logloss": 0.6193856966210177
+          },
+          "calibration_sigmoid": {
+            "multiclass_brier": 0.3255577852140537,
+            "hard_decline_brier": 0.09320452168500544,
+            "top_label_ece_10_bins": 0.02655517615053687,
+            "hard_decline_ece_10_bins": 0.01688957405085813,
+            "logloss": 0.6209203567428925
+          },
+          "unsafe_retry_raw": {
+            "count": 460,
+            "hard_declines": 1444,
+            "rate": 0.3185595567867036,
+            "upper95": 0.3393351301985131
+          },
+          "unsafe_retry_gated": {
+            "count": 8,
+            "hard_declines": 1444,
+            "rate": 0.00554016620498615,
+            "upper95": 0.009974027823534345,
+            "per_world_counts": [
+              3,
+              2,
+              3
+            ]
+          },
+          "gated_macro_f1_mean_over_worlds": 0.4795320965263982,
+          "gate_abstention_rate": 0.5247390538159143,
+          "gate_true_retryable_recall": 0.2716473072861668
+        },
+        "typical": {
+          "n_failures": 8670,
+          "worlds": 3,
+          "macro_f1": {
+            "mean_over_worlds": 0.6189873983924926,
+            "sd_over_worlds": 0.013502516412940504,
+            "pooled": 0.6234909994269353
+          },
+          "accuracy": {
+            "mean_over_worlds": 0.7491657699805936,
+            "pooled": 0.752479815455594
+          },
+          "per_class": {
+            "BD_INSUFFICIENT_FUNDS": {
+              "precision": 0.7779511180447218,
+              "recall": 0.8873072360616845,
+              "f1": 0.829038514824051,
+              "support": 3372
+            },
+            "BD_USER_ABANDONED_OTP": {
+              "precision": 0.8435525826830175,
+              "recall": 0.847647498132935,
+              "f1": 0.8455950828832185,
+              "support": 2678
+            },
+            "CARD_EXPIRED": {
+              "precision": 0.6363636363636364,
+              "recall": 0.4263959390862944,
+              "f1": 0.5106382978723404,
+              "support": 788
+            },
+            "RISK_BLOCKED": {
+              "precision": 0.5619834710743802,
+              "recall": 0.4968036529680365,
+              "f1": 0.5273873000484731,
+              "support": 1095
+            },
+            "TD_ISSUER_DOWN": {
+              "precision": 0.7959183673469388,
+              "recall": 0.28888888888888886,
+              "f1": 0.42391304347826086,
+              "support": 270
+            },
+            "TD_PSP_TIMEOUT": {
+              "precision": 0.5640074211502782,
+              "recall": 0.6509635974304069,
+              "f1": 0.6043737574552683,
+              "support": 467
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "BD_INSUFFICIENT_FUNDS",
+              "BD_USER_ABANDONED_OTP",
+              "CARD_EXPIRED",
+              "RISK_BLOCKED",
+              "TD_ISSUER_DOWN",
+              "TD_PSP_TIMEOUT"
+            ],
+            "rows_true_cols_predicted": [
+              [
+                2992,
+                170,
+                44,
+                127,
+                17,
+                22
+              ],
+              [
+                188,
+                2270,
+                57,
+                55,
+                0,
+                108
+              ],
+              [
+                288,
+                31,
+                336,
+                125,
+                0,
+                8
+              ],
+              [
+                239,
+                143,
+                80,
+                544,
+                3,
+                86
+              ],
+              [
+                121,
+                29,
+                7,
+                24,
+                78,
+                11
+              ],
+              [
+                18,
+                48,
+                4,
+                93,
+                0,
+                304
+              ]
+            ]
+          },
+          "calibration_uncalibrated": {
+            "multiclass_brier": 0.3334652859507402,
+            "hard_decline_brier": 0.09549112354939729,
+            "top_label_ece_10_bins": 0.011495364119603588,
+            "hard_decline_ece_10_bins": 0.014418847047520004,
+            "logloss": 0.6318679119080279
+          },
+          "calibration_sigmoid": {
+            "multiclass_brier": 0.334234556231565,
+            "hard_decline_brier": 0.09571001104195172,
+            "top_label_ece_10_bins": 0.015559410722314653,
+            "hard_decline_ece_10_bins": 0.015559855185793468,
+            "logloss": 0.6343267994773761
+          },
+          "unsafe_retry_raw": {
+            "count": 624,
+            "hard_declines": 1883,
+            "rate": 0.3313860860329262,
+            "upper95": 0.34968056236904776
+          },
+          "unsafe_retry_gated": {
+            "count": 5,
+            "hard_declines": 1883,
+            "rate": 0.0026553372278279343,
+            "upper95": 0.0055749606711654725,
+            "per_world_counts": [
+              2,
+              2,
+              1
+            ]
+          },
+          "gated_macro_f1_mean_over_worlds": 0.468965636221111,
+          "gate_abstention_rate": 0.5236447520184544,
+          "gate_true_retryable_recall": 0.2715989291798491
+        },
+        "stressed": {
+          "n_failures": 11576,
+          "worlds": 3,
+          "macro_f1": {
+            "mean_over_worlds": 0.6048652312939481,
+            "sd_over_worlds": 0.011065327034019561,
+            "pooled": 0.6113353498566184
+          },
+          "accuracy": {
+            "mean_over_worlds": 0.6934134452710111,
+            "pooled": 0.6933310297166552
+          },
+          "per_class": {
+            "BD_INSUFFICIENT_FUNDS": {
+              "precision": 0.6041138348830657,
+              "recall": 0.8518077075883989,
+              "f1": 0.7068908671282559,
+              "support": 2517
+            },
+            "BD_USER_ABANDONED_OTP": {
+              "precision": 0.8202003790955863,
+              "recall": 0.8520393811533052,
+              "f1": 0.8358167770419426,
+              "support": 3555
+            },
+            "CARD_EXPIRED": {
+              "precision": 0.6097560975609756,
+              "recall": 0.38461538461538464,
+              "f1": 0.4716981132075472,
+              "support": 1170
+            },
+            "RISK_BLOCKED": {
+              "precision": 0.47448359659781286,
+              "recall": 0.5210140093395597,
+              "f1": 0.4966613672496025,
+              "support": 1499
+            },
+            "TD_ISSUER_DOWN": {
+              "precision": 0.8314176245210728,
+              "recall": 0.25833333333333336,
+              "f1": 0.3941871026339691,
+              "support": 840
+            },
+            "TD_PSP_TIMEOUT": {
+              "precision": 0.8318531675547661,
+              "recall": 0.7042606516290727,
+              "f1": 0.7627578718783931,
+              "support": 1995
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "BD_INSUFFICIENT_FUNDS",
+              "BD_USER_ABANDONED_OTP",
+              "CARD_EXPIRED",
+              "RISK_BLOCKED",
+              "TD_ISSUER_DOWN",
+              "TD_PSP_TIMEOUT"
+            ],
+            "rows_true_cols_predicted": [
+              [
+                2144,
+                148,
+                34,
+                139,
+                26,
+                26
+              ],
+              [
+                254,
+                3029,
+                73,
+                81,
+                2,
+                116
+              ],
+              [
+                409,
+                48,
+                450,
+                234,
+                0,
+                29
+              ],
+              [
+                352,
+                161,
+                108,
+                781,
+                9,
+                88
+              ],
+              [
+                322,
+                104,
+                42,
+                130,
+                217,
+                25
+              ],
+              [
+                68,
+                203,
+                31,
+                281,
+                7,
+                1405
+              ]
+            ]
+          },
+          "calibration_uncalibrated": {
+            "multiclass_brier": 0.39807120416925323,
+            "hard_decline_brier": 0.10730255548294403,
+            "top_label_ece_10_bins": 0.023162861069415362,
+            "hard_decline_ece_10_bins": 0.015966023335590315,
+            "logloss": 0.7646758244919304
+          },
+          "calibration_sigmoid": {
+            "multiclass_brier": 0.3970839995434168,
+            "hard_decline_brier": 0.10729913726548362,
+            "top_label_ece_10_bins": 0.022256510437244265,
+            "hard_decline_ece_10_bins": 0.01404206587900501,
+            "logloss": 0.7627530628859052
+          },
+          "unsafe_retry_raw": {
+            "count": 887,
+            "hard_declines": 2669,
+            "rate": 0.33233420756837767,
+            "upper95": 0.3476504073346057
+          },
+          "unsafe_retry_gated": {
+            "count": 16,
+            "hard_declines": 2669,
+            "rate": 0.005994754589733983,
+            "upper95": 0.009090812906588197,
+            "per_world_counts": [
+              5,
+              6,
+              5
+            ]
+          },
+          "gated_macro_f1_mean_over_worlds": 0.455486449301016,
+          "gate_abstention_rate": 0.5147719419488597,
+          "gate_true_retryable_recall": 0.2849402092675635
+        }
+      },
+      "generic_reason_subset": {
+        "calm": {
+          "n_failures": 1124,
+          "macro_f1": 0.5666038831553594,
+          "accuracy": 0.6619217081850534
+        },
+        "typical": {
+          "n_failures": 2221,
+          "macro_f1": 0.5229916188572782,
+          "accuracy": 0.6425033768572715
+        },
+        "stressed": {
+          "n_failures": 4309,
+          "macro_f1": 0.5799810961421469,
+          "accuracy": 0.6254351357623579
+        }
+      },
+      "latency": {
+        "single_row_ms_median": 5.394820999981675,
+        "single_row_ms_p95": 7.133275100159152,
+        "batch_rows_per_second": 49805.809639056686
+      }
+    },
+    "existing_26": {
+      "n_features": 26,
+      "evaluation": {
+        "calm": {
+          "n_failures": 7377,
+          "worlds": 3,
+          "macro_f1": {
+            "mean_over_worlds": 0.7229803260942353,
+            "sd_over_worlds": 0.019235912855111652,
+            "pooled": 0.7239804842791974
+          },
+          "accuracy": {
+            "mean_over_worlds": 0.8191436642777052,
+            "pooled": 0.8191676833401111
+          },
+          "per_class": {
+            "BD_INSUFFICIENT_FUNDS": {
+              "precision": 0.9016556291390728,
+              "recall": 0.9040504648074369,
+              "f1": 0.9028514588859416,
+              "support": 3012
+            },
+            "BD_USER_ABANDONED_OTP": {
+              "precision": 0.8418502202643172,
+              "recall": 0.8909090909090909,
+              "f1": 0.8656851642129105,
+              "support": 2145
+            },
+            "CARD_EXPIRED": {
+              "precision": 0.5921696574225123,
+              "recall": 0.7145669291338582,
+              "f1": 0.647636039250669,
+              "support": 508
+            },
+            "RISK_BLOCKED": {
+              "precision": 0.6655251141552512,
+              "recall": 0.6228632478632479,
+              "f1": 0.6434878587196468,
+              "support": 936
+            },
+            "TD_ISSUER_DOWN": {
+              "precision": 0.7278481012658228,
+              "recall": 0.46,
+              "f1": 0.5637254901960784,
+              "support": 250
+            },
+            "TD_PSP_TIMEOUT": {
+              "precision": 0.7909090909090909,
+              "recall": 0.6615969581749049,
+              "f1": 0.7204968944099379,
+              "support": 526
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "BD_INSUFFICIENT_FUNDS",
+              "BD_USER_ABANDONED_OTP",
+              "CARD_EXPIRED",
+              "RISK_BLOCKED",
+              "TD_ISSUER_DOWN",
+              "TD_PSP_TIMEOUT"
+            ],
+            "rows_true_cols_predicted": [
+              [
+                2723,
+                105,
+                82,
+                81,
+                14,
+                7
+              ],
+              [
+                63,
+                1911,
+                66,
+                54,
+                5,
+                46
+              ],
+              [
+                59,
+                46,
+                363,
+                38,
+                1,
+                1
+              ],
+              [
+                121,
+                97,
+                91,
+                583,
+                15,
+                29
+              ],
+              [
+                40,
+                32,
+                9,
+                45,
+                115,
+                9
+              ],
+              [
+                14,
+                79,
+                2,
+                75,
+                8,
+                348
+              ]
+            ]
+          },
+          "calibration_uncalibrated": {
+            "multiclass_brier": 0.25249055008247356,
+            "hard_decline_brier": 0.07484770510547947,
+            "top_label_ece_10_bins": 0.014270098852379528,
+            "hard_decline_ece_10_bins": 0.011912284648901494,
+            "logloss": 0.4793777000911921
+          },
+          "calibration_sigmoid": {
+            "multiclass_brier": 0.25232766325491196,
+            "hard_decline_brier": 0.07476930860193196,
+            "top_label_ece_10_bins": 0.011735577169854187,
+            "hard_decline_ece_10_bins": 0.012670092893688251,
+            "logloss": 0.4803192894826525
+          },
+          "unsafe_retry_raw": {
+            "count": 226,
+            "hard_declines": 1444,
+            "rate": 0.15650969529085873,
+            "upper95": 0.17309975556723844
+          },
+          "unsafe_retry_gated": {
+            "count": 10,
+            "hard_declines": 1444,
+            "rate": 0.006925207756232687,
+            "upper95": 0.01171837210468586,
+            "per_world_counts": [
+              3,
+              3,
+              4
+            ]
+          },
+          "gated_macro_f1_mean_over_worlds": 0.6214056840844941,
+          "gate_abstention_rate": 0.3559712620306358,
+          "gate_true_retryable_recall": 0.4786166842661035
+        },
+        "typical": {
+          "n_failures": 8670,
+          "worlds": 3,
+          "macro_f1": {
+            "mean_over_worlds": 0.7153288707913826,
+            "sd_over_worlds": 0.021508985687938957,
+            "pooled": 0.7220410805126227
+          },
+          "accuracy": {
+            "mean_over_worlds": 0.8092265713364238,
+            "pooled": 0.8114186851211073
+          },
+          "per_class": {
+            "BD_INSUFFICIENT_FUNDS": {
+              "precision": 0.8769587928032502,
+              "recall": 0.8962040332147093,
+              "f1": 0.8864769727192725,
+              "support": 3372
+            },
+            "BD_USER_ABANDONED_OTP": {
+              "precision": 0.8463737048946052,
+              "recall": 0.8846153846153846,
+              "f1": 0.8650721197735987,
+              "support": 2678
+            },
+            "CARD_EXPIRED": {
+              "precision": 0.686806411837238,
+              "recall": 0.7068527918781726,
+              "f1": 0.6966854283927455,
+              "support": 788
+            },
+            "RISK_BLOCKED": {
+              "precision": 0.6496565260058881,
+              "recall": 0.6045662100456621,
+              "f1": 0.6263008514664143,
+              "support": 1095
+            },
+            "TD_ISSUER_DOWN": {
+              "precision": 0.7225130890052356,
+              "recall": 0.5111111111111111,
+              "f1": 0.5986984815618221,
+              "support": 270
+            },
+            "TD_PSP_TIMEOUT": {
+              "precision": 0.7103960396039604,
+              "recall": 0.6145610278372591,
+              "f1": 0.6590126291618829,
+              "support": 467
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "BD_INSUFFICIENT_FUNDS",
+              "BD_USER_ABANDONED_OTP",
+              "CARD_EXPIRED",
+              "RISK_BLOCKED",
+              "TD_ISSUER_DOWN",
+              "TD_PSP_TIMEOUT"
+            ],
+            "rows_true_cols_predicted": [
+              [
+                3022,
+                135,
+                63,
+                116,
+                23,
+                13
+              ],
+              [
+                101,
+                2369,
+                73,
+                59,
+                12,
+                64
+              ],
+              [
+                98,
+                55,
+                557,
+                72,
+                2,
+                4
+              ],
+              [
+                160,
+                136,
+                96,
+                662,
+                12,
+                29
+              ],
+              [
+                53,
+                24,
+                9,
+                39,
+                138,
+                7
+              ],
+              [
+                12,
+                80,
+                13,
+                71,
+                4,
+                287
+              ]
+            ]
+          },
+          "calibration_uncalibrated": {
+            "multiclass_brier": 0.2664916719340429,
+            "hard_decline_brier": 0.0768545275084333,
+            "top_label_ece_10_bins": 0.01667139158144712,
+            "hard_decline_ece_10_bins": 0.008857764424636904,
+            "logloss": 0.5057878160067089
+          },
+          "calibration_sigmoid": {
+            "multiclass_brier": 0.2667564976281439,
+            "hard_decline_brier": 0.07686645762264936,
+            "top_label_ece_10_bins": 0.013724372223778997,
+            "hard_decline_ece_10_bins": 0.009734125162825888,
+            "logloss": 0.5068800501266351
+          },
+          "unsafe_retry_raw": {
+            "count": 305,
+            "hard_declines": 1883,
+            "rate": 0.16197557089750397,
+            "upper95": 0.1765952267962995
+          },
+          "unsafe_retry_gated": {
+            "count": 20,
+            "hard_declines": 1883,
+            "rate": 0.010621348911311737,
+            "upper95": 0.015396721911883281,
+            "per_world_counts": [
+              7,
+              6,
+              7
+            ]
+          },
+          "gated_macro_f1_mean_over_worlds": 0.6044718844356506,
+          "gate_abstention_rate": 0.3532871972318339,
+          "gate_true_retryable_recall": 0.48454611827695304
+        },
+        "stressed": {
+          "n_failures": 11576,
+          "worlds": 3,
+          "macro_f1": {
+            "mean_over_worlds": 0.7412068763770497,
+            "sd_over_worlds": 0.020349563719421187,
+            "pooled": 0.7501098280657059
+          },
+          "accuracy": {
+            "mean_over_worlds": 0.7932635476677411,
+            "pooled": 0.7936247408431237
+          },
+          "per_class": {
+            "BD_INSUFFICIENT_FUNDS": {
+              "precision": 0.7802159526297457,
+              "recall": 0.8899483512117601,
+              "f1": 0.8314773570898293,
+              "support": 2517
+            },
+            "BD_USER_ABANDONED_OTP": {
+              "precision": 0.8505840804129313,
+              "recall": 0.8807313642756681,
+              "f1": 0.8653952459922609,
+              "support": 3555
+            },
+            "CARD_EXPIRED": {
+              "precision": 0.65,
+              "recall": 0.7,
+              "f1": 0.674074074074074,
+              "support": 1170
+            },
+            "RISK_BLOCKED": {
+              "precision": 0.6326681448632668,
+              "recall": 0.57104736490994,
+              "f1": 0.6002805049088359,
+              "support": 1499
+            },
+            "TD_ISSUER_DOWN": {
+              "precision": 0.8138297872340425,
+              "recall": 0.5464285714285714,
+              "f1": 0.6538461538461539,
+              "support": 840
+            },
+            "TD_PSP_TIMEOUT": {
+              "precision": 0.9106659447753113,
+              "recall": 0.8431077694235589,
+              "f1": 0.8755856324830817,
+              "support": 1995
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "BD_INSUFFICIENT_FUNDS",
+              "BD_USER_ABANDONED_OTP",
+              "CARD_EXPIRED",
+              "RISK_BLOCKED",
+              "TD_ISSUER_DOWN",
+              "TD_PSP_TIMEOUT"
+            ],
+            "rows_true_cols_predicted": [
+              [
+                2240,
+                98,
+                58,
+                94,
+                20,
+                7
+              ],
+              [
+                118,
+                3131,
+                130,
+                85,
+                19,
+                72
+              ],
+              [
+                117,
+                78,
+                819,
+                130,
+                12,
+                14
+              ],
+              [
+                242,
+                156,
+                155,
+                856,
+                35,
+                55
+              ],
+              [
+                130,
+                84,
+                61,
+                89,
+                459,
+                17
+              ],
+              [
+                24,
+                134,
+                37,
+                99,
+                19,
+                1682
+              ]
+            ]
+          },
+          "calibration_uncalibrated": {
+            "multiclass_brier": 0.29019565140512654,
+            "hard_decline_brier": 0.08352772053666763,
+            "top_label_ece_10_bins": 0.017506788981601535,
+            "hard_decline_ece_10_bins": 0.012490330427882206,
+            "logloss": 0.5653036889659196
+          },
+          "calibration_sigmoid": {
+            "multiclass_brier": 0.2890693012195366,
+            "hard_decline_brier": 0.08340649219473252,
+            "top_label_ece_10_bins": 0.00979958554561552,
+            "hard_decline_ece_10_bins": 0.008943485728033803,
+            "logloss": 0.5619845007404335
+          },
+          "unsafe_retry_raw": {
+            "count": 475,
+            "hard_declines": 2669,
+            "rate": 0.17796927688272762,
+            "upper95": 0.1905944793104554
+          },
+          "unsafe_retry_gated": {
+            "count": 34,
+            "hard_declines": 2669,
+            "rate": 0.012738853503184714,
+            "upper95": 0.016923914809007377,
+            "per_world_counts": [
+              10,
+              15,
+              9
+            ]
+          },
+          "gated_macro_f1_mean_over_worlds": 0.6270124528486541,
+          "gate_abstention_rate": 0.3460608154803041,
+          "gate_true_retryable_recall": 0.5153213751868461
+        }
+      },
+      "generic_reason_subset": {
+        "calm": {
+          "n_failures": 1124,
+          "macro_f1": 0.6240133350608703,
+          "accuracy": 0.7437722419928826
+        },
+        "typical": {
+          "n_failures": 2221,
+          "macro_f1": 0.6526354135056117,
+          "accuracy": 0.7343538946420531
+        },
+        "stressed": {
+          "n_failures": 4309,
+          "macro_f1": 0.7146269006956548,
+          "accuracy": 0.7310280807611975
+        }
+      },
+      "latency": {
+        "single_row_ms_median": 20.52289049970568,
+        "single_row_ms_p95": 36.00833760024215,
+        "batch_rows_per_second": 14612.139034480635
+      }
+    },
+    "expanded_57": {
+      "n_features": 57,
+      "evaluation": {
+        "calm": {
+          "n_failures": 7377,
+          "worlds": 3,
+          "macro_f1": {
+            "mean_over_worlds": 0.9332611147341635,
+            "sd_over_worlds": 0.023745095505176932,
+            "pooled": 0.9342293244841545
+          },
+          "accuracy": {
+            "mean_over_worlds": 0.9610783566080915,
+            "pooled": 0.9610952961908635
+          },
+          "per_class": {
+            "BD_INSUFFICIENT_FUNDS": {
+              "precision": 0.9772577455504284,
+              "recall": 0.9843957503320053,
+              "f1": 0.9808137611644062,
+              "support": 3012
+            },
+            "BD_USER_ABANDONED_OTP": {
+              "precision": 0.9723756906077348,
+              "recall": 0.9846153846153847,
+              "f1": 0.9784572619874913,
+              "support": 2145
+            },
+            "CARD_EXPIRED": {
+              "precision": 0.9334600760456274,
+              "recall": 0.9665354330708661,
+              "f1": 0.9497098646034816,
+              "support": 508
+            },
+            "RISK_BLOCKED": {
+              "precision": 0.9222343921139102,
+              "recall": 0.8995726495726496,
+              "f1": 0.9107625743645213,
+              "support": 936
+            },
+            "TD_ISSUER_DOWN": {
+              "precision": 0.9234234234234234,
+              "recall": 0.82,
+              "f1": 0.8686440677966102,
+              "support": 250
+            },
+            "TD_PSP_TIMEOUT": {
+              "precision": 0.9313725490196079,
+              "recall": 0.903041825095057,
+              "f1": 0.916988416988417,
+              "support": 526
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "BD_INSUFFICIENT_FUNDS",
+              "BD_USER_ABANDONED_OTP",
+              "CARD_EXPIRED",
+              "RISK_BLOCKED",
+              "TD_ISSUER_DOWN",
+              "TD_PSP_TIMEOUT"
+            ],
+            "rows_true_cols_predicted": [
+              [
+                2965,
+                8,
+                8,
+                25,
+                4,
+                2
+              ],
+              [
+                7,
+                2112,
+                1,
+                5,
+                6,
+                14
+              ],
+              [
+                2,
+                0,
+                491,
+                15,
+                0,
+                0
+              ],
+              [
+                49,
+                10,
+                24,
+                842,
+                3,
+                8
+              ],
+              [
+                7,
+                10,
+                2,
+                15,
+                205,
+                11
+              ],
+              [
+                4,
+                32,
+                0,
+                11,
+                4,
+                475
+              ]
+            ]
+          },
+          "calibration_uncalibrated": {
+            "multiclass_brier": 0.05933000821593728,
+            "hard_decline_brier": 0.014769372119188301,
+            "top_label_ece_10_bins": 0.006929315241456331,
+            "hard_decline_ece_10_bins": 0.0045693651996454795,
+            "logloss": 0.11416858894841328
+          },
+          "calibration_sigmoid": {
+            "multiclass_brier": 0.05915508830210059,
+            "hard_decline_brier": 0.014854708341894807,
+            "top_label_ece_10_bins": 0.007386734010418346,
+            "hard_decline_ece_10_bins": 0.005909692773398528,
+            "logloss": 0.11495929584525891
+          },
+          "unsafe_retry_raw": {
+            "count": 62,
+            "hard_declines": 1444,
+            "rate": 0.04293628808864266,
+            "upper95": 0.05277632616444702
+          },
+          "unsafe_retry_gated": {
+            "count": 3,
+            "hard_declines": 1444,
+            "rate": 0.002077562326869806,
+            "upper95": 0.005360735655202501,
+            "per_world_counts": [
+              0,
+              3,
+              0
+            ]
+          },
+          "gated_macro_f1_mean_over_worlds": 0.8932551573219886,
+          "gate_abstention_rate": 0.07808052053680357,
+          "gate_true_retryable_recall": 0.8658922914466737
+        },
+        "typical": {
+          "n_failures": 8670,
+          "worlds": 3,
+          "macro_f1": {
+            "mean_over_worlds": 0.9122181313233764,
+            "sd_over_worlds": 0.012099611835423544,
+            "pooled": 0.9137150891881092
+          },
+          "accuracy": {
+            "mean_over_worlds": 0.9457563597779949,
+            "pooled": 0.9459054209919262
+          },
+          "per_class": {
+            "BD_INSUFFICIENT_FUNDS": {
+              "precision": 0.96087084436599,
+              "recall": 0.968564650059312,
+              "f1": 0.9647024073253582,
+              "support": 3372
+            },
+            "BD_USER_ABANDONED_OTP": {
+              "precision": 0.9683939728041161,
+              "recall": 0.9839432412247946,
+              "f1": 0.9761066864234117,
+              "support": 2678
+            },
+            "CARD_EXPIRED": {
+              "precision": 0.9340937896070975,
+              "recall": 0.9352791878172588,
+              "f1": 0.9346861128725428,
+              "support": 788
+            },
+            "RISK_BLOCKED": {
+              "precision": 0.8655767484105359,
+              "recall": 0.8703196347031964,
+              "f1": 0.8679417122040073,
+              "support": 1095
+            },
+            "TD_ISSUER_DOWN": {
+              "precision": 0.9191489361702128,
+              "recall": 0.8,
+              "f1": 0.8554455445544554,
+              "support": 270
+            },
+            "TD_PSP_TIMEOUT": {
+              "precision": 0.9270588235294117,
+              "recall": 0.8436830835117773,
+              "f1": 0.8834080717488789,
+              "support": 467
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "BD_INSUFFICIENT_FUNDS",
+              "BD_USER_ABANDONED_OTP",
+              "CARD_EXPIRED",
+              "RISK_BLOCKED",
+              "TD_ISSUER_DOWN",
+              "TD_PSP_TIMEOUT"
+            ],
+            "rows_true_cols_predicted": [
+              [
+                3266,
+                26,
+                7,
+                54,
+                11,
+                8
+              ],
+              [
+                13,
+                2635,
+                0,
+                13,
+                4,
+                13
+              ],
+              [
+                12,
+                1,
+                737,
+                37,
+                0,
+                1
+              ],
+              [
+                82,
+                15,
+                33,
+                953,
+                4,
+                8
+              ],
+              [
+                19,
+                12,
+                8,
+                14,
+                216,
+                1
+              ],
+              [
+                7,
+                32,
+                4,
+                30,
+                0,
+                394
+              ]
+            ]
+          },
+          "calibration_uncalibrated": {
+            "multiclass_brier": 0.07980024773758945,
+            "hard_decline_brier": 0.02256086257708029,
+            "top_label_ece_10_bins": 0.007297329889332627,
+            "hard_decline_ece_10_bins": 0.005977588899292545,
+            "logloss": 0.15364466789455253
+          },
+          "calibration_sigmoid": {
+            "multiclass_brier": 0.07933977813895395,
+            "hard_decline_brier": 0.02253312857223809,
+            "top_label_ece_10_bins": 0.008275847845199562,
+            "hard_decline_ece_10_bins": 0.006242276778728247,
+            "logloss": 0.1533728043440214
+          },
+          "unsafe_retry_raw": {
+            "count": 107,
+            "hard_declines": 1883,
+            "rate": 0.05682421667551779,
+            "upper95": 0.06639114770364196
+          },
+          "unsafe_retry_gated": {
+            "count": 2,
+            "hard_declines": 1883,
+            "rate": 0.0010621348911311736,
+            "upper95": 0.0033396792334423847,
+            "per_world_counts": [
+              2,
+              0,
+              0
+            ]
+          },
+          "gated_macro_f1_mean_over_worlds": 0.8702821374602271,
+          "gate_abstention_rate": 0.10472895040369089,
+          "gate_true_retryable_recall": 0.8104161596495497
+        },
+        "stressed": {
+          "n_failures": 11576,
+          "worlds": 3,
+          "macro_f1": {
+            "mean_over_worlds": 0.8913892872185475,
+            "sd_over_worlds": 0.014015760118826288,
+            "pooled": 0.895802304920131
+          },
+          "accuracy": {
+            "mean_over_worlds": 0.9149634659087852,
+            "pooled": 0.9151693158258466
+          },
+          "per_class": {
+            "BD_INSUFFICIENT_FUNDS": {
+              "precision": 0.9093014280200695,
+              "recall": 0.9360349622566547,
+              "f1": 0.9224745497259201,
+              "support": 2517
+            },
+            "BD_USER_ABANDONED_OTP": {
+              "precision": 0.9610786766750069,
+              "recall": 0.9724331926863572,
+              "f1": 0.9667225950782998,
+              "support": 3555
+            },
+            "CARD_EXPIRED": {
+              "precision": 0.9183673469387755,
+              "recall": 0.9230769230769231,
+              "f1": 0.9207161125319693,
+              "support": 1170
+            },
+            "RISK_BLOCKED": {
+              "precision": 0.7798701298701298,
+              "recall": 0.8012008005336891,
+              "f1": 0.7903915761763738,
+              "support": 1499
+            },
+            "TD_ISSUER_DOWN": {
+              "precision": 0.8859416445623343,
+              "recall": 0.7952380952380952,
+              "f1": 0.8381430363864492,
+              "support": 840
+            },
+            "TD_PSP_TIMEOUT": {
+              "precision": 0.9551616266944735,
+              "recall": 0.9182957393483709,
+              "f1": 0.9363659596217736,
+              "support": 1995
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "BD_INSUFFICIENT_FUNDS",
+              "BD_USER_ABANDONED_OTP",
+              "CARD_EXPIRED",
+              "RISK_BLOCKED",
+              "TD_ISSUER_DOWN",
+              "TD_PSP_TIMEOUT"
+            ],
+            "rows_true_cols_predicted": [
+              [
+                2356,
+                33,
+                14,
+                92,
+                16,
+                6
+              ],
+              [
+                25,
+                3457,
+                1,
+                33,
+                11,
+                28
+              ],
+              [
+                14,
+                3,
+                1080,
+                63,
+                4,
+                6
+              ],
+              [
+                138,
+                25,
+                64,
+                1201,
+                40,
+                31
+              ],
+              [
+                46,
+                21,
+                12,
+                78,
+                668,
+                15
+              ],
+              [
+                12,
+                58,
+                5,
+                73,
+                15,
+                1832
+              ]
+            ]
+          },
+          "calibration_uncalibrated": {
+            "multiclass_brier": 0.12875695385230337,
+            "hard_decline_brier": 0.036439076794802884,
+            "top_label_ece_10_bins": 0.017650770843295506,
+            "hard_decline_ece_10_bins": 0.01013530356175784,
+            "logloss": 0.25376758010218337
+          },
+          "calibration_sigmoid": {
+            "multiclass_brier": 0.12760846265609765,
+            "hard_decline_brier": 0.03623045776929959,
+            "top_label_ece_10_bins": 0.01039132769010228,
+            "hard_decline_ece_10_bins": 0.003788681640155171,
+            "logloss": 0.24877707795205703
+          },
+          "unsafe_retry_raw": {
+            "count": 233,
+            "hard_declines": 2669,
+            "rate": 0.08729861371300113,
+            "upper95": 0.09681253775407399
+          },
+          "unsafe_retry_gated": {
+            "count": 24,
+            "hard_declines": 2669,
+            "rate": 0.008992131884600974,
+            "upper95": 0.01262296141636496,
+            "per_world_counts": [
+              6,
+              12,
+              6
+            ]
+          },
+          "gated_macro_f1_mean_over_worlds": 0.8375295706352102,
+          "gate_abstention_rate": 0.15057014512785072,
+          "gate_true_retryable_recall": 0.726644245142003
+        }
+      },
+      "generic_reason_subset": {
+        "calm": {
+          "n_failures": 1124,
+          "macro_f1": 0.7496042602962788,
+          "accuracy": 0.8407473309608541
+        },
+        "typical": {
+          "n_failures": 2221,
+          "macro_f1": 0.776624639695954,
+          "accuracy": 0.8509680324178298
+        },
+        "stressed": {
+          "n_failures": 4309,
+          "macro_f1": 0.8357973955052603,
+          "accuracy": 0.8354606637270828
+        }
+      },
+      "latency": {
+        "single_row_ms_median": 27.331625499982692,
+        "single_row_ms_p95": 42.23271365021895,
+        "batch_rows_per_second": 12475.27369569632
+      }
+    },
+    "selected": {
+      "n_features": 42,
+      "evaluation": {
+        "calm": {
+          "n_failures": 7377,
+          "worlds": 3,
+          "macro_f1": {
+            "mean_over_worlds": 0.9290945383932908,
+            "sd_over_worlds": 0.022961744131273457,
+            "pooled": 0.9301985189279973
+          },
+          "accuracy": {
+            "mean_over_worlds": 0.9589067105104855,
+            "pooled": 0.9589263928426189
+          },
+          "per_class": {
+            "BD_INSUFFICIENT_FUNDS": {
+              "precision": 0.976897689768977,
+              "recall": 0.9827357237715804,
+              "f1": 0.979808010592519,
+              "support": 3012
+            },
+            "BD_USER_ABANDONED_OTP": {
+              "precision": 0.9714548802946593,
+              "recall": 0.9836829836829837,
+              "f1": 0.9775306926106092,
+              "support": 2145
+            },
+            "CARD_EXPIRED": {
+              "precision": 0.9264150943396227,
+              "recall": 0.9665354330708661,
+              "f1": 0.9460500963391136,
+              "support": 508
+            },
+            "RISK_BLOCKED": {
+              "precision": 0.9178532311062432,
+              "recall": 0.8952991452991453,
+              "f1": 0.9064359113034073,
+              "support": 936
+            },
+            "TD_ISSUER_DOWN": {
+              "precision": 0.9144144144144144,
+              "recall": 0.812,
+              "f1": 0.8601694915254238,
+              "support": 250
+            },
+            "TD_PSP_TIMEOUT": {
+              "precision": 0.9254901960784314,
+              "recall": 0.8973384030418251,
+              "f1": 0.9111969111969112,
+              "support": 526
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "BD_INSUFFICIENT_FUNDS",
+              "BD_USER_ABANDONED_OTP",
+              "CARD_EXPIRED",
+              "RISK_BLOCKED",
+              "TD_ISSUER_DOWN",
+              "TD_PSP_TIMEOUT"
+            ],
+            "rows_true_cols_predicted": [
+              [
+                2960,
+                8,
+                7,
+                29,
+                4,
+                4
+              ],
+              [
+                7,
+                2110,
+                1,
+                5,
+                8,
+                14
+              ],
+              [
+                2,
+                0,
+                491,
+                15,
+                0,
+                0
+              ],
+              [
+                51,
+                8,
+                26,
+                838,
+                4,
+                9
+              ],
+              [
+                7,
+                10,
+                4,
+                15,
+                203,
+                11
+              ],
+              [
+                3,
+                36,
+                1,
+                11,
+                3,
+                472
+              ]
+            ]
+          },
+          "calibration_uncalibrated": {
+            "multiclass_brier": 0.05892425862422782,
+            "hard_decline_brier": 0.014505591148815654,
+            "top_label_ece_10_bins": 0.00512563526518554,
+            "hard_decline_ece_10_bins": 0.005140954849514842,
+            "logloss": 0.1141410056908073
+          },
+          "calibration_sigmoid": {
+            "multiclass_brier": 0.05901527353137483,
+            "hard_decline_brier": 0.014588873233569142,
+            "top_label_ece_10_bins": 0.007746559474549845,
+            "hard_decline_ece_10_bins": 0.006233567675859634,
+            "logloss": 0.11512537726796251
+          },
+          "unsafe_retry_raw": {
+            "count": 66,
+            "hard_declines": 1444,
+            "rate": 0.045706371191135735,
+            "upper95": 0.055805837703021006
+          },
+          "unsafe_retry_gated": {
+            "count": 2,
+            "hard_declines": 1444,
+            "rate": 0.0013850415512465374,
+            "upper95": 0.004353487121861191,
+            "per_world_counts": [
+              0,
+              2,
+              0
+            ]
+          },
+          "gated_macro_f1_mean_over_worlds": 0.8977321695951145,
+          "gate_abstention_rate": 0.07631828656635489,
+          "gate_true_retryable_recall": 0.8714361140443506
+        },
+        "typical": {
+          "n_failures": 8670,
+          "worlds": 3,
+          "macro_f1": {
+            "mean_over_worlds": 0.9115122198924003,
+            "sd_over_worlds": 0.0122534487941312,
+            "pooled": 0.9131593664050821
+          },
+          "accuracy": {
+            "mean_over_worlds": 0.9447075395348438,
+            "pooled": 0.9453287197231834
+          },
+          "per_class": {
+            "BD_INSUFFICIENT_FUNDS": {
+              "precision": 0.9660815233561441,
+              "recall": 0.9629300118623962,
+              "f1": 0.9645031932273875,
+              "support": 3372
+            },
+            "BD_USER_ABANDONED_OTP": {
+              "precision": 0.9698750918442322,
+              "recall": 0.9858103061986557,
+              "f1": 0.9777777777777777,
+              "support": 2678
+            },
+            "CARD_EXPIRED": {
+              "precision": 0.9302915082382763,
+              "recall": 0.9314720812182741,
+              "f1": 0.9308814204185162,
+              "support": 788
+            },
+            "RISK_BLOCKED": {
+              "precision": 0.850177304964539,
+              "recall": 0.8757990867579909,
+              "f1": 0.8627980206927576,
+              "support": 1095
+            },
+            "TD_ISSUER_DOWN": {
+              "precision": 0.9121338912133892,
+              "recall": 0.8074074074074075,
+              "f1": 0.8565815324165029,
+              "support": 270
+            },
+            "TD_PSP_TIMEOUT": {
+              "precision": 0.9234338747099768,
+              "recall": 0.8522483940042827,
+              "f1": 0.8864142538975501,
+              "support": 467
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "BD_INSUFFICIENT_FUNDS",
+              "BD_USER_ABANDONED_OTP",
+              "CARD_EXPIRED",
+              "RISK_BLOCKED",
+              "TD_ISSUER_DOWN",
+              "TD_PSP_TIMEOUT"
+            ],
+            "rows_true_cols_predicted": [
+              [
+                3247,
+                23,
+                8,
+                70,
+                15,
+                9
+              ],
+              [
+                9,
+                2640,
+                0,
+                14,
+                3,
+                12
+              ],
+              [
+                13,
+                2,
+                734,
+                38,
+                0,
+                1
+              ],
+              [
+                71,
+                19,
+                36,
+                959,
+                3,
+                7
+              ],
+              [
+                16,
+                9,
+                7,
+                16,
+                218,
+                4
+              ],
+              [
+                5,
+                29,
+                4,
+                31,
+                0,
+                398
+              ]
+            ]
+          },
+          "calibration_uncalibrated": {
+            "multiclass_brier": 0.08095139880567812,
+            "hard_decline_brier": 0.023022903798490556,
+            "top_label_ece_10_bins": 0.005187057013639523,
+            "hard_decline_ece_10_bins": 0.007250100670614456,
+            "logloss": 0.15562861748812187
+          },
+          "calibration_sigmoid": {
+            "multiclass_brier": 0.08063815300469263,
+            "hard_decline_brier": 0.023007446169148734,
+            "top_label_ece_10_bins": 0.006977888899358636,
+            "hard_decline_ece_10_bins": 0.007752048432033505,
+            "logloss": 0.15582576659564054
+          },
+          "unsafe_retry_raw": {
+            "count": 95,
+            "hard_declines": 1883,
+            "rate": 0.05045140732873075,
+            "upper95": 0.05954914858601507
+          },
+          "unsafe_retry_gated": {
+            "count": 4,
+            "hard_declines": 1883,
+            "rate": 0.002124269782262347,
+            "upper95": 0.004854486818799231,
+            "per_world_counts": [
+              2,
+              0,
+              2
+            ]
+          },
+          "gated_macro_f1_mean_over_worlds": 0.8713650699640793,
+          "gate_abstention_rate": 0.10530565167243368,
+          "gate_true_retryable_recall": 0.8113896325139937
+        },
+        "stressed": {
+          "n_failures": 11576,
+          "worlds": 3,
+          "macro_f1": {
+            "mean_over_worlds": 0.8862008293597041,
+            "sd_over_worlds": 0.011451327980283251,
+            "pooled": 0.8903886541945726
+          },
+          "accuracy": {
+            "mean_over_worlds": 0.911498428194241,
+            "pooled": 0.9116275051831375
+          },
+          "per_class": {
+            "BD_INSUFFICIENT_FUNDS": {
+              "precision": 0.900114372855509,
+              "recall": 0.9380214541120382,
+              "f1": 0.9186770428015564,
+              "support": 2517
+            },
+            "BD_USER_ABANDONED_OTP": {
+              "precision": 0.9584141946215692,
+              "recall": 0.9724331926863572,
+              "f1": 0.9653728008936051,
+              "support": 3555
+            },
+            "CARD_EXPIRED": {
+              "precision": 0.9155405405405406,
+              "recall": 0.9264957264957265,
+              "f1": 0.9209855564995751,
+              "support": 1170
+            },
+            "RISK_BLOCKED": {
+              "precision": 0.773202614379085,
+              "recall": 0.7891927951967979,
+              "f1": 0.7811158798283262,
+              "support": 1499
+            },
+            "TD_ISSUER_DOWN": {
+              "precision": 0.8865836791147994,
+              "recall": 0.763095238095238,
+              "f1": 0.8202175303902751,
+              "support": 840
+            },
+            "TD_PSP_TIMEOUT": {
+              "precision": 0.9570455735987428,
+              "recall": 0.9157894736842105,
+              "f1": 0.9359631147540983,
+              "support": 1995
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "BD_INSUFFICIENT_FUNDS",
+              "BD_USER_ABANDONED_OTP",
+              "CARD_EXPIRED",
+              "RISK_BLOCKED",
+              "TD_ISSUER_DOWN",
+              "TD_PSP_TIMEOUT"
+            ],
+            "rows_true_cols_predicted": [
+              [
+                2361,
+                33,
+                13,
+                81,
+                22,
+                7
+              ],
+              [
+                24,
+                3457,
+                1,
+                34,
+                9,
+                30
+              ],
+              [
+                10,
+                4,
+                1084,
+                65,
+                3,
+                4
+              ],
+              [
+                157,
+                32,
+                65,
+                1183,
+                35,
+                27
+              ],
+              [
+                57,
+                26,
+                17,
+                85,
+                641,
+                14
+              ],
+              [
+                14,
+                55,
+                4,
+                82,
+                13,
+                1827
+              ]
+            ]
+          },
+          "calibration_uncalibrated": {
+            "multiclass_brier": 0.1307741436844688,
+            "hard_decline_brier": 0.03691920604753278,
+            "top_label_ece_10_bins": 0.015426845753137224,
+            "hard_decline_ece_10_bins": 0.00953559759242759,
+            "logloss": 0.2573467520258892
+          },
+          "calibration_sigmoid": {
+            "multiclass_brier": 0.1299145479104895,
+            "hard_decline_brier": 0.03683401694236579,
+            "top_label_ece_10_bins": 0.007906974172980218,
+            "hard_decline_ece_10_bins": 0.005092116910049792,
+            "logloss": 0.2539608355526839
+          },
+          "unsafe_retry_raw": {
+            "count": 236,
+            "hard_declines": 2669,
+            "rate": 0.08842263019857624,
+            "upper95": 0.09798762235113256
+          },
+          "unsafe_retry_gated": {
+            "count": 30,
+            "hard_declines": 2669,
+            "rate": 0.011240164855751217,
+            "upper95": 0.015215027842837504,
+            "per_world_counts": [
+              6,
+              15,
+              9
+            ]
+          },
+          "gated_macro_f1_mean_over_worlds": 0.8353295576701067,
+          "gate_abstention_rate": 0.15385279889426398,
+          "gate_true_retryable_recall": 0.7296337817638266
+        }
+      },
+      "generic_reason_subset": {
+        "calm": {
+          "n_failures": 1124,
+          "macro_f1": 0.7404610860158538,
+          "accuracy": 0.8336298932384342
+        },
+        "typical": {
+          "n_failures": 2221,
+          "macro_f1": 0.7657400169505801,
+          "accuracy": 0.8455650607834309
+        },
+        "stressed": {
+          "n_failures": 4309,
+          "macro_f1": 0.8239698373961245,
+          "accuracy": 0.8252494778370851
+        }
+      },
+      "latency": {
+        "single_row_ms_median": 17.864586000087,
+        "single_row_ms_p95": 25.42192374930891,
+        "batch_rows_per_second": 23704.020600244963
+      }
+    }
+  },
+  "selection": {
+    "selected_new_features": [
+      "error_reason",
+      "reason_family",
+      "is_generic_reason",
+      "step_ordinal",
+      "attempt_duration_s",
+      "latency_vs_issuer_p50",
+      "instrument_consecutive_failures",
+      "instrument_failure_rate_24h",
+      "instrument_last_success_age_s",
+      "instrument_prev_reason",
+      "issuer_failure_rate_1h",
+      "issuer_failure_delta",
+      "issuer_timeout_rate_5m",
+      "psp_failure_rate_1h",
+      "psp_timeout_rate_5m",
+      "global_failure_rate_5m"
+    ],
+    "dropped_new_features": [
+      "duration_vs_timeout_ratio",
+      "payment_flow",
+      "instrument_attempts_24h",
+      "same_reason_as_prev",
+      "instrument_distinct_reasons_24h",
+      "issuer_failure_vs_baseline_7d",
+      "issuer_tech_reason_share_5m",
+      "psp_failure_delta",
+      "issuer_method_failure_rate_5m",
+      "secs_since_prev_attempt",
+      "customer_methods_tried_24h",
+      "amount_vs_max_success_amount",
+      "customer_success_rate_14d",
+      "matched_downtime_severity",
+      "days_to_month_end"
+    ],
+    "selected_feature_set": [
+      "gw_error_code",
+      "gw_error_source",
+      "gw_error_step",
+      "method",
+      "instrument_hint",
+      "issuer_id",
+      "psp_id",
+      "amount_minor",
+      "log_amount_minor",
+      "hour_ist",
+      "weekday_ist",
+      "customer_attempts_7d",
+      "customer_successes_7d",
+      "customer_failure_rate_7d",
+      "customer_last_success_age_s",
+      "amount_to_customer_mean_7d",
+      "order_prior_attempts_7d",
+      "issuer_attempts_5m",
+      "issuer_failure_rate_5m",
+      "issuer_latency_p95_ms_5m",
+      "psp_attempts_5m",
+      "psp_failure_rate_5m",
+      "psp_latency_p95_ms_5m",
+      "method_attempts_5m",
+      "method_failure_rate_5m",
+      "current_latency_ms",
+      "error_reason",
+      "reason_family",
+      "is_generic_reason",
+      "step_ordinal",
+      "attempt_duration_s",
+      "latency_vs_issuer_p50",
+      "instrument_consecutive_failures",
+      "instrument_failure_rate_24h",
+      "instrument_last_success_age_s",
+      "instrument_prev_reason",
+      "issuer_failure_rate_1h",
+      "issuer_failure_delta",
+      "issuer_timeout_rate_5m",
+      "psp_failure_rate_1h",
+      "psp_timeout_rate_5m",
+      "global_failure_rate_5m"
+    ]
+  },
+  "runtime_seconds": 1775.1131975449998
+}

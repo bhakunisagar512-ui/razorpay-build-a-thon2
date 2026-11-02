@@ -1,0 +1,513 @@
+{
+  "selected_family": "binary",
+  "selected_threshold": 0.15,
+  "release_checks": {
+    "eligible_on_validation": true,
+    "zero_observed_unsafe": false,
+    "sufficient_independent_worlds": true,
+    "world_risk_bounds_pass": false,
+    "utility_pass": true
+  },
+  "release_criterion_passed": false,
+  "raw_multiclass_model_unchanged": true,
+  "serving_changed": false,
+  "f1_gain_retained": 0.9983649960992755,
+  "paired_error_overlap": {
+    "unsafe_control_payments": 59,
+    "unsafe_binary_payments": 41,
+    "unsafe_multiclass_payments": 13,
+    "unsafe_under_both_binary_and_multiclass": 11,
+    "binary_blocks_unsafe_missed_by_multiclass": 2,
+    "multiclass_blocks_unsafe_missed_by_binary": 30,
+    "binary_catches_control_unsafe": 18,
+    "multiclass_catches_control_unsafe": 46
+  },
+  "confirmation": {
+    "sequential": {
+      "hard_decline_worlds": 94,
+      "policies": {
+        "expanded_control": {
+          "hard_declines": 18636,
+          "unsafe_retries": 32,
+          "mean_f1": 0.8576402557438965,
+          "mean_abstention": 0.13719054220282653,
+          "legitimate_blocked_fraction": 0.0,
+          "mean_additional_abstention": 0.0,
+          "simultaneous_world_risk_upper": 0.423366465981851,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 8377,
+              "unsafe": 32
+            },
+            "RISK_BLOCKED": {
+              "n": 10259,
+              "unsafe": 0
+            }
+          }
+        },
+        "multiclass_comparator": {
+          "hard_declines": 18636,
+          "unsafe_retries": 9,
+          "mean_f1": 0.8395863342294435,
+          "mean_abstention": 0.16934710350539517,
+          "legitimate_blocked_fraction": 0.06357030824877564,
+          "mean_additional_abstention": 0.03215656130256871,
+          "simultaneous_world_risk_upper": 0.1924876292107486,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 8377,
+              "unsafe": 9
+            },
+            "RISK_BLOCKED": {
+              "n": 10259,
+              "unsafe": 0
+            }
+          }
+        },
+        "binary_comparator": {
+          "hard_declines": 18636,
+          "unsafe_retries": 21,
+          "mean_f1": 0.8570449631417184,
+          "mean_abstention": 0.13943916495080094,
+          "legitimate_blocked_fraction": 0.00412918920649147,
+          "mean_additional_abstention": 0.0022486227479744467,
+          "simultaneous_world_risk_upper": 0.318884607355739,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 8377,
+              "unsafe": 21
+            },
+            "RISK_BLOCKED": {
+              "n": 10259,
+              "unsafe": 0
+            }
+          }
+        },
+        "selected": {
+          "hard_declines": 18636,
+          "unsafe_retries": 21,
+          "mean_f1": 0.8570449631417184,
+          "mean_abstention": 0.13943916495080094,
+          "legitimate_blocked_fraction": 0.00412918920649147,
+          "mean_additional_abstention": 0.0022486227479744467,
+          "simultaneous_world_risk_upper": 0.318884607355739,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 8377,
+              "unsafe": 21
+            },
+            "RISK_BLOCKED": {
+              "n": 10259,
+              "unsafe": 0
+            }
+          }
+        }
+      }
+    },
+    "issuer_outage": {
+      "hard_decline_worlds": 94,
+      "policies": {
+        "expanded_control": {
+          "hard_declines": 14175,
+          "unsafe_retries": 7,
+          "mean_f1": 0.7775906746243753,
+          "mean_abstention": 0.25514637282876307,
+          "legitimate_blocked_fraction": 0.0,
+          "mean_additional_abstention": 0.0,
+          "simultaneous_world_risk_upper": 0.16498064368175744,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5527,
+              "unsafe": 7
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        },
+        "multiclass_comparator": {
+          "hard_declines": 14175,
+          "unsafe_retries": 1,
+          "mean_f1": 0.7289617391333048,
+          "mean_abstention": 0.3111462579209915,
+          "legitimate_blocked_fraction": 0.13400851313665052,
+          "mean_additional_abstention": 0.055999885092228405,
+          "simultaneous_world_risk_upper": 0.07062319599509538,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5527,
+              "unsafe": 1
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        },
+        "binary_comparator": {
+          "hard_declines": 14175,
+          "unsafe_retries": 4,
+          "mean_f1": 0.7774202453966765,
+          "mean_abstention": 0.256178689331381,
+          "legitimate_blocked_fraction": 0.0023484514897989138,
+          "mean_additional_abstention": 0.0010323165026179177,
+          "simultaneous_world_risk_upper": 0.12106510474205379,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5527,
+              "unsafe": 4
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        },
+        "selected": {
+          "hard_declines": 14175,
+          "unsafe_retries": 4,
+          "mean_f1": 0.7774202453966765,
+          "mean_abstention": 0.256178689331381,
+          "legitimate_blocked_fraction": 0.0023484514897989138,
+          "mean_additional_abstention": 0.0010323165026179177,
+          "simultaneous_world_risk_upper": 0.12106510474205379,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5527,
+              "unsafe": 4
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        }
+      }
+    },
+    "psp_degradation": {
+      "hard_decline_worlds": 94,
+      "policies": {
+        "expanded_control": {
+          "hard_declines": 14050,
+          "unsafe_retries": 6,
+          "mean_f1": 0.826384450307242,
+          "mean_abstention": 0.21261695225759297,
+          "legitimate_blocked_fraction": 0.0,
+          "mean_additional_abstention": 0.0,
+          "simultaneous_world_risk_upper": 0.1507660737072097,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5402,
+              "unsafe": 6
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        },
+        "multiclass_comparator": {
+          "hard_declines": 14050,
+          "unsafe_retries": 0,
+          "mean_f1": 0.7969829942720593,
+          "mean_abstention": 0.26336167209444844,
+          "legitimate_blocked_fraction": 0.09959642548284808,
+          "mean_additional_abstention": 0.050744719836855495,
+          "simultaneous_world_risk_upper": 0.04965553295561134,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5402,
+              "unsafe": 0
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        },
+        "binary_comparator": {
+          "hard_declines": 14050,
+          "unsafe_retries": 3,
+          "mean_f1": 0.8259020957622023,
+          "mean_abstention": 0.21399886225716902,
+          "legitimate_blocked_fraction": 0.0025583741712309023,
+          "mean_additional_abstention": 0.0013819099995760475,
+          "simultaneous_world_risk_upper": 0.10532871790001634,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5402,
+              "unsafe": 3
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        },
+        "selected": {
+          "hard_declines": 14050,
+          "unsafe_retries": 3,
+          "mean_f1": 0.8259020957622023,
+          "mean_abstention": 0.21399886225716902,
+          "legitimate_blocked_fraction": 0.0025583741712309023,
+          "mean_additional_abstention": 0.0013819099995760475,
+          "simultaneous_world_risk_upper": 0.10532871790001634,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5402,
+              "unsafe": 3
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        }
+      }
+    },
+    "unseen_codes": {
+      "hard_decline_worlds": 94,
+      "policies": {
+        "expanded_control": {
+          "hard_declines": 14222,
+          "unsafe_retries": 0,
+          "mean_f1": 0.13280122985650472,
+          "mean_abstention": 0.9121966863111919,
+          "legitimate_blocked_fraction": 0.0,
+          "mean_additional_abstention": 0.0,
+          "simultaneous_world_risk_upper": 0.04965553295561134,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5574,
+              "unsafe": 0
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        },
+        "multiclass_comparator": {
+          "hard_declines": 14222,
+          "unsafe_retries": 0,
+          "mean_f1": 0.13280122985650472,
+          "mean_abstention": 0.9121966863111919,
+          "legitimate_blocked_fraction": 0.0,
+          "mean_additional_abstention": 0.0,
+          "simultaneous_world_risk_upper": 0.04965553295561134,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5574,
+              "unsafe": 0
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        },
+        "binary_comparator": {
+          "hard_declines": 14222,
+          "unsafe_retries": 0,
+          "mean_f1": 0.13280122985650472,
+          "mean_abstention": 0.9121966863111919,
+          "legitimate_blocked_fraction": 0.0,
+          "mean_additional_abstention": 0.0,
+          "simultaneous_world_risk_upper": 0.04965553295561134,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5574,
+              "unsafe": 0
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        },
+        "selected": {
+          "hard_declines": 14222,
+          "unsafe_retries": 0,
+          "mean_f1": 0.13280122985650472,
+          "mean_abstention": 0.9121966863111919,
+          "legitimate_blocked_fraction": 0.0,
+          "mean_additional_abstention": 0.0,
+          "simultaneous_world_risk_upper": 0.04965553295561134,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5574,
+              "unsafe": 0
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        }
+      }
+    },
+    "hard_decline_collision": {
+      "hard_decline_worlds": 94,
+      "policies": {
+        "expanded_control": {
+          "hard_declines": 39225,
+          "unsafe_retries": 0,
+          "mean_f1": 0.6054384232911538,
+          "mean_abstention": 0.32047405108025856,
+          "legitimate_blocked_fraction": 0.0,
+          "mean_additional_abstention": 0.0,
+          "simultaneous_world_risk_upper": 0.04965553295561134,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 16289,
+              "unsafe": 0
+            },
+            "RISK_BLOCKED": {
+              "n": 22936,
+              "unsafe": 0
+            }
+          }
+        },
+        "multiclass_comparator": {
+          "hard_declines": 39225,
+          "unsafe_retries": 0,
+          "mean_f1": 0.5592263792174497,
+          "mean_abstention": 0.35257748587223203,
+          "legitimate_blocked_fraction": 0.16439200493087963,
+          "mean_additional_abstention": 0.03210343479197341,
+          "simultaneous_world_risk_upper": 0.04965553295561134,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 16289,
+              "unsafe": 0
+            },
+            "RISK_BLOCKED": {
+              "n": 22936,
+              "unsafe": 0
+            }
+          }
+        },
+        "binary_comparator": {
+          "hard_declines": 39225,
+          "unsafe_retries": 0,
+          "mean_f1": 0.604862975487788,
+          "mean_abstention": 0.32142770536351545,
+          "legitimate_blocked_fraction": 0.004842828211675618,
+          "mean_additional_abstention": 0.00095365428325685,
+          "simultaneous_world_risk_upper": 0.04965553295561134,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 16289,
+              "unsafe": 0
+            },
+            "RISK_BLOCKED": {
+              "n": 22936,
+              "unsafe": 0
+            }
+          }
+        },
+        "selected": {
+          "hard_declines": 39225,
+          "unsafe_retries": 0,
+          "mean_f1": 0.604862975487788,
+          "mean_abstention": 0.32142770536351545,
+          "legitimate_blocked_fraction": 0.004842828211675618,
+          "mean_additional_abstention": 0.00095365428325685,
+          "simultaneous_world_risk_upper": 0.04965553295561134,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 16289,
+              "unsafe": 0
+            },
+            "RISK_BLOCKED": {
+              "n": 22936,
+              "unsafe": 0
+            }
+          }
+        }
+      }
+    },
+    "telemetry_gap": {
+      "hard_decline_worlds": 94,
+      "policies": {
+        "expanded_control": {
+          "hard_declines": 14202,
+          "unsafe_retries": 14,
+          "mean_f1": 0.7376528517551936,
+          "mean_abstention": 0.23753512705205285,
+          "legitimate_blocked_fraction": 0.0,
+          "mean_additional_abstention": 0.0,
+          "simultaneous_world_risk_upper": 0.2190349104191499,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5554,
+              "unsafe": 14
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        },
+        "multiclass_comparator": {
+          "hard_declines": 14202,
+          "unsafe_retries": 3,
+          "mean_f1": 0.6732764673379752,
+          "mean_abstention": 0.2711631239272582,
+          "legitimate_blocked_fraction": 0.10545427597450718,
+          "mean_additional_abstention": 0.03362799687520537,
+          "simultaneous_world_risk_upper": 0.08869027402634595,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5554,
+              "unsafe": 3
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        },
+        "binary_comparator": {
+          "hard_declines": 14202,
+          "unsafe_retries": 13,
+          "mean_f1": 0.7376443990184623,
+          "mean_abstention": 0.23760303741516547,
+          "legitimate_blocked_fraction": 0.00014821402104639098,
+          "mean_additional_abstention": 6.791036311265895e-05,
+          "simultaneous_world_risk_upper": 0.20586590263325574,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5554,
+              "unsafe": 13
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        },
+        "selected": {
+          "hard_declines": 14202,
+          "unsafe_retries": 13,
+          "mean_f1": 0.7376443990184623,
+          "mean_abstention": 0.23760303741516547,
+          "legitimate_blocked_fraction": 0.00014821402104639098,
+          "mean_additional_abstention": 6.791036311265895e-05,
+          "simultaneous_world_risk_upper": 0.20586590263325574,
+          "by_hard_class": {
+            "CARD_EXPIRED": {
+              "n": 5554,
+              "unsafe": 13
+            },
+            "RISK_BLOCKED": {
+              "n": 8648,
+              "unsafe": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

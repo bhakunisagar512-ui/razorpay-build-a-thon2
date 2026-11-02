@@ -1,374 +1,129 @@
-# rzp-recovery
+# AI Revenue Recovery (Razorpay Build-a-thon, Track 03)
 
-**Cause-aware payment recovery: diagnose why a payment failed, then run the intervention that fits — under stopping rules, with a tamper-evident audit trail, measured against a live holdout.**
+A **synthetic-only** revenue-recovery pipeline. It diagnoses a revenue-risk event **once**, plans a bounded and safe recovery, and runs that plan as a
+durable Temporal workflow that creates **simulated** payment requests. A tester answers them on a separate mock payment page.
 
-![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-Compose%20v2-2496ED?logo=docker&logoColor=white)
-![Temporal](https://img.shields.io/badge/Temporal-durable%20workflows-000000?logo=temporal&logoColor=white)
-![Postgres](https://img.shields.io/badge/Postgres-16-4169E1?logo=postgresql&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-async-009688?logo=fastapi&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-28%20passing-0F7A4E)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
+Nothing here is real: no payment gateway, no customer messaging, no runtime LLM, no real revenue. "Recovered" always means
+**SIMULATED_RECOVERED**: a simulated customer completed a simulated payment.
 
-**Razorpay AI Buildathon · Track 3 (AI Revenue Recovery)**
+## How it works
 
-| Comparison | Net recovery per failure | 95% CI |
+```
+synthetic event (4 types) -> information-quality router (payment failures) -> ONE diagnosis -> deterministic plan (revenue-plan@2)
+    -> Temporal RevenueRecoveryWorkflow -> simulated payment request per money-collecting step -> ACCEPT / REJECT -> result
+```
+
+| Event type | Diagnosis | Recovery |
 |---|---|---|
-| vs. silent-retry baseline | **+25.3%** | [+₹286, +₹467] |
-| vs. realistic dunning baseline (retries **+ payment link**) | **+10.6%** | [+₹87, +₹319] |
-| with oracle labels (ceiling) | +41.8% | [+₹551, +₹737] |
+| Checkout abandonment | none needed | checkout reminders, each with a payment opportunity |
+| Subscription payment failure | the cause the subscription system reports | per-cause plan |
+| Overdue receivable | none needed | invoice reminders; 30+ days overdue and unpaid escalates to a person |
+| Payment failure | three routes, below | per-cause plan |
 
-n = 40,000 synthetic failures · seed 42 · deterministic 10% holdout · all three significant.
+**Payment-failure routes**
+
+| Gateway information | Route | Model C |
+|---|---|---|
+| Clear and consistent | deterministic rule | not called |
+| Missing or generic | frozen Model C behind its safety gate | called **once** |
+| Contradictory | Human Intervention, no automatic action | not called |
+
+**Recovery plans** (`services/app/revenue/planner.py`, `revenue-plan@2`)
+
+| Cause | Plan |
+|---|---|
+| Insufficient funds | alternative payment method now, reminder after 1 day, one delayed retry after a fixed 3 days (no salary date is known, so none is assumed) |
+| OTP abandoned | fresh payment link after 5 minutes, reminder after 1 day |
+| Expired card | card-update request, alternative method after 2 days; the expired instrument is never retried |
+| Issuer downtime | one retry after 2 hours, then a reminder |
+| PSP timeout | **verify the payment state first**; still uncertain -> a person; never retried while the original might have succeeded |
+| Risk blocked | human escalation only, no retry |
+| Ambiguous | verify the payment state, then one conservative reminder; unresolved -> a person |
+
+Consent, quiet hours, the weekly contact cap and contact/retry budgets apply at execution time. **ACCEPT** = simulated payment success: the amount is counted
+once, remaining steps are cancelled and the workflow stops. **REJECT** (or no answer before the demo timeout) = no payment: the next permitted step runs.
+Neither answer triggers another diagnosis or another Model C call.
+
+Details: [docs/revenue_pipeline.md](docs/revenue_pipeline.md). Model C contract: [docs/model_c_freeze.md](docs/model_c_freeze.md).
+
+## Run it
+
+Requires Docker with Compose v2.
 
 ```bash
-./setup.sh            # build, migrate, smoke test — no API keys needed
-./demo.sh             # guided tour of every capability, narrated
+./setup.sh                 # build, start, migrate, smoke test   (./setup.sh --down stops it, --reset wipes the database)
+./restart-project.sh       # restart after a reboot or a code change (--build rebuilds the api and worker images)
 ```
 
-<p align="center">
-  <img src="docs/razorpay-demo.gif" width="860" alt="The engine refusing to retry an expired card, and the live holdout arm firing three retries at the same dead card">
-</p>
+Open **http://localhost:8000/ui**:
 
-> [!IMPORTANT]
-> **+10.6% is the number worth defending.** The silent-retry baseline never
-> contacts the customer, so part of that +25.3% is messaging asymmetry rather
-> than diagnosis. Real dunning systems send links. We report both, and say
-> which is which.
+* **Individual Payment Testing**: pick an event from fixed dropdowns (no free text). Payment failures use seven interdependent dropdowns and a
+  **Diagnosis scenario** selector (clear / missing-or-generic / contradictory) that only decides which inputs can be built; the router still picks the route, and the
+  page shows the route, decision source, predicted cause, Model C call count, safety decision, plan and Temporal execution. Three ready-to-fill examples, one per route. Each step that asks for money opens a mock payment page (`/pay/{request_id}`) to ACCEPT or REJECT.
+* **Dataset Testing**: run a prebuilt dataset, the controlled routing fixtures or a validated CSV through the same pipeline automatically.
+* **Human Intervention**: read-only list of events a person must look at (contradictory data, risk blocks, no safe action), plus a collapsed list of
+  earlier research records.
 
----
+Temporal UI: http://localhost:8080.
 
-## The problem
+## Services (docker compose)
 
-Most failed-payment recovery is cause-blind: a payment fails, the system retries it three times on a fixed schedule. That is the right action for roughly a third of failures and actively harmful for another third — retrying an expired card or a risk-blocked payment recovers nothing and degrades issuer trust.
+| Service | Role |
+|---|---|
+| `api` | FastAPI app, console and mock payment pages (port 8000; code reloads automatically) |
+| `worker` | Temporal worker: `RevenueRecoveryWorkflow` + 5 activities on queue `revenue-q`. **Restart it after code changes**: `docker compose restart worker` |
+| `postgres` | events, plans, execution records, simulated payment outcomes, audit chain (port 5433) |
+| `temporal`, `temporal-ui` | durable workflow engine and its UI |
 
-This is the other approach. Diagnose the cause first, then execute the intervention that fits it.
+Environment (`.env`, see `.env.example`): `DATABASE_URL`, `TEMPORAL_ADDRESS`, `DEMO_MODE`; optional `REVENUE_TASK_QUEUE`, `REVENUE_RESPONSE_TIMEOUT_S`,
+`REVENUE_TIME_SCALE`. The whole stack is pinned to six logical CPUs (`scripts/cap_stack_cpu.ps1` verifies it on Windows).
 
-```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryTextColor':'#0E0E0D','textColor':'#0E0E0D','lineColor':'#7C7972','edgeLabelBackground':'#F7F5F2','fontSize':'14px'}}}%%
-flowchart LR
-    F["payment.failed"] --> D{{"DIAGNOSE"}}
-    D -->|insufficient funds| A1["wait for salary window"]
-    D -->|issuer down| A2["switch rail to UPI"]
-    D -->|PSP timeout| A3["verify, then back off"]
-    D -->|abandoned OTP| B1["payment link"]
-    D -->|card expired| B2["card-update link"]
-    D -->|risk blocked| B3["human escalation"]
-    D -->|ambiguous| B4["payment link"]
+## API
 
-    style F fill:#EFEBE5,stroke:#0E0E0D,stroke-width:2px,color:#0E0E0D
-    style D fill:#DEE7F4,stroke:#1F5AA8,stroke-width:2px,color:#0E0E0D
-    style A1 fill:#DCEBE2,stroke:#0F7A4E,color:#0E0E0D
-    style A2 fill:#DCEBE2,stroke:#0F7A4E,color:#0E0E0D
-    style A3 fill:#DCEBE2,stroke:#0F7A4E,color:#0E0E0D
-    style B1 fill:#F9DDD8,stroke:#E5432B,color:#0E0E0D
-    style B2 fill:#F9DDD8,stroke:#E5432B,color:#0E0E0D
-    style B3 fill:#F9DDD8,stroke:#E5432B,color:#0E0E0D
-    style B4 fill:#F9DDD8,stroke:#E5432B,color:#0E0E0D
-```
+| Route | Purpose |
+|---|---|
+| `GET /health`, `GET /audit/verify` | liveness; verifies the hash-chained audit log |
+| `GET /revenue/catalog` | controlled option lists (event types, selectors, consent, times) |
+| `POST /tests/custom-options` | server-driven dependent dropdown options (`scope="clear"`) |
+| `POST /revenue/events`, `POST /revenue/events/from-dataset`, `GET /revenue/events/{id}` | create an event and read its journey |
+| `GET /revenue/requests`, `GET /revenue/requests/{id}`, `POST /revenue/requests/{id}/respond`, `GET /pay/{id}` | simulated payment requests and the mock payment page |
+| `GET /tests/datasets`, `GET /tests/datasets/{name}/payments`, `GET /tests/csv-template`, `GET /tests/csv-schema`, `POST /tests/csv/validate` | dataset and CSV inputs |
+| `GET /revenue/fixtures/payments`, `POST /revenue/runs`, `GET /revenue/runs`, `GET /revenue/runs/{id}`, `GET /revenue/runs/{id}/cases` | automated Dataset Testing |
+| `GET /interventions`, `GET /interventions/revenue/{id}`, `GET /interventions/historical` | read-only Human Intervention views |
+| `POST /shadow/event`, `POST /shadow/downtime`, `PUT /shadow/label/{id}`, `GET /shadow/diagnoses` | Model C shadow recorder (scores and records; never acts); used to verify the frozen model |
+| `GET /ui` | the console |
 
-Four of seven causes never see a retry at all.
-
----
-
-## Verify my claims in 60 seconds
-
-<p align="center">
-  <img src="docs/results.png" width="880" alt="Net recovery per failure with 95% confidence intervals: +41.8% oracle ceiling, +25.3% versus silent-retry baseline, +10.6% versus realistic dunning">
-</p>
-
-Every headline number maps to one command. Committed output lives in `eval/data/`, so you can read them without waiting for a 40,000-row run.
-
-| Claim | Command | Committed output |
-|---|---|---|
-| The harness is unbiased | `make eval-gate` | `eval/data/gate_run.txt` |
-| +25.3% vs silent retry | `make eval-policy` | `eval/data/policy_run.txt` |
-| +10.6% vs real dunning | `make eval-strong` | `eval/data/policy_run_strong.txt` |
-| 8.21% unsafe retries | `make step4` | `eval/data/step4.txt` |
-| 18/18 LLM attacks caught | `make triage-adversarial` | `eval/data/triage_adversarial.txt` |
-| 6 policy invariants hold | `docker compose exec -T api pytest -q` | 28 passing |
-
-Split hash, committed before any tuning: `11f566cce35c3cc7b53e176b72aa8a52c32044abb328544626c1cd4565ba990f`
-
----
-
-## The gate: validating the instrument before the engine
-
-Building an eval after the engine tells you whether you like your own work. Building it first tells you whether the work is any good.
-
-The null run puts **both arms on the identical naive baseline**. If the harness were biased toward our own engine, this would show fake uplift. It must show none.
+## Repository layout
 
 ```
-==================================================================
-  MODE: GATE   BASELINE: WEAK   n=40000  dupes dropped=1600
-  split_hash=11f566cce35c3cc7...
-==================================================================
-  treatment  n=36064  rate= 27.1%  gross=₹54,389,633  cost=₹0  net=₹54,389,633
-  holdout    n=3936   rate= 27.3%  gross=₹ 6,156,360  cost=₹0  net=₹ 6,156,360
-
-  net per failure: treatment ₹1508.14  vs holdout ₹1564.12
-  difference: ₹-55.97  (-3.6%)
-  95% CI: [₹-172.68, ₹+51.52]   significant=False
-
-  GATE PASS: both arms run the naive baseline, so the CI straddles zero as required.
+services/app/
+  main.py  settings.py  db.py  worker.py  migrate.py  shadow.py  test_api.py  test_datasets.py  revenue_api.py
+  revenue/      catalog, routing (one diagnosis), planner, engine, store, service, fixtures, runs, worker
+  workflows/    revenue.py (RevenueRecoveryWorkflow), revenue_activities.py
+  domain/       safety and validation logic, taxonomy, feature definitions, ledger (audit chain), custom-input rules
+  adapters/     diagnosis.py, diagnosis_v4.py (the frozen Model C adapter)
+  static/       index.html  app.js  app.css  pay.html  pay.js
+eval/           frozen Model C artifacts (artifacts/phase4), dataset generators, evaluation and calibration scripts, oracle_plan*.py (dataset truth only)
+db/             init/ and migrations/ (001-005; never deleted)
+tests/          freeze, routing, planner, safety, API, dataset, live Temporal and frontend/ (browser) tests
+docs/           model_c_freeze.md, revenue_pipeline.md, research phase reports (historical) and docs/historical/
 ```
 
-That run happened *before* the policy engine was written. It is the reason the numbers above mean anything.
-
-**The order of construction was:**
-
-1. **Taxonomy** — canonical causes, and which are retryable at all.
-2. **Causal generator** — sample the *hidden cause* first, then emit an *observable error code* from a distribution conditioned on it, with a deliberate collision zone five causes share. A generator with a clean 1:1 code→cause mapping lets the classifier grade its own homework.
-3. **Gate run** — both arms on the naive baseline. CI must straddle zero.
-4. **Policy engine**, then measured against that validated harness.
-
-Step 4 lost the first time. Policy v1 issued a single retry on PSP timeouts against the baseline's three, on a highly retryable cause, and came out behind. The eval caught it; code review would not have. The fix — verify no silent success first (never double-charge), then exponential backoff — is documented in `policy.py` at the point of the change.
-
-`eval/` imports `build_plan()` from `services/app/domain/policy.py`. The evaluated policy and the served policy are the same function; there is no drift between what was measured and what ships.
-
----
-
-## Architecture
-
-```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryTextColor':'#0E0E0D','textColor':'#0E0E0D','lineColor':'#7C7972','edgeLabelBackground':'#F7F5F2','fontSize':'14px'}}}%%
-flowchart LR
-    W["payment.failed<br/>HMAC + idempotent"] --> DG["DIAGNOSE<br/>3 stages, 1 gate"]
-    DG --> PL["build_plan()<br/>pure function"]
-    PL --> EX["Temporal workflow<br/>guards before every step"]
-    EX --> LG[("hash-chained<br/>audit ledger")]
-
-    style W fill:#EFEBE5,stroke:#7C7972,color:#0E0E0D
-    style DG fill:#DEE7F4,stroke:#1F5AA8,stroke-width:2px,color:#0E0E0D
-    style PL fill:#FFFFFF,stroke:#0E0E0D,stroke-width:2px,color:#0E0E0D
-    style EX fill:#EFEBE5,stroke:#7C7972,color:#0E0E0D
-    style LG fill:#EFEBE5,stroke:#7C7972,color:#0E0E0D
-```
-
-**Detect.** `payment.failed` webhooks enter with HMAC signature verification and `event_id` idempotency backed by a unique constraint. Duplicate deliveries are rejected before anything is counted — the eval drops them too, because not doing so silently inflates recovered rupees.
-
-**Decide.** `build_plan()` is a **pure function** — no I/O, no LLM, no clock reads beyond its context argument. That purity is what makes it exhaustively unit-testable, and testability is the entire argument for why a language model is not permitted to make these decisions. The AI sits in the perception layer, deliberately out of the layer that moves money.
-
-**Execute.** Durable Temporal workflows. Guards are re-evaluated immediately before every step, never at plan time — the world moves during a 72-hour timer. Stopping rules cover contact caps per payment and per customer per week, retry caps, quiet hours (21:00–09:00 IST), and `order_paid_elsewhere`, the one most systems forget. Every suppression is logged with the guard's name; the suppression log is evidence, not a gap.
-
-**Audit.** Hash-chained append-only ledger — each row hashes the previous row's hash into its body. `GET /audit/verify` walks the chain and reports the sequence number where it breaks.
-
----
-
-## Diagnosis: three stages, one gate
-
-<p align="center">
-  <img src="docs/classifier-stages.png" width="880" alt="Three classifier stages — rules, gradient boosting, LLM triage — all passing through a single hard-decline safety gate, with 16.7% abstaining to AMBIGUOUS and 18 of 18 LLM failure modes caught offline">
-</p>
-
-Misclassification is asymmetric: calling an expired card "insufficient funds" makes the engine hammer a dead instrument, which is the exact harm the system exists to prevent. So the classifier abstains rather than guess, and an LLM proposal gets no more trust than a rule hit.
-
-Try it without side effects:
+## Tests
 
 ```bash
-curl -s localhost:8000/diagnose -H 'content-type: application/json' \
-  -d '{"gw_error_code":"GATEWAY_ERROR","gw_error_source":"gateway","gw_error_step":"authorization","method":"upi"}'
-# -> AMBIGUOUS, stage=gated:low_conf, retry_count=0, plan=[payment_link]
+docker compose exec -T api python -m pytest -q                                   # backend (no database needed)
+RUN_LIVE_REVENUE=1 python -m pytest tests/test_revenue_live.py -q                # live API + Temporal + Postgres (stack must be up)
+PYTHONIOENCODING=utf-8 python tests/frontend/e2e_ui.py                           # headless-Chrome browser suite (stack must be up)
 ```
 
----
+The API image deliberately does not ship matplotlib (a test/evaluation-only dependency, listed in `services/app/requirements-test.txt`). To run the whole backend suite, install it
+in a throwaway container or virtualenv: `pip install -r services/app/requirements-test.txt`. Without it only `tests/test_phase5_compare.py` errors; xgboost/catboost tests skip.
 
-## Tier 3 — LLM triage for unseen error codes
+`tests/test_model_c_freeze.py` (55 tests) fails if Model C, its 43-feature schema, thresholds or pinned source files change.
 
-Rules and the GBM only know error tuples that appeared in training. Real gateways emit a long tail: new codes after issuer integrations, bank-specific strings, unmapped reason fields. Mapping an unfamiliar code string onto a taxonomy is semantic work — the one thing a language model does better than one-hot gradient boosting.
+## Limitations
 
-There is an LLM in this system, in exactly one place, under three constraints:
-
-1. **It is third in line.** Reached only when rules and the model have both abstained. It can never override a confident classical prediction.
-2. **It proposes; the gate disposes.** Its output passes through the same hard-decline mass gate as every other stage. A confident retryable proposal on a row the model believes is a hard decline is rejected exactly as a bad rule hit would be.
-3. **Every failure returns `AMBIGUOUS`** — no key, timeout, malformed JSON, unknown enum, low confidence. That is the current behaviour, so the safety floor cannot move down. The tier is monotonic.
-
-**No API key required.** Without `LLM_API_KEY` the system runs as a two-stage classifier with identical safety behaviour and every test still passes.
-
-### Proving it offline — zero API calls
-
-```
-==========================================================================
-  TIER-3 ADVERSARIAL GATE TEST   (offline — zero API calls)
-  Every row is a way the LLM can misbehave. All must land on AMBIGUOUS.
-==========================================================================
-  PASS  hallucinated cause              -> AMBIGUOUS
-  PASS  cause not a string              -> AMBIGUOUS
-  PASS  missing cause                   -> AMBIGUOUS
-  PASS  malformed json                  -> AMBIGUOUS
-  PASS  prose, not json                 -> AMBIGUOUS
-  PASS  prompt-injection echo           -> AMBIGUOUS
-  ...
-  parser rejected 14/14
-
-  Well-formed but unsafe proposals (parser accepts; gate must reject):
-  PASS  retryable on high hard-mass     -> AMBIGUOUS  [gated:low_conf+llm_gated]
-  PASS  timeout on high hard-mass       -> AMBIGUOUS  [gated:low_conf+llm_gated]
-  PASS  issuer on high hard-mass        -> AMBIGUOUS  [gated:low_conf+llm_gated]
-  PASS  provider timeout                -> AMBIGUOUS
-
-  ======================================================================
-  CAUGHT 18/18   — tier 3 cannot lower the safety floor
-```
-
-### Measuring whether it helps
-
-```bash
-make triage-novel           # needs LLM_API_KEY
-```
-
-The test split's error tuples are rewritten into codes absent from training by construction (asserted, not assumed), keeping ground truth. Same rows, same model, same gate — the only difference is whether tier 3 is reachable.
-
-> [!NOTE]
-> The control is not zero. `method` and `instrument_hint` still carry signal
-> when the code is unknown, so the classifier alone resolves a meaningful share.
-> The honest framing is that tier 3 recovers part of a degradation, not that it
-> rescues a helpless system. Triage is cached on the observable tuple, so 1,200
-> rows cost roughly 16 API calls.
-
----
-
-## The safety frontier
-
-The metric that matters more than accuracy: how often a retry is fired at a true hard decline.
-
-> [!WARNING]
-> At the current operating point that is **8.21%**. All of them come from the
-> rules stage rather than the model — hard declines leak into error tuples that
-> look retryable.
-
-Tightening the gate reduces it, at a cost:
-
-| Hard-decline mass limit | Unsafe retries | Abstain rate | Uplift |
-|---|---|---|---|
-| **0.25 (current)** | **8.21%** | **16.7%** | **+25.3%** |
-| 0.10 | 3.73% | 24.3% | +19.4% |
-| 0.06 | 1.73% | 31.2% | +11.5% |
-
-<p align="center">
-  <img src="docs/safety-frontier.png" width="880" alt="Trade-off curve between unsafe retry rate and net uplift across three gate settings, with the current operating point marked">
-</p>
-
-This is a business decision about what a false retry costs in issuer trust, not a number to optimise blindly. We publish the curve rather than a flattering point on it.
-
----
-
-## Honest limitations
-
-> [!NOTE]
-> Every number here is simulation. The improvement is real *within our model of
-> customer behaviour* — it is not yet proven on real payments.
-
-1. **Every number is simulation.** The customer response model (`eval/simulate.py`) is the single biggest assumption, so it is isolated in one file with every constant exposed. Disagree with them, change them, re-run. Distributions should be re-grounded in NPCI monthly data before any production claim.
-2. **The classifier trains on the same generator that produces the test set** (split by committed hash, never trained on test). Real gateway logs would shift all metrics.
-3. **`RISK_BLOCKED` is harder here than in reality.** We infer it from error codes; in production it is Razorpay's own first-party decision and never needs inference. Our unsafe-retry rate is therefore an upper bound.
-4. **Expired cards with unknown tokens are irreducible** from codes alone — mitigated by plan design (low-confidence paths lead with a payment link, which is instrument-safe), not by classification.
-5. **One loss surface, built deep.** Track 3 names several: checkout abandonment, failed mandates, B2B receivables, voice recovery. This covers failed payments end to end and instrumented. The architecture generalises — a receivables chaser is the same detect/diagnose/bounded-execute loop with a different cause enum — but that generalisation is untested.
-
----
-
-<details>
-<summary><b>Full cause → intervention taxonomy</b></summary>
-
-<br>
-
-<p align="center">
-  <img src="docs/taxonomy-fan.png" width="880" alt="One payment failure diverging into seven causes, each mapped to a different intervention; four of the seven never retry">
-</p>
-
-| Cause | Intervention | Retries |
-|---|---|---|
-| Insufficient funds | Wait for the salary window (1st / 7th), then retry | yes |
-| Issuer down | Immediate rail switch to UPI, zero delay | switch |
-| PSP timeout | Verify no silent success, then 5m/1h/6h backoff | yes |
-| Abandoned OTP | Payment link — the instrument was the friction | **no** |
-| Card expired | Card-update link | **no** |
-| Risk blocked | Human escalation | **never** |
-| Ambiguous | Payment link — safe under every possible cause | **no** |
-
-Retrying an insufficient-funds failure in one hour is pure waste: the money is not there yet. Retrying a dead card degrades issuer trust. Retrying a risk block undoes a deliberate decision.
-
-</details>
-
-<details>
-<summary><b>Known issues — kept deliberately, listed rather than hidden</b></summary>
-
-<br>
-
-- `ledger.append()` reads the previous hash and inserts without a lock. Under concurrent appends the chain can fork silently. Fix is a `UNIQUE (prev_hash)` constraint so it fails loudly, or an advisory lock.
-- The `order_settled` signal does not interrupt an in-flight timer; the workflow finishes sleeping before checking. Harmless (the `order_paid_elsewhere` guard catches it) but `workflow.wait_condition` is the correct shape.
-- `assign_arm` is duplicated between `main.py` and `eval/generate.py` — drift risk on exactly the function that defines the holdout.
-- Requires Python 3.11+ (`StrEnum`). Everything runs in the container, so this only bites if you invoke the eval on the host.
-
-</details>
-
-<details>
-<summary><b>Configuration — everything runs with no keys at all</b></summary>
-
-<br>
-
-| Variable | Default | Effect if unset |
-|---|---|---|
-| `LLM_API_KEY` | empty | Tier-3 triage disabled; two-stage classifier, identical safety |
-| `LLM_PROVIDER` | `gemini` | `gemini` or `groq` |
-| `LLM_MODEL` | `gemini-2.0-flash` | — |
-| `LLM_TRIAGE_ENABLED` | `true` | Set `false` to disable tier 3 even with a key |
-| `RAZORPAY_KEY_ID` / `_SECRET` | empty | Live rail switching stubbed; simulation unaffected |
-| `RAZORPAY_WEBHOOK_SECRET` | empty | Real webhooks rejected; `/simulate/failure` unaffected |
-| `CHANNEL_MODE` | `mock` | `live` sends real WhatsApp/SMS |
-| `DEMO_MODE` | `true` | Enables unsigned `/simulate/failure` and 3600× time compression |
-
-**Wiring real Razorpay test mode**
-
-1. Put test keys and the webhook secret in `.env`, set `CHANNEL_MODE=live`.
-2. `ngrok http 8000`, then register `https://<id>.ngrok.io/webhooks/razorpay` in the dashboard for `payment.failed` and `payment.captured`.
-3. Fail a test payment and watch it flow through the Temporal UI.
-
-Real webhooks go through the classifier. `/simulate/failure` forces a specific cause so the demo is deterministic — the only path that bypasses diagnosis, and it is gated behind `DEMO_MODE`.
-
-</details>
-
-<details>
-<summary><b>Project structure</b></summary>
-
-<br>
-
-```
-rzp-recovery/
-├── setup.sh                  # one-shot build, migrate, smoke test
-├── demo.sh                   # guided tour — every capability, narrated
-├── restart-project.sh        # recreate containers to pick up .env changes
-├── Makefile
-├── docs/                     # README diagrams and demo recording
-├── db/migrations/001_init.sql
-├── services/app/
-│   ├── main.py               # webhooks, /diagnose, /simulate, metrics, audit
-│   ├── worker.py             # Temporal worker
-│   ├── domain/               # THE CORE — pure, deterministic, fully tested
-│   │   ├── taxonomy.py       #   canonical causes + retryability
-│   │   ├── policy.py         #   build_plan(): (cause × context) -> plan
-│   │   ├── guards.py         #   stopping rules, checked at EXECUTION time
-│   │   └── ledger.py         #   hash-chained append-only audit log
-│   ├── workflows/            # durable execution; all I/O in activities.py
-│   └── adapters/
-│       ├── diagnosis.py      # serving path for the classifier
-│       ├── llm_triage.py     # tier 3 — proposes, never decides
-│       ├── channels.py       # MockChannel (default) | live WhatsApp/SMS
-│       └── razorpay_client.py
-├── eval/                     # built BEFORE the engine — that is the point
-│   ├── generate.py           # causal generator + adversarial noise
-│   ├── simulate.py           # customer response model (the one assumption)
-│   ├── classifier.py         # rules + GBM + hard-decline safety gate
-│   ├── report.py             # gate/policy runs, bootstrap CIs
-│   ├── step4.py              # oracle-vs-predicted, unsafe-retry audit
-│   ├── triage_eval.py        # tier-3 adversarial + novel-code experiments
-│   └── data/                 # committed results — read without re-running
-└── tests/
-    ├── test_policy.py        # the invariants that must never break
-    └── test_triage.py        # tier-3 safety, offline, zero API calls
-```
-
-</details>
-
----
-
-**Local URLs after `./setup.sh`:** [API docs](http://localhost:8000/docs) · [Temporal UI](http://localhost:8080)
+Everything is synthetic. A correct diagnosis is not recovered revenue; only a simulated ACCEPT is counted, and it is a simulated payment, not money.
+Rates measured on the synthetic worlds say nothing about real traffic. Earlier research (three-cycle diagnosis, an LLM tier, a holdout A/B arm) is documented
+as history in [docs/historical/early-research-readme.md](docs/historical/early-research-readme.md); that code was removed.

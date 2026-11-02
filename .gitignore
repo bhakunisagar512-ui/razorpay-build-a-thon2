@@ -6,3 +6,18 @@ eval/data/*.parquet
 eval/data/*.csv
 node_modules/
 *.joblib
+
+# Phase 3 generated worlds (large, reproducible with `make phase3`)
+eval/data/phase3_run/
+eval/data/phase4_run/
+eval/data/phase4_smoke/
+
+# Phase 4 generated artifacts and local backups
+eval/data/phase4_ui/
+backups/
+
+# Generated Phase 4 safety evaluation data
+eval/data/phase4_safety/
+
+# Generated logs
+*.log

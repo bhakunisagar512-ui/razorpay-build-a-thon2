@@ -1,0 +1,190 @@
+{
+  "plans": 563,
+  "plan_exact_for_actual_cause": 456,
+  "plan_exact_share": 0.8099467140319716,
+  "safe_fallback_plans": 97,
+  "safe_fallback_share": 0.17229129662522202,
+  "unsuitable_plans": 10,
+  "unsuitable_share": 0.017761989342806393,
+  "appropriate_or_safe_fallback_share": 0.9822380106571936,
+  "hard_declines": 94,
+  "unsafe_retries": 0,
+  "unsafe_retry_rate_of_hard_declines": 0.0,
+  "low_confidence_fallbacks (confidence<0.60)": 34,
+  "all_gate_fallbacks (any abstain/veto)": 97,
+  "first_action_distribution": {
+    "payment_link": 236,
+    "silent_retry": 237,
+    "human_escalation": 41,
+    "card_update_link": 29,
+    "verify_no_silent_success": 15,
+    "rail_switch": 5
+  },
+  "step_action_distribution": {
+    "payment_link": 390,
+    "silent_retry": 519,
+    "notify": 237,
+    "human_escalation": 41,
+    "card_update_link": 58,
+    "verify_no_silent_success": 15,
+    "rail_switch": 5
+  },
+  "unsuitable_by_(actual,planned_cause,first_action)": [
+    {
+      "actual": "RISK_BLOCKED",
+      "planned_cause": "BD_USER_ABANDONED_OTP",
+      "first_action": "payment_link",
+      "n": 2
+    },
+    {
+      "actual": "TD_ISSUER_DOWN",
+      "planned_cause": "BD_INSUFFICIENT_FUNDS",
+      "first_action": "silent_retry",
+      "n": 2
+    },
+    {
+      "actual": "BD_INSUFFICIENT_FUNDS",
+      "planned_cause": "TD_PSP_TIMEOUT",
+      "first_action": "verify_no_silent_success",
+      "n": 1
+    },
+    {
+      "actual": "TD_PSP_TIMEOUT",
+      "planned_cause": "BD_USER_ABANDONED_OTP",
+      "first_action": "payment_link",
+      "n": 1
+    },
+    {
+      "actual": "BD_INSUFFICIENT_FUNDS",
+      "planned_cause": "BD_USER_ABANDONED_OTP",
+      "first_action": "payment_link",
+      "n": 1
+    },
+    {
+      "actual": "TD_PSP_TIMEOUT",
+      "planned_cause": "RISK_BLOCKED",
+      "first_action": "human_escalation",
+      "n": 1
+    },
+    {
+      "actual": "TD_ISSUER_DOWN",
+      "planned_cause": "RISK_BLOCKED",
+      "first_action": "human_escalation",
+      "n": 1
+    },
+    {
+      "actual": "BD_USER_ABANDONED_OTP",
+      "planned_cause": "TD_PSP_TIMEOUT",
+      "first_action": "verify_no_silent_success",
+      "n": 1
+    }
+  ],
+  "unsuitable_examples": [
+    {
+      "payment_id": "pay_v4_typical_777001_0020093",
+      "actual": "RISK_BLOCKED",
+      "predicted": "BD_USER_ABANDONED_OTP",
+      "model_c_cause": "BD_USER_ABANDONED_OTP",
+      "confidence": 0.824,
+      "actions": [
+        "payment_link",
+        "payment_link"
+      ]
+    },
+    {
+      "payment_id": "pay_v4_typical_777001_0020163",
+      "actual": "BD_INSUFFICIENT_FUNDS",
+      "predicted": "TD_PSP_TIMEOUT",
+      "model_c_cause": "TD_PSP_TIMEOUT",
+      "confidence": 0.771,
+      "actions": [
+        "verify_no_silent_success",
+        "silent_retry",
+        "silent_retry",
+        "silent_retry",
+        "payment_link"
+      ]
+    },
+    {
+      "payment_id": "pay_v4_typical_777001_0020275",
+      "actual": "TD_PSP_TIMEOUT",
+      "predicted": "BD_USER_ABANDONED_OTP",
+      "model_c_cause": "BD_USER_ABANDONED_OTP",
+      "confidence": 0.844,
+      "actions": [
+        "payment_link",
+        "payment_link"
+      ]
+    },
+    {
+      "payment_id": "pay_v4_typical_777001_0020611",
+      "actual": "RISK_BLOCKED",
+      "predicted": "BD_USER_ABANDONED_OTP",
+      "model_c_cause": "BD_USER_ABANDONED_OTP",
+      "confidence": 0.697,
+      "actions": [
+        "payment_link",
+        "payment_link"
+      ]
+    },
+    {
+      "payment_id": "pay_v4_typical_777001_0021028",
+      "actual": "TD_ISSUER_DOWN",
+      "predicted": "BD_INSUFFICIENT_FUNDS",
+      "model_c_cause": "BD_INSUFFICIENT_FUNDS",
+      "confidence": 0.607,
+      "actions": [
+        "silent_retry",
+        "notify",
+        "silent_retry"
+      ]
+    },
+    {
+      "payment_id": "pay_v4_typical_777001_0021264",
+      "actual": "TD_ISSUER_DOWN",
+      "predicted": "BD_INSUFFICIENT_FUNDS",
+      "model_c_cause": "BD_INSUFFICIENT_FUNDS",
+      "confidence": 0.958,
+      "actions": [
+        "silent_retry",
+        "notify",
+        "silent_retry"
+      ]
+    },
+    {
+      "payment_id": "pay_v4_typical_777001_0021972",
+      "actual": "BD_INSUFFICIENT_FUNDS",
+      "predicted": "BD_USER_ABANDONED_OTP",
+      "model_c_cause": "BD_USER_ABANDONED_OTP",
+      "confidence": 0.722,
+      "actions": [
+        "payment_link",
+        "payment_link"
+      ]
+    },
+    {
+      "payment_id": "pay_v4_typical_777001_0022082",
+      "actual": "TD_PSP_TIMEOUT",
+      "predicted": "RISK_BLOCKED",
+      "model_c_cause": "RISK_BLOCKED",
+      "confidence": 0.81,
+      "actions": [
+        "human_escalation"
+      ]
+    }
+  ],
+  "unsafe_examples": [],
+  "diagnosis_accuracy_of_planner_input": 0.9396092362344582,
+  "recorded": {
+    "recovery_plan_rows": 563,
+    "audit_rows_with_model_c_detail": 563
+  },
+  "meta": {
+    "seed": 777001,
+    "scenario": "typical",
+    "orders": 4000,
+    "runtime_s": 92.2,
+    "plans_executed": 0,
+    "isolated_schema": true
+  }
+}

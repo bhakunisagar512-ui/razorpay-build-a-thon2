@@ -1,0 +1,463 @@
+{
+  "generator": "sequences@v3",
+  "partitions": {
+    "fit": 6070,
+    "calibration": 1894,
+    "policy": 2618,
+    "confirmation": 2377
+  },
+  "generator_verification": {
+    "passed": true,
+    "configured_duration_s": 259200,
+    "last_event_s": 259199.0,
+    "observed_horizon_fraction": 0.9999961419753086,
+    "episodes": [
+      {
+        "kind": "issuer",
+        "entity": "issuer_A",
+        "start_s": 46656.0,
+        "end_s": 59616.0,
+        "severity": 0.97,
+        "inside": {
+          "n": 476,
+          "failure_rate": 0.9705882352941176,
+          "technical_cause_rate": 0.842436974789916,
+          "median_latency_ms": 476.0783014643034
+        },
+        "outside_same_infrastructure": {
+          "n": 6396,
+          "failure_rate": 0.48702313946216386,
+          "technical_cause_rate": 0.08474046278924327,
+          "median_latency_ms": 236.10443450898802
+        }
+      },
+      {
+        "kind": "issuer",
+        "entity": "issuer_C",
+        "start_s": 176256.0,
+        "end_s": 189216.0,
+        "severity": 0.88,
+        "inside": {
+          "n": 509,
+          "failure_rate": 0.9096267190569745,
+          "technical_cause_rate": 0.75049115913556,
+          "median_latency_ms": 447.0696580319814
+        },
+        "outside_same_infrastructure": {
+          "n": 6615,
+          "failure_rate": 0.46409674981103555,
+          "technical_cause_rate": 0.08949357520786093,
+          "median_latency_ms": 237.7401532599684
+        }
+      },
+      {
+        "kind": "psp",
+        "entity": "psp_alpha",
+        "start_s": 90720.0,
+        "end_s": 111456.0,
+        "severity": 0.72,
+        "inside": {
+          "n": 1324,
+          "failure_rate": 0.7734138972809668,
+          "technical_cause_rate": 0.5725075528700906,
+          "median_latency_ms": 925.3538449520629
+        },
+        "outside_same_infrastructure": {
+          "n": 11965,
+          "failure_rate": 0.46669452569995823,
+          "technical_cause_rate": 0.08483075637275386,
+          "median_latency_ms": 230.75360438076243
+        }
+      },
+      {
+        "kind": "psp",
+        "entity": "psp_beta",
+        "start_s": 220320.0,
+        "end_s": 233280.0,
+        "severity": 0.62,
+        "inside": {
+          "n": 772,
+          "failure_rate": 0.7202072538860104,
+          "technical_cause_rate": 0.5025906735751295,
+          "median_latency_ms": 792.5431944663076
+        },
+        "outside_same_infrastructure": {
+          "n": 12497,
+          "failure_rate": 0.4861966872049292,
+          "technical_cause_rate": 0.0853004721133072,
+          "median_latency_ms": 231.5285488000548
+        }
+      },
+      {
+        "kind": "issuer",
+        "entity": "issuer_B",
+        "start_s": 129600.0,
+        "end_s": 137376.0,
+        "severity": 0.85,
+        "inside": {
+          "n": 261,
+          "failure_rate": 0.8620689655172413,
+          "technical_cause_rate": 0.7394636015325671,
+          "median_latency_ms": 408.34283436885045
+        },
+        "outside_same_infrastructure": {
+          "n": 6071,
+          "failure_rate": 0.49052874320540274,
+          "technical_cause_rate": 0.07873496952726075,
+          "median_latency_ms": 233.32664602336394
+        }
+      },
+      {
+        "kind": "psp",
+        "entity": "psp_beta",
+        "start_s": 142560.0,
+        "end_s": 150336.0,
+        "severity": 0.7,
+        "inside": {
+          "n": 445,
+          "failure_rate": 0.7348314606741573,
+          "technical_cause_rate": 0.5415730337078651,
+          "median_latency_ms": 887.2640348705683
+        },
+        "outside_same_infrastructure": {
+          "n": 12824,
+          "failure_rate": 0.49165626949469743,
+          "technical_cause_rate": 0.09458827199001872,
+          "median_latency_ms": 234.55549429330364
+        }
+      },
+      {
+        "kind": "psp",
+        "entity": "psp_alpha",
+        "start_s": 163296.0,
+        "end_s": 171072.0,
+        "severity": 0.65,
+        "inside": {
+          "n": 463,
+          "failure_rate": 0.734341252699784,
+          "technical_cause_rate": 0.5205183585313174,
+          "median_latency_ms": 807.2186954080179
+        },
+        "outside_same_infrastructure": {
+          "n": 12826,
+          "failure_rate": 0.4886948386090753,
+          "technical_cause_rate": 0.11944487759239046,
+          "median_latency_ms": 239.18022877832323
+        }
+      },
+      {
+        "kind": "issuer",
+        "entity": "issuer_D",
+        "start_s": 212544.0,
+        "end_s": 217728.0,
+        "severity": 0.9,
+        "inside": {
+          "n": 143,
+          "failure_rate": 0.9090909090909091,
+          "technical_cause_rate": 0.7202797202797203,
+          "median_latency_ms": 449.6526952685909
+        },
+        "outside_same_infrastructure": {
+          "n": 6087,
+          "failure_rate": 0.4595038606867094,
+          "technical_cause_rate": 0.0880565138820437,
+          "median_latency_ms": 232.5136411799742
+        }
+      }
+    ],
+    "feature_support": {
+      "issuer_attempts_5m": {
+        "zero_fraction": 0.00030211480362537764,
+        "median": 7.0,
+        "p90": 11.0
+      },
+      "psp_attempts_5m": {
+        "zero_fraction": 0.0,
+        "median": 15.0,
+        "p90": 20.0
+      },
+      "method_attempts_5m": {
+        "zero_fraction": 0.00445619335347432,
+        "median": 13.0,
+        "p90": 18.0
+      },
+      "customer_attempts_7d": {
+        "zero_fraction": 0.0,
+        "median": 45.0,
+        "p90": 62.0
+      }
+    },
+    "class_mix": {
+      "BD_INSUFFICIENT_FUNDS": 0.40279456193353474,
+      "RISK_BLOCKED": 0.16435045317220545,
+      "TD_PSP_TIMEOUT": 0.14629909365558913,
+      "CARD_EXPIRED": 0.12099697885196374,
+      "TD_ISSUER_DOWN": 0.09743202416918428,
+      "BD_USER_ABANDONED_OTP": 0.06812688821752266
+    },
+    "no_prior_success_fraction": 0.17454682779456193,
+    "repeated_order_fraction": 0.2469312448226523,
+    "class_counts_by_split": {
+      "fit": {
+        "BD_INSUFFICIENT_FUNDS": 2592,
+        "RISK_BLOCKED": 1006,
+        "TD_PSP_TIMEOUT": 902,
+        "CARD_EXPIRED": 684,
+        "TD_ISSUER_DOWN": 514,
+        "BD_USER_ABANDONED_OTP": 372
+      },
+      "calibration": {
+        "BD_INSUFFICIENT_FUNDS": 731,
+        "RISK_BLOCKED": 310,
+        "TD_PSP_TIMEOUT": 282,
+        "CARD_EXPIRED": 233,
+        "TD_ISSUER_DOWN": 221,
+        "BD_USER_ABANDONED_OTP": 117
+      },
+      "policy": {
+        "BD_INSUFFICIENT_FUNDS": 911,
+        "RISK_BLOCKED": 448,
+        "TD_ISSUER_DOWN": 424,
+        "CARD_EXPIRED": 338,
+        "TD_PSP_TIMEOUT": 303,
+        "BD_USER_ABANDONED_OTP": 194
+      },
+      "confirmation": {
+        "BD_INSUFFICIENT_FUNDS": 942,
+        "TD_PSP_TIMEOUT": 444,
+        "RISK_BLOCKED": 348,
+        "CARD_EXPIRED": 314,
+        "BD_USER_ABANDONED_OTP": 201,
+        "TD_ISSUER_DOWN": 128
+      }
+    },
+    "minimum_customer_history_attempts": 18,
+    "median_customer_history_attempts": 40.0,
+    "minimum_instrument_history_attempts": 1,
+    "median_instrument_history_attempts": 15.0,
+    "measurement_customer_count": 1666,
+    "measurement_instrument_count": 4466
+  },
+  "validation_selected_group": "all_26",
+  "confirmation_passed_safety_constraint": false,
+  "feature_groups": {
+    "baseline_5": {
+      "features": [
+        "gw_error_code",
+        "gw_error_source",
+        "gw_error_step",
+        "method",
+        "instrument_hint"
+      ],
+      "calibration": "uncalibrated",
+      "thresholds": {
+        "min_confidence": 0.6,
+        "max_hard_mass": 0.01,
+        "retry_enabled": true
+      },
+      "mean_confirmation_f1": 0.46939434462892854,
+      "mean_confirmation_accuracy": 0.31191388465204395,
+      "unsafe_confirmation_retries": 0,
+      "retry_coverage": {
+        "temporal_confirmation": 0.14135464871687,
+        "issuer_outage": 0.017029328287606435,
+        "psp_degradation": 0.3083403538331929,
+        "unseen_codes": 0.0,
+        "hard_decline_collision": 0.010309278350515464,
+        "telemetry_gap": 0.02267818574514039
+      }
+    },
+    "plus_infrastructure": {
+      "features": [
+        "gw_error_code",
+        "gw_error_source",
+        "gw_error_step",
+        "method",
+        "instrument_hint",
+        "issuer_attempts_5m",
+        "issuer_failure_rate_5m",
+        "issuer_latency_p95_ms_5m",
+        "psp_attempts_5m",
+        "psp_failure_rate_5m",
+        "psp_latency_p95_ms_5m",
+        "method_attempts_5m",
+        "method_failure_rate_5m",
+        "current_latency_ms"
+      ],
+      "calibration": "isotonic",
+      "thresholds": {
+        "min_confidence": 0.95,
+        "max_hard_mass": 0.0,
+        "retry_enabled": true
+      },
+      "mean_confirmation_f1": 0.3703656478648007,
+      "mean_confirmation_accuracy": 0.26456650192645154,
+      "unsafe_confirmation_retries": 0,
+      "retry_coverage": {
+        "temporal_confirmation": 0.10012620950778292,
+        "issuer_outage": 0.027436140018921477,
+        "psp_degradation": 0.11794439764111204,
+        "unseen_codes": 0.0,
+        "hard_decline_collision": 0.025376685170499604,
+        "telemetry_gap": 0.06587473002159827
+      }
+    },
+    "plus_history": {
+      "features": [
+        "gw_error_code",
+        "gw_error_source",
+        "gw_error_step",
+        "method",
+        "instrument_hint",
+        "customer_attempts_7d",
+        "customer_successes_7d",
+        "customer_failure_rate_7d",
+        "customer_last_success_age_s",
+        "amount_to_customer_mean_7d",
+        "order_prior_attempts_7d"
+      ],
+      "calibration": "isotonic",
+      "thresholds": {
+        "min_confidence": 0.6,
+        "max_hard_mass": 0.0,
+        "retry_enabled": true
+      },
+      "mean_confirmation_f1": 0.5282746093527783,
+      "mean_confirmation_accuracy": 0.3892248530692162,
+      "unsafe_confirmation_retries": 1,
+      "retry_coverage": {
+        "temporal_confirmation": 0.2419015565839293,
+        "issuer_outage": 0.1967833491012299,
+        "psp_degradation": 0.13563605728727884,
+        "unseen_codes": 0.0,
+        "hard_decline_collision": 0.02141157811260904,
+        "telemetry_gap": 0.05939524838012959
+      }
+    },
+    "plus_context": {
+      "features": [
+        "gw_error_code",
+        "gw_error_source",
+        "gw_error_step",
+        "method",
+        "instrument_hint",
+        "amount_minor",
+        "log_amount_minor",
+        "hour_ist",
+        "weekday_ist"
+      ],
+      "calibration": "sigmoid",
+      "thresholds": {
+        "min_confidence": 0.9,
+        "max_hard_mass": 0.1,
+        "retry_enabled": true
+      },
+      "mean_confirmation_f1": 0.3542314871832863,
+      "mean_confirmation_accuracy": 0.2315967126274221,
+      "unsafe_confirmation_retries": 1,
+      "retry_coverage": {
+        "temporal_confirmation": 0.12368531762726126,
+        "issuer_outage": 0.023651844843897825,
+        "psp_degradation": 0.10614995787700084,
+        "unseen_codes": 0.0,
+        "hard_decline_collision": 0.00951625693893735,
+        "telemetry_gap": 0.02591792656587473
+      }
+    },
+    "all_without_identifiers": {
+      "features": [
+        "gw_error_code",
+        "gw_error_source",
+        "gw_error_step",
+        "method",
+        "instrument_hint",
+        "amount_minor",
+        "log_amount_minor",
+        "hour_ist",
+        "weekday_ist",
+        "customer_attempts_7d",
+        "customer_successes_7d",
+        "customer_failure_rate_7d",
+        "customer_last_success_age_s",
+        "amount_to_customer_mean_7d",
+        "order_prior_attempts_7d",
+        "issuer_attempts_5m",
+        "issuer_failure_rate_5m",
+        "issuer_latency_p95_ms_5m",
+        "psp_attempts_5m",
+        "psp_failure_rate_5m",
+        "psp_latency_p95_ms_5m",
+        "method_attempts_5m",
+        "method_failure_rate_5m",
+        "current_latency_ms"
+      ],
+      "calibration": "sigmoid",
+      "thresholds": {
+        "min_confidence": 0.6,
+        "max_hard_mass": 0.01,
+        "retry_enabled": true
+      },
+      "mean_confirmation_f1": 0.5564834743576762,
+      "mean_confirmation_accuracy": 0.5460198155613308,
+      "unsafe_confirmation_retries": 0,
+      "retry_coverage": {
+        "temporal_confirmation": 0.3962978544383677,
+        "issuer_outage": 0.30368968779564803,
+        "psp_degradation": 0.44313395113732096,
+        "unseen_codes": 0.0,
+        "hard_decline_collision": 0.11260904044409199,
+        "telemetry_gap": 0.2613390928725702
+      }
+    },
+    "all_26": {
+      "features": [
+        "gw_error_code",
+        "gw_error_source",
+        "gw_error_step",
+        "method",
+        "instrument_hint",
+        "issuer_id",
+        "psp_id",
+        "amount_minor",
+        "log_amount_minor",
+        "hour_ist",
+        "weekday_ist",
+        "customer_attempts_7d",
+        "customer_successes_7d",
+        "customer_failure_rate_7d",
+        "customer_last_success_age_s",
+        "amount_to_customer_mean_7d",
+        "order_prior_attempts_7d",
+        "issuer_attempts_5m",
+        "issuer_failure_rate_5m",
+        "issuer_latency_p95_ms_5m",
+        "psp_attempts_5m",
+        "psp_failure_rate_5m",
+        "psp_latency_p95_ms_5m",
+        "method_attempts_5m",
+        "method_failure_rate_5m",
+        "current_latency_ms"
+      ],
+      "calibration": "sigmoid",
+      "thresholds": {
+        "min_confidence": 0.6,
+        "max_hard_mass": 0.03,
+        "retry_enabled": true
+      },
+      "mean_confirmation_f1": 0.6487313264079013,
+      "mean_confirmation_accuracy": 0.6197447897386509,
+      "unsafe_confirmation_retries": 2,
+      "retry_coverage": {
+        "temporal_confirmation": 0.5090450147244425,
+        "issuer_outage": 0.4304635761589404,
+        "psp_degradation": 0.5492839090143218,
+        "unseen_codes": 0.0,
+        "hard_decline_collision": 0.17922283901665345,
+        "telemetry_gap": 0.3347732181425486
+      }
+    }
+  },
+  "trace_records": 62915,
+  "trace_file": "unsafe-retries.jsonl.gz",
+  "serving_changed": false
+}

@@ -1,0 +1,59 @@
+{
+  "total_payments": 1000,
+  "terminal": {
+    "SIMULATED_RECOVERY_SUCCESS": 690,
+    "DIAGNOSIS_INTERVENTION": 1,
+    "SAFETY_ESCALATION": 309
+  },
+  "reconciles": true,
+  "simulated_recovery_success_by_cycle": {
+    "cycle_1": 663,
+    "cycle_2": 21,
+    "cycle_3": 6
+  },
+  "non_terminal_waiting_or_pending": 0,
+  "payments_that_waited": 544,
+  "wait_events": 738,
+  "intervention_cases": 310,
+  "cases_equal_non_success_terminals": true,
+  "cycle_verdicts": {
+    "ABSTAINED": 224,
+    "REJECTED": 45,
+    "ACCEPTED": 690,
+    "-": 309
+  },
+  "intervention_reasons": {
+    "SAFETY_ESCALATION:risk_blocked_hypothesis": 309,
+    "DIAGNOSIS_INTERVENTION:cycles_exhausted": 1
+  },
+  "guard_suppressions": {},
+  "safety": {
+    "executed_retries_against_a_true_hard_decline": 4,
+    "payments_affected": 1
+  },
+  "duplicate_protection": {
+    "max_terminal_events_per_payment": 1,
+    "duplicate_plan_step_attempts": 0
+  },
+  "workflows_run": 1000,
+  "meta": {
+    "sample": 1000,
+    "worlds": [
+      "calm_final_test_0",
+      "stressed_final_test_0",
+      "typical_final_test_0"
+    ],
+    "runtime_s": 586.2,
+    "simulated_clock": true,
+    "timers": "collapsed (time_scale 1e9)",
+    "worker_concurrency": "default",
+    "consent": "demo defaults: whatsapp yes, sms no, email no",
+    "real_payments": 0,
+    "isolated_schema": true
+  },
+  "offline_vs_temporal_same_payments": {
+    "compared": 1000,
+    "disagreements": 0,
+    "examples": {}
+  }
+}

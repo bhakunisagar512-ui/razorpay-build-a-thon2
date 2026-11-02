@@ -1,0 +1,13 @@
+{
+  "frozen_selection_hash_matches": true,
+  "independent_worlds": 564,
+  "failed_payments": 317059,
+  "worlds_by_family": {
+    "sequential": 94,
+    "issuer_outage": 94,
+    "psp_degradation": 94,
+    "unseen_codes": 94,
+    "hard_decline_collision": 94,
+    "telemetry_gap": 94
+  }
+}

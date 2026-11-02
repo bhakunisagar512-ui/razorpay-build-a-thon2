@@ -1,0 +1,180 @@
+{
+  "rows_total_failures": 563,
+  "rows_scored": 563,
+  "rows_not_scored": 0,
+  "status_counts": {
+    "scored": 563
+  },
+  "accuracy": 0.9396092362344582,
+  "macro_f1": 0.8748099823452801,
+  "per_class": {
+    "BD_INSUFFICIENT_FUNDS": {
+      "precision": 0.9620689655172414,
+      "recall": 0.9789473684210527,
+      "f1": 0.9704347826086956,
+      "support": 285
+    },
+    "BD_USER_ABANDONED_OTP": {
+      "precision": 0.9395973154362416,
+      "recall": 0.9790209790209791,
+      "f1": 0.958904109589041,
+      "support": 143
+    },
+    "CARD_EXPIRED": {
+      "precision": 0.8648648648648649,
+      "recall": 0.9142857142857143,
+      "f1": 0.8888888888888888,
+      "support": 35
+    },
+    "RISK_BLOCKED": {
+      "precision": 0.9019607843137255,
+      "recall": 0.7796610169491526,
+      "f1": 0.8363636363636363,
+      "support": 59
+    },
+    "TD_ISSUER_DOWN": {
+      "precision": 0.8181818181818182,
+      "recall": 0.6,
+      "f1": 0.6923076923076923,
+      "support": 15
+    },
+    "TD_PSP_TIMEOUT": {
+      "precision": 0.92,
+      "recall": 0.8846153846153846,
+      "f1": 0.9019607843137255,
+      "support": 26
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "BD_INSUFFICIENT_FUNDS",
+      "BD_USER_ABANDONED_OTP",
+      "CARD_EXPIRED",
+      "RISK_BLOCKED",
+      "TD_ISSUER_DOWN",
+      "TD_PSP_TIMEOUT"
+    ],
+    "rows_true_cols_predicted": [
+      [
+        279,
+        4,
+        0,
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        140,
+        1,
+        1,
+        0,
+        1
+      ],
+      [
+        2,
+        0,
+        32,
+        1,
+        0,
+        0
+      ],
+      [
+        5,
+        4,
+        3,
+        46,
+        1,
+        0
+      ],
+      [
+        4,
+        0,
+        1,
+        1,
+        9,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        2,
+        0,
+        23
+      ]
+    ]
+  },
+  "confidence": {
+    "mean": 0.9289444637568876,
+    "median": 0.9936407317008732,
+    "p10": 0.7012796540316232,
+    "below_0.60": 34,
+    "share_below_0.60": 0.06039076376554174,
+    "between_0.60_0.80": 43,
+    "above_0.80": 486,
+    "histogram_0.1_bins": [
+      0,
+      0,
+      0,
+      3,
+      12,
+      19,
+      22,
+      21,
+      33,
+      453
+    ]
+  },
+  "safety_without_execution": {
+    "hard_declines": 94,
+    "unsafe_retries_under_existing_policy": 0,
+    "unsafe_rate_of_hard_declines": 0.0,
+    "abstained_to_ambiguous": 97,
+    "definition": "true cause in {CARD_EXPIRED, RISK_BLOCKED} and build_plan(shadow policy cause).retry_count > 0"
+  },
+  "serving_vs_offline": {
+    "prediction_agreement": 1.0,
+    "offline_same_rows_accuracy": 0.9396092362344582,
+    "offline_same_rows_macro_f1": 0.8748099823452801
+  },
+  "latency_ms_per_scored_failure": {
+    "mean": 213.75662522202487,
+    "p95": 290.7059999999999
+  },
+  "previous_offline_benchmark": {
+    "accuracy": 0.912,
+    "macro_f1": 0.878
+  },
+  "meta": {
+    "scenario": "typical",
+    "seed": 777001,
+    "orders": 4000,
+    "attempts_replayed": 23821,
+    "model_id": "phase4-hgb-deployment_core-uncalibrated-71bf19e4",
+    "shadow_only": true,
+    "runtime_s": 178.8,
+    "example_record": {
+      "payment_id": "pay_v4_typical_777001_0023818",
+      "status": "scored",
+      "predicted_cause": "BD_USER_ABANDONED_OTP",
+      "policy_cause": "BD_USER_ABANDONED_OTP",
+      "confidence": 0.99917646646467,
+      "low_confidence": false,
+      "decision": "reliable_diagnosis",
+      "route": "REVIEW",
+      "probabilities": {
+        "BD_INSUFFICIENT_FUNDS": 0.00024751736046009146,
+        "BD_USER_ABANDONED_OTP": 0.99917646646467,
+        "CARD_EXPIRED": 0.00013800262231728453,
+        "RISK_BLOCKED": 0.00030639292489957176,
+        "TD_ISSUER_DOWN": 3.807221529683544e-05,
+        "TD_PSP_TIMEOUT": 9.354841235625227e-05
+      },
+      "model_id": "phase4-hgb-deployment_core-uncalibrated-71bf19e4",
+      "observed_at": "2026-05-25T23:57:39.690429+00:00",
+      "actual_cause": "BD_USER_ABANDONED_OTP",
+      "latency_ms": 220.12
+    }
+  }
+}

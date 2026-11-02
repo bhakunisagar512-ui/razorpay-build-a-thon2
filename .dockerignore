@@ -5,3 +5,6 @@ __pycache__/
 .pytest_cache/
 node_modules/
 *.joblib
+# bulky, reproducible or non-runtime content: eval/data and the model artifacts are bind-mounted at run time (./eval -> /code/eval)
+eval/data
+backups

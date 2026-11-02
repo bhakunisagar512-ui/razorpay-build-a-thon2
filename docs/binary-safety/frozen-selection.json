@@ -1,0 +1,1241 @@
+{
+  "selected": {
+    "family": "binary",
+    "threshold": 0.15,
+    "assessment": {
+      "safe": true,
+      "utility_passed": true,
+      "eligible": true,
+      "gain_retained": 1.0002912272889517,
+      "mean_f1": 0.6375527748997273,
+      "mean_accuracy": 0.5916997670597416,
+      "mean_legitimate_retry_recall": 0.5505130616696522,
+      "unsafe_retries": 0
+    },
+    "partitions": {
+      "temporal_policy": {
+        "n": 2618,
+        "macro_f1_all": 0.8574975657467393,
+        "accuracy": 0.7983193277310925,
+        "abstain_rate": 0.17379679144385027,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 786,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.44805194805194803,
+        "true_retryable_recall": 0.7155067155067155,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "expired_instrument_veto": 306,
+          "reliable_diagnosis": 1534,
+          "hard_rule_veto": 323,
+          "hard_decline_mass_veto": 238,
+          "rule_model_disagreement": 16,
+          "low_confidence": 201
+        },
+        "previously_allowed_legitimate": 1172,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 338,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 448,
+            "unsafe": 0
+          }
+        }
+      },
+      "issuer_outage_1000": {
+        "n": 543,
+        "macro_f1_all": 0.7872958398236456,
+        "accuracy": 0.6924493554327809,
+        "abstain_rate": 0.27440147329650094,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 149,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.40331491712707185,
+        "true_retryable_recall": 0.665625,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "hard_decline_mass_veto": 77,
+          "low_confidence": 61,
+          "reliable_diagnosis": 265,
+          "expired_instrument_veto": 40,
+          "hard_rule_veto": 89,
+          "rule_model_disagreement": 10,
+          "binary_hard_decline_veto": 1
+        },
+        "previously_allowed_legitimate": 214,
+        "additional_legitimate_blocked": 1,
+        "additional_legitimate_blocked_fraction": 0.004672897196261682,
+        "additional_abstention": 0.0018416206261510082,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 57,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 92,
+            "unsafe": 0
+          }
+        }
+      },
+      "psp_degradation_1000": {
+        "n": 581,
+        "macro_f1_all": 0.8405469251492313,
+        "accuracy": 0.8003442340791739,
+        "abstain_rate": 0.18932874354561102,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 150,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.5146299483648882,
+        "true_retryable_recall": 0.7821522309711286,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "hard_rule_veto": 88,
+          "low_confidence": 41,
+          "reliable_diagnosis": 341,
+          "hard_decline_mass_veto": 60,
+          "rule_model_disagreement": 9,
+          "expired_instrument_veto": 42
+        },
+        "previously_allowed_legitimate": 298,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 58,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 92,
+            "unsafe": 0
+          }
+        }
+      },
+      "unseen_codes_1000": {
+        "n": 450,
+        "macro_f1_all": 0.13333333333333333,
+        "accuracy": 0.08444444444444445,
+        "abstain_rate": 0.9155555555555556,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 149,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.0,
+        "true_retryable_recall": 0.0,
+        "false_retry_fraction_of_allowed": null,
+        "decisions": {
+          "unknown_error_tuple": 294,
+          "expired_instrument_veto": 38,
+          "low_confidence": 118
+        },
+        "previously_allowed_legitimate": 0,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 57,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 92,
+            "unsafe": 0
+          }
+        }
+      },
+      "hard_decline_collision_1000": {
+        "n": 628,
+        "macro_f1_all": 0.6243506914086956,
+        "accuracy": 0.6289808917197452,
+        "abstain_rate": 0.2945859872611465,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 424,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.19904458598726116,
+        "true_retryable_recall": 0.7621951219512195,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "reliable_diagnosis": 443,
+          "low_confidence": 77,
+          "hard_decline_mass_veto": 106,
+          "rule_model_disagreement": 2
+        },
+        "previously_allowed_legitimate": 125,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 180,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 244,
+            "unsafe": 0
+          }
+        }
+      },
+      "telemetry_gap_1000": {
+        "n": 452,
+        "macro_f1_all": 0.7253445717961847,
+        "accuracy": 0.7057522123893806,
+        "abstain_rate": 0.21238938053097345,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 154,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.2920353982300885,
+        "true_retryable_recall": 0.581081081081081,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "expired_instrument_veto": 40,
+          "hard_rule_veto": 89,
+          "reliable_diagnosis": 227,
+          "hard_decline_mass_veto": 50,
+          "low_confidence": 38,
+          "rule_model_disagreement": 8
+        },
+        "previously_allowed_legitimate": 129,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 62,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 92,
+            "unsafe": 0
+          }
+        }
+      },
+      "issuer_outage_3000": {
+        "n": 1562,
+        "macro_f1_all": 0.7656424339591542,
+        "accuracy": 0.6779769526248399,
+        "abstain_rate": 0.29257362355953903,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 400,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.39372599231754163,
+        "true_retryable_recall": 0.6374085684430512,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "expired_instrument_veto": 105,
+          "hard_rule_veto": 238,
+          "low_confidence": 170,
+          "rule_model_disagreement": 26,
+          "reliable_diagnosis": 762,
+          "hard_decline_mass_veto": 260,
+          "binary_hard_decline_veto": 1
+        },
+        "previously_allowed_legitimate": 611,
+        "additional_legitimate_blocked": 1,
+        "additional_legitimate_blocked_fraction": 0.0016366612111292963,
+        "additional_abstention": 0.000640204865556937,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 160,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 240,
+            "unsafe": 0
+          }
+        }
+      },
+      "psp_degradation_3000": {
+        "n": 1777,
+        "macro_f1_all": 0.8224718319612655,
+        "accuracy": 0.76702307259426,
+        "abstain_rate": 0.21553179516038268,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 388,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.5334833989870569,
+        "true_retryable_recall": 0.7642276422764228,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "hard_rule_veto": 240,
+          "low_confidence": 115,
+          "reliable_diagnosis": 1062,
+          "hard_decline_mass_veto": 246,
+          "expired_instrument_veto": 92,
+          "rule_model_disagreement": 21,
+          "binary_hard_decline_veto": 1
+        },
+        "previously_allowed_legitimate": 941,
+        "additional_legitimate_blocked": 1,
+        "additional_legitimate_blocked_fraction": 0.0010626992561105207,
+        "additional_abstention": 0.0005627462014631546,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 148,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 240,
+            "unsafe": 0
+          }
+        }
+      },
+      "unseen_codes_3000": {
+        "n": 1380,
+        "macro_f1_all": 0.12990196078431374,
+        "accuracy": 0.07681159420289856,
+        "abstain_rate": 0.9202898550724637,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 402,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.0,
+        "true_retryable_recall": 0.0,
+        "false_retry_fraction_of_allowed": null,
+        "decisions": {
+          "unknown_error_tuple": 970,
+          "low_confidence": 300,
+          "expired_instrument_veto": 104,
+          "reliable_diagnosis": 6
+        },
+        "previously_allowed_legitimate": 0,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 162,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 240,
+            "unsafe": 0
+          }
+        }
+      },
+      "hard_decline_collision_3000": {
+        "n": 1884,
+        "macro_f1_all": 0.5982500094028939,
+        "accuracy": 0.6369426751592356,
+        "abstain_rate": 0.3232484076433121,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 1210,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.17038216560509553,
+        "true_retryable_recall": 0.6227897838899804,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "reliable_diagnosis": 1275,
+          "hard_decline_mass_veto": 342,
+          "low_confidence": 257,
+          "rule_model_disagreement": 7,
+          "binary_hard_decline_veto": 3
+        },
+        "previously_allowed_legitimate": 319,
+        "additional_legitimate_blocked": 2,
+        "additional_legitimate_blocked_fraction": 0.006269592476489028,
+        "additional_abstention": 0.0015923566878980888,
+        "previously_unsafe_caught": 1,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 458,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 752,
+            "unsafe": 0
+          }
+        }
+      },
+      "telemetry_gap_3000": {
+        "n": 1382,
+        "macro_f1_all": 0.7284453605315441,
+        "accuracy": 0.6396526772793053,
+        "abstain_rate": 0.29160636758321273,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 399,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.28147612156295226,
+        "true_retryable_recall": 0.5246575342465754,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "expired_instrument_veto": 102,
+          "hard_decline_mass_veto": 222,
+          "reliable_diagnosis": 637,
+          "hard_rule_veto": 240,
+          "low_confidence": 156,
+          "rule_model_disagreement": 25
+        },
+        "previously_allowed_legitimate": 383,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 159,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 240,
+            "unsafe": 0
+          }
+        }
+      }
+    }
+  },
+  "best_multiclass_comparator": {
+    "family": "multiclass",
+    "threshold": 0.02,
+    "assessment": {
+      "safe": true,
+      "utility_passed": false,
+      "eligible": false,
+      "gain_retained": 0.745506589203232,
+      "mean_f1": 0.593450426681655,
+      "mean_accuracy": 0.561733160919935,
+      "mean_legitimate_retry_recall": 0.48896830988386775,
+      "unsafe_retries": 0
+    },
+    "partitions": {
+      "temporal_policy": {
+        "n": 2618,
+        "macro_f1_all": 0.8286729068851896,
+        "accuracy": 0.7551566080977846,
+        "abstain_rate": 0.2203972498090145,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 786,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.4014514896867838,
+        "true_retryable_recall": 0.6410256410256411,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "expired_instrument_veto": 306,
+          "reliable_diagnosis": 1412,
+          "hard_rule_veto": 323,
+          "hard_decline_mass_veto": 364,
+          "low_confidence": 201,
+          "rule_model_disagreement": 12
+        },
+        "previously_allowed_legitimate": 1172,
+        "additional_legitimate_blocked": 122,
+        "additional_legitimate_blocked_fraction": 0.10409556313993173,
+        "additional_abstention": 0.04660045836516424,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 338,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 448,
+            "unsafe": 0
+          }
+        }
+      },
+      "issuer_outage_1000": {
+        "n": 543,
+        "macro_f1_all": 0.7408954365739273,
+        "accuracy": 0.6537753222836096,
+        "abstain_rate": 0.31675874769797424,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 149,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.36095764272559855,
+        "true_retryable_recall": 0.59375,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "hard_decline_mass_veto": 101,
+          "low_confidence": 61,
+          "reliable_diagnosis": 242,
+          "expired_instrument_veto": 40,
+          "hard_rule_veto": 89,
+          "rule_model_disagreement": 10
+        },
+        "previously_allowed_legitimate": 214,
+        "additional_legitimate_blocked": 24,
+        "additional_legitimate_blocked_fraction": 0.11214953271028037,
+        "additional_abstention": 0.04419889502762431,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 57,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 92,
+            "unsafe": 0
+          }
+        }
+      },
+      "psp_degradation_1000": {
+        "n": 581,
+        "macro_f1_all": 0.8259065513986883,
+        "accuracy": 0.7573149741824441,
+        "abstain_rate": 0.23235800344234078,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 150,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.47160068846815834,
+        "true_retryable_recall": 0.7165354330708661,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "hard_rule_veto": 88,
+          "low_confidence": 41,
+          "reliable_diagnosis": 316,
+          "hard_decline_mass_veto": 88,
+          "rule_model_disagreement": 6,
+          "expired_instrument_veto": 42
+        },
+        "previously_allowed_legitimate": 298,
+        "additional_legitimate_blocked": 25,
+        "additional_legitimate_blocked_fraction": 0.08389261744966443,
+        "additional_abstention": 0.04302925989672976,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 58,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 92,
+            "unsafe": 0
+          }
+        }
+      },
+      "unseen_codes_1000": {
+        "n": 450,
+        "macro_f1_all": 0.13333333333333333,
+        "accuracy": 0.08444444444444445,
+        "abstain_rate": 0.9155555555555556,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 149,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.0,
+        "true_retryable_recall": 0.0,
+        "false_retry_fraction_of_allowed": null,
+        "decisions": {
+          "unknown_error_tuple": 294,
+          "expired_instrument_veto": 38,
+          "low_confidence": 118
+        },
+        "previously_allowed_legitimate": 0,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 57,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 92,
+            "unsafe": 0
+          }
+        }
+      },
+      "hard_decline_collision_1000": {
+        "n": 628,
+        "macro_f1_all": 0.5032075702655745,
+        "accuracy": 0.6050955414012739,
+        "abstain_rate": 0.3184713375796178,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 424,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.1751592356687898,
+        "true_retryable_recall": 0.6707317073170732,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "reliable_diagnosis": 428,
+          "low_confidence": 77,
+          "hard_decline_mass_veto": 121,
+          "rule_model_disagreement": 2
+        },
+        "previously_allowed_legitimate": 125,
+        "additional_legitimate_blocked": 15,
+        "additional_legitimate_blocked_fraction": 0.12,
+        "additional_abstention": 0.023885350318471332,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 180,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 244,
+            "unsafe": 0
+          }
+        }
+      },
+      "telemetry_gap_1000": {
+        "n": 452,
+        "macro_f1_all": 0.62016122377372,
+        "accuracy": 0.6792035398230089,
+        "abstain_rate": 0.2411504424778761,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 154,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.26327433628318586,
+        "true_retryable_recall": 0.527027027027027,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "expired_instrument_veto": 40,
+          "hard_rule_veto": 89,
+          "reliable_diagnosis": 214,
+          "hard_decline_mass_veto": 63,
+          "low_confidence": 38,
+          "rule_model_disagreement": 8
+        },
+        "previously_allowed_legitimate": 129,
+        "additional_legitimate_blocked": 12,
+        "additional_legitimate_blocked_fraction": 0.09302325581395349,
+        "additional_abstention": 0.028761061946902644,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 62,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 92,
+            "unsafe": 0
+          }
+        }
+      },
+      "issuer_outage_3000": {
+        "n": 1562,
+        "macro_f1_all": 0.7229720839833123,
+        "accuracy": 0.6318822023047375,
+        "abstain_rate": 0.3399487836107554,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 400,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.34635083226632524,
+        "true_retryable_recall": 0.5600835945663531,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "expired_instrument_veto": 105,
+          "hard_rule_veto": 238,
+          "low_confidence": 170,
+          "rule_model_disagreement": 25,
+          "reliable_diagnosis": 688,
+          "hard_decline_mass_veto": 336
+        },
+        "previously_allowed_legitimate": 611,
+        "additional_legitimate_blocked": 75,
+        "additional_legitimate_blocked_fraction": 0.12274959083469722,
+        "additional_abstention": 0.04801536491677333,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 160,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 240,
+            "unsafe": 0
+          }
+        }
+      },
+      "psp_degradation_3000": {
+        "n": 1777,
+        "macro_f1_all": 0.7956926412167662,
+        "accuracy": 0.7208778840742825,
+        "abstain_rate": 0.265053460889139,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 388,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.4839617332583005,
+        "true_retryable_recall": 0.6943089430894309,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "hard_rule_veto": 240,
+          "low_confidence": 115,
+          "hard_decline_mass_veto": 339,
+          "reliable_diagnosis": 974,
+          "expired_instrument_veto": 92,
+          "rule_model_disagreement": 17
+        },
+        "previously_allowed_legitimate": 941,
+        "additional_legitimate_blocked": 87,
+        "additional_legitimate_blocked_fraction": 0.0924548352816153,
+        "additional_abstention": 0.05008441193021948,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 148,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 240,
+            "unsafe": 0
+          }
+        }
+      },
+      "unseen_codes_3000": {
+        "n": 1380,
+        "macro_f1_all": 0.12990196078431374,
+        "accuracy": 0.07681159420289856,
+        "abstain_rate": 0.9202898550724637,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 402,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.0,
+        "true_retryable_recall": 0.0,
+        "false_retry_fraction_of_allowed": null,
+        "decisions": {
+          "unknown_error_tuple": 970,
+          "low_confidence": 300,
+          "expired_instrument_veto": 104,
+          "reliable_diagnosis": 6
+        },
+        "previously_allowed_legitimate": 0,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 162,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 240,
+            "unsafe": 0
+          }
+        }
+      },
+      "hard_decline_collision_3000": {
+        "n": 1884,
+        "macro_f1_all": 0.5551765695812246,
+        "accuracy": 0.606687898089172,
+        "abstain_rate": 0.3535031847133758,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 1210,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.14012738853503184,
+        "true_retryable_recall": 0.5108055009823183,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "reliable_diagnosis": 1218,
+          "hard_decline_mass_veto": 402,
+          "low_confidence": 257,
+          "rule_model_disagreement": 7
+        },
+        "previously_allowed_legitimate": 319,
+        "additional_legitimate_blocked": 59,
+        "additional_legitimate_blocked_fraction": 0.18495297805642633,
+        "additional_abstention": 0.031847133757961776,
+        "previously_unsafe_caught": 1,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 458,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 752,
+            "unsafe": 0
+          }
+        }
+      },
+      "telemetry_gap_3000": {
+        "n": 1382,
+        "macro_f1_all": 0.672034415702155,
+        "accuracy": 0.6078147612156295,
+        "abstain_rate": 0.32344428364688854,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 399,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.2496382054992764,
+        "true_retryable_recall": 0.4643835616438356,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "expired_instrument_veto": 102,
+          "hard_decline_mass_veto": 268,
+          "reliable_diagnosis": 593,
+          "hard_rule_veto": 240,
+          "low_confidence": 156,
+          "rule_model_disagreement": 23
+        },
+        "previously_allowed_legitimate": 383,
+        "additional_legitimate_blocked": 44,
+        "additional_legitimate_blocked_fraction": 0.11488250652741515,
+        "additional_abstention": 0.03183791606367581,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 159,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 240,
+            "unsafe": 0
+          }
+        }
+      }
+    }
+  },
+  "best_binary_comparator": {
+    "family": "binary",
+    "threshold": 0.15,
+    "assessment": {
+      "safe": true,
+      "utility_passed": true,
+      "eligible": true,
+      "gain_retained": 1.0002912272889517,
+      "mean_f1": 0.6375527748997273,
+      "mean_accuracy": 0.5916997670597416,
+      "mean_legitimate_retry_recall": 0.5505130616696522,
+      "unsafe_retries": 0
+    },
+    "partitions": {
+      "temporal_policy": {
+        "n": 2618,
+        "macro_f1_all": 0.8574975657467393,
+        "accuracy": 0.7983193277310925,
+        "abstain_rate": 0.17379679144385027,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 786,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.44805194805194803,
+        "true_retryable_recall": 0.7155067155067155,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "expired_instrument_veto": 306,
+          "reliable_diagnosis": 1534,
+          "hard_rule_veto": 323,
+          "hard_decline_mass_veto": 238,
+          "rule_model_disagreement": 16,
+          "low_confidence": 201
+        },
+        "previously_allowed_legitimate": 1172,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 338,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 448,
+            "unsafe": 0
+          }
+        }
+      },
+      "issuer_outage_1000": {
+        "n": 543,
+        "macro_f1_all": 0.7872958398236456,
+        "accuracy": 0.6924493554327809,
+        "abstain_rate": 0.27440147329650094,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 149,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.40331491712707185,
+        "true_retryable_recall": 0.665625,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "hard_decline_mass_veto": 77,
+          "low_confidence": 61,
+          "reliable_diagnosis": 265,
+          "expired_instrument_veto": 40,
+          "hard_rule_veto": 89,
+          "rule_model_disagreement": 10,
+          "binary_hard_decline_veto": 1
+        },
+        "previously_allowed_legitimate": 214,
+        "additional_legitimate_blocked": 1,
+        "additional_legitimate_blocked_fraction": 0.004672897196261682,
+        "additional_abstention": 0.0018416206261510082,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 57,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 92,
+            "unsafe": 0
+          }
+        }
+      },
+      "psp_degradation_1000": {
+        "n": 581,
+        "macro_f1_all": 0.8405469251492313,
+        "accuracy": 0.8003442340791739,
+        "abstain_rate": 0.18932874354561102,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 150,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.5146299483648882,
+        "true_retryable_recall": 0.7821522309711286,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "hard_rule_veto": 88,
+          "low_confidence": 41,
+          "reliable_diagnosis": 341,
+          "hard_decline_mass_veto": 60,
+          "rule_model_disagreement": 9,
+          "expired_instrument_veto": 42
+        },
+        "previously_allowed_legitimate": 298,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 58,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 92,
+            "unsafe": 0
+          }
+        }
+      },
+      "unseen_codes_1000": {
+        "n": 450,
+        "macro_f1_all": 0.13333333333333333,
+        "accuracy": 0.08444444444444445,
+        "abstain_rate": 0.9155555555555556,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 149,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.0,
+        "true_retryable_recall": 0.0,
+        "false_retry_fraction_of_allowed": null,
+        "decisions": {
+          "unknown_error_tuple": 294,
+          "expired_instrument_veto": 38,
+          "low_confidence": 118
+        },
+        "previously_allowed_legitimate": 0,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 57,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 92,
+            "unsafe": 0
+          }
+        }
+      },
+      "hard_decline_collision_1000": {
+        "n": 628,
+        "macro_f1_all": 0.6243506914086956,
+        "accuracy": 0.6289808917197452,
+        "abstain_rate": 0.2945859872611465,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 424,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.19904458598726116,
+        "true_retryable_recall": 0.7621951219512195,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "reliable_diagnosis": 443,
+          "low_confidence": 77,
+          "hard_decline_mass_veto": 106,
+          "rule_model_disagreement": 2
+        },
+        "previously_allowed_legitimate": 125,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 180,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 244,
+            "unsafe": 0
+          }
+        }
+      },
+      "telemetry_gap_1000": {
+        "n": 452,
+        "macro_f1_all": 0.7253445717961847,
+        "accuracy": 0.7057522123893806,
+        "abstain_rate": 0.21238938053097345,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 154,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.2920353982300885,
+        "true_retryable_recall": 0.581081081081081,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "expired_instrument_veto": 40,
+          "hard_rule_veto": 89,
+          "reliable_diagnosis": 227,
+          "hard_decline_mass_veto": 50,
+          "low_confidence": 38,
+          "rule_model_disagreement": 8
+        },
+        "previously_allowed_legitimate": 129,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 62,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 92,
+            "unsafe": 0
+          }
+        }
+      },
+      "issuer_outage_3000": {
+        "n": 1562,
+        "macro_f1_all": 0.7656424339591542,
+        "accuracy": 0.6779769526248399,
+        "abstain_rate": 0.29257362355953903,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 400,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.39372599231754163,
+        "true_retryable_recall": 0.6374085684430512,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "expired_instrument_veto": 105,
+          "hard_rule_veto": 238,
+          "low_confidence": 170,
+          "rule_model_disagreement": 26,
+          "reliable_diagnosis": 762,
+          "hard_decline_mass_veto": 260,
+          "binary_hard_decline_veto": 1
+        },
+        "previously_allowed_legitimate": 611,
+        "additional_legitimate_blocked": 1,
+        "additional_legitimate_blocked_fraction": 0.0016366612111292963,
+        "additional_abstention": 0.000640204865556937,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 160,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 240,
+            "unsafe": 0
+          }
+        }
+      },
+      "psp_degradation_3000": {
+        "n": 1777,
+        "macro_f1_all": 0.8224718319612655,
+        "accuracy": 0.76702307259426,
+        "abstain_rate": 0.21553179516038268,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 388,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.5334833989870569,
+        "true_retryable_recall": 0.7642276422764228,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "hard_rule_veto": 240,
+          "low_confidence": 115,
+          "reliable_diagnosis": 1062,
+          "hard_decline_mass_veto": 246,
+          "expired_instrument_veto": 92,
+          "rule_model_disagreement": 21,
+          "binary_hard_decline_veto": 1
+        },
+        "previously_allowed_legitimate": 941,
+        "additional_legitimate_blocked": 1,
+        "additional_legitimate_blocked_fraction": 0.0010626992561105207,
+        "additional_abstention": 0.0005627462014631546,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 148,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 240,
+            "unsafe": 0
+          }
+        }
+      },
+      "unseen_codes_3000": {
+        "n": 1380,
+        "macro_f1_all": 0.12990196078431374,
+        "accuracy": 0.07681159420289856,
+        "abstain_rate": 0.9202898550724637,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 402,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.0,
+        "true_retryable_recall": 0.0,
+        "false_retry_fraction_of_allowed": null,
+        "decisions": {
+          "unknown_error_tuple": 970,
+          "low_confidence": 300,
+          "expired_instrument_veto": 104,
+          "reliable_diagnosis": 6
+        },
+        "previously_allowed_legitimate": 0,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 162,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 240,
+            "unsafe": 0
+          }
+        }
+      },
+      "hard_decline_collision_3000": {
+        "n": 1884,
+        "macro_f1_all": 0.5982500094028939,
+        "accuracy": 0.6369426751592356,
+        "abstain_rate": 0.3232484076433121,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 1210,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.17038216560509553,
+        "true_retryable_recall": 0.6227897838899804,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "reliable_diagnosis": 1275,
+          "hard_decline_mass_veto": 342,
+          "low_confidence": 257,
+          "rule_model_disagreement": 7,
+          "binary_hard_decline_veto": 3
+        },
+        "previously_allowed_legitimate": 319,
+        "additional_legitimate_blocked": 2,
+        "additional_legitimate_blocked_fraction": 0.006269592476489028,
+        "additional_abstention": 0.0015923566878980888,
+        "previously_unsafe_caught": 1,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 458,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 752,
+            "unsafe": 0
+          }
+        }
+      },
+      "telemetry_gap_3000": {
+        "n": 1382,
+        "macro_f1_all": 0.7284453605315441,
+        "accuracy": 0.6396526772793053,
+        "abstain_rate": 0.29160636758321273,
+        "unsafe_retry_count": 0,
+        "hard_decline_count": 399,
+        "unsafe_retry_rate": 0.0,
+        "retry_coverage": 0.28147612156295226,
+        "true_retryable_recall": 0.5246575342465754,
+        "false_retry_fraction_of_allowed": 0.0,
+        "decisions": {
+          "expired_instrument_veto": 102,
+          "hard_decline_mass_veto": 222,
+          "reliable_diagnosis": 637,
+          "hard_rule_veto": 240,
+          "low_confidence": 156,
+          "rule_model_disagreement": 25
+        },
+        "previously_allowed_legitimate": 383,
+        "additional_legitimate_blocked": 0,
+        "additional_legitimate_blocked_fraction": 0.0,
+        "additional_abstention": 0.0,
+        "previously_unsafe_caught": 0,
+        "common_unsafe_count": 0,
+        "by_hard_class": {
+          "CARD_EXPIRED": {
+            "n": 159,
+            "unsafe": 0
+          },
+          "RISK_BLOCKED": {
+            "n": 240,
+            "unsafe": 0
+          }
+        }
+      }
+    }
+  },
+  "required_hard_decline_worlds_per_family": 94,
+  "actual_target": 94,
+  "world_n": 1000,
+  "families": [
+    "sequential",
+    "issuer_outage",
+    "psp_degradation",
+    "unseen_codes",
+    "hard_decline_collision",
+    "telemetry_gap"
+  ],
+  "seed_rule": "1000000 + 10000 * family_index + world_index",
+  "utility_limits": {
+    "minimum_f1_gain_retained": 0.8,
+    "maximum_additional_legitimate_blocked": 0.05,
+    "maximum_abstention_increase": 0.05
+  },
+  "confidence": 0.95,
+  "familywise_alpha": 0.05,
+  "max_world_any_unsafe_risk": 0.05,
+  "statistical_unit": "Independent simulated world with at least one hard decline; conditionally independent given frozen models",
+  "no_eligible_candidate": false
+}

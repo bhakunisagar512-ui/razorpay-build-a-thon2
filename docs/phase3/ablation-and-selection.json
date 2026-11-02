@@ -1,0 +1,1860 @@
+{
+  "analyses": {
+    "calm": {
+      "scenario": "calm",
+      "validation_failures": 5076,
+      "train_failures": 9543,
+      "sets": {
+        "baseline_5": {
+          "macro_f1": 0.6142399145276003,
+          "accuracy": 0.776595744680851,
+          "logloss": 0.6646747437277107
+        },
+        "existing_26": {
+          "macro_f1": 0.6666626197420173,
+          "accuracy": 0.8114657210401891,
+          "logloss": 0.6480868843907704
+        },
+        "full_57": {
+          "macro_f1": 0.9144572178706976,
+          "accuracy": 0.9511426319936959,
+          "logloss": 0.27194503862658037
+        }
+      },
+      "ablation": {
+        "A_reason": {
+          "drop_from_57": {
+            "macro_f1": 0.7453289505847325,
+            "accuracy": 0.8676122931442081,
+            "logloss": 0.5482955363600794,
+            "loss_vs_full_57": {
+              "delta_mean": 0.16880654001085196,
+              "lo95": 0.15134371239032565,
+              "hi95": 0.18646700941277108
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.9022932030943377,
+            "accuracy": 0.9414893617021277,
+            "logloss": 0.34412322384425115,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.23512220462209535,
+              "lo95": 0.21318858941591295,
+              "hi95": 0.2564624777009318
+            }
+          }
+        },
+        "B_auth_timing": {
+          "drop_from_57": {
+            "macro_f1": 0.9044635200823808,
+            "accuracy": 0.9428684003152088,
+            "logloss": 0.33656809689400824,
+            "loss_vs_full_57": {
+              "delta_mean": 0.00995308107406234,
+              "lo95": 0.0022411006881580932,
+              "hi95": 0.017513783754770192
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.7489421861699674,
+            "accuracy": 0.8670212765957447,
+            "logloss": 0.5550721216644622,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.08263989577086567,
+              "lo95": 0.06272319955896773,
+              "hi95": 0.09973786237809294
+            }
+          }
+        },
+        "C_instrument": {
+          "drop_from_57": {
+            "macro_f1": 0.9111421379680928,
+            "accuracy": 0.9499605988967691,
+            "logloss": 0.27604115715321575,
+            "loss_vs_full_57": {
+              "delta_mean": 0.003556319297951377,
+              "lo95": -0.000567974975165933,
+              "hi95": 0.007936834671474463
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.6890503643706524,
+            "accuracy": 0.8232860520094563,
+            "logloss": 0.6365498706274976,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.022423842889544545,
+              "lo95": 0.009389772329682938,
+              "hi95": 0.03696907202970006
+            }
+          }
+        },
+        "D_infrastructure": {
+          "drop_from_57": {
+            "macro_f1": 0.9183470703183777,
+            "accuracy": 0.9519306540583137,
+            "logloss": 0.28054958360383275,
+            "loss_vs_full_57": {
+              "delta_mean": -0.0037515313876780977,
+              "lo95": -0.00802337667003108,
+              "hi95": 0.0004919926003706422
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.6662401505901778,
+            "accuracy": 0.8142237982663515,
+            "logloss": 0.6666119107786282,
+            "gain_vs_existing_26": {
+              "delta_mean": -0.0003732176079721058,
+              "lo95": -0.013688122800503808,
+              "hi95": 0.011619345787848664
+            }
+          }
+        },
+        "E_customer": {
+          "drop_from_57": {
+            "macro_f1": 0.9145603211675603,
+            "accuracy": 0.9509456264775413,
+            "logloss": 0.27301231622555716,
+            "loss_vs_full_57": {
+              "delta_mean": -0.00019081917272548634,
+              "lo95": -0.004813129307349851,
+              "hi95": 0.004106300545695823
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.6695792746015335,
+            "accuracy": 0.8124507486209613,
+            "logloss": 0.6643674894393188,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.003577202213606176,
+              "lo95": -0.010128369906016422,
+              "hi95": 0.017446386009923816
+            }
+          }
+        },
+        "F_external_calendar": {
+          "drop_from_57": {
+            "macro_f1": 0.9145891883723009,
+            "accuracy": 0.9511426319936959,
+            "logloss": 0.27248960037383907,
+            "loss_vs_full_57": {
+              "delta_mean": -0.0003734981960070856,
+              "lo95": -0.004742969622354767,
+              "hi95": 0.0037693314298706654
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.6816535692259569,
+            "accuracy": 0.8234830575256107,
+            "logloss": 0.6367726710274156,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.014924945918646996,
+              "lo95": 0.0036651158663858403,
+              "hi95": 0.025682933440242812
+            }
+          }
+        }
+      },
+      "leave_one_feature_out": {
+        "error_reason": {
+          "dlogloss": 0.018158823449651584,
+          "dmacro_f1": 0.004810750414826592
+        },
+        "reason_family": {
+          "dlogloss": -0.0230756834565152,
+          "dmacro_f1": -0.006469314969667406
+        },
+        "is_generic_reason": {
+          "dlogloss": -0.003706157833024859,
+          "dmacro_f1": 0.0008785950008368681
+        },
+        "step_ordinal": {
+          "dlogloss": 0.0001911159065127177,
+          "dmacro_f1": -0.0007913386956510671
+        },
+        "attempt_duration_s": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "duration_vs_timeout_ratio": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "payment_flow": {
+          "dlogloss": -0.0012005407024028303,
+          "dmacro_f1": 0.0018186374435873454
+        },
+        "latency_vs_issuer_p50": {
+          "dlogloss": -0.009249779137270986,
+          "dmacro_f1": 0.00241412921619244
+        },
+        "instrument_consecutive_failures": {
+          "dlogloss": 0.0030500753239321443,
+          "dmacro_f1": 0.0005299062554544598
+        },
+        "instrument_attempts_24h": {
+          "dlogloss": 0.0013379459875575428,
+          "dmacro_f1": 0.001157317610470776
+        },
+        "instrument_failure_rate_24h": {
+          "dlogloss": 0.003584860969640058,
+          "dmacro_f1": 0.0006270980449579744
+        },
+        "instrument_last_success_age_s": {
+          "dlogloss": 0.0019950836283766926,
+          "dmacro_f1": 0.0003925314587518436
+        },
+        "instrument_prev_reason": {
+          "dlogloss": 0.0034020495397498185,
+          "dmacro_f1": 0.0011480010880102753
+        },
+        "same_reason_as_prev": {
+          "dlogloss": -0.0026093594299835265,
+          "dmacro_f1": -6.257030421030763e-05
+        },
+        "instrument_distinct_reasons_24h": {
+          "dlogloss": -0.00046819729109981445,
+          "dmacro_f1": -0.0006564612084725141
+        },
+        "issuer_failure_rate_1h": {
+          "dlogloss": -0.00316617092028898,
+          "dmacro_f1": 0.0009525538134496081
+        },
+        "issuer_failure_delta": {
+          "dlogloss": 2.361949727008872e-05,
+          "dmacro_f1": 0.0023452434665055533
+        },
+        "issuer_failure_vs_baseline_7d": {
+          "dlogloss": -0.002275256926196012,
+          "dmacro_f1": -0.0015250705614425764
+        },
+        "issuer_timeout_rate_5m": {
+          "dlogloss": 0.00601204420297291,
+          "dmacro_f1": 0.00016504192799782214
+        },
+        "issuer_tech_reason_share_5m": {
+          "dlogloss": 0.005900533499961835,
+          "dmacro_f1": -0.00010823585856067908
+        },
+        "psp_failure_rate_1h": {
+          "dlogloss": -0.0058833248637348845,
+          "dmacro_f1": 0.002020444804574306
+        },
+        "psp_failure_delta": {
+          "dlogloss": 0.0003362769196086357,
+          "dmacro_f1": -0.0020787260466025304
+        },
+        "psp_timeout_rate_5m": {
+          "dlogloss": 0.0023780282995767843,
+          "dmacro_f1": 0.0009410563358508428
+        },
+        "issuer_method_failure_rate_5m": {
+          "dlogloss": -0.004033344070040523,
+          "dmacro_f1": -0.001292780787831016
+        },
+        "global_failure_rate_5m": {
+          "dlogloss": 0.00585911405968359,
+          "dmacro_f1": 0.00019853562009197745
+        },
+        "secs_since_prev_attempt": {
+          "dlogloss": 0.0027665351802978466,
+          "dmacro_f1": 0.0015607930964628425
+        },
+        "customer_methods_tried_24h": {
+          "dlogloss": 0.0005896877298289249,
+          "dmacro_f1": 0.0004284979290423152
+        },
+        "amount_vs_max_success_amount": {
+          "dlogloss": 0.000978096939277251,
+          "dmacro_f1": -0.0005755305824896029
+        },
+        "customer_success_rate_14d": {
+          "dlogloss": -0.00027029264850697565,
+          "dmacro_f1": 0.0030113465821473007
+        },
+        "matched_downtime_severity": {
+          "dlogloss": 0.000797064149273663,
+          "dmacro_f1": -0.00040694221842896283
+        },
+        "days_to_month_end": {
+          "dlogloss": -0.0025670106099650036,
+          "dmacro_f1": 0.0007498395851008866
+        }
+      },
+      "permutation_importance": {
+        "gw_error_code": {
+          "dlogloss": 0.0019349871966208483,
+          "dmacro_f1": -0.0009564313397698587
+        },
+        "gw_error_source": {
+          "dlogloss": 0.16224955378172498,
+          "dmacro_f1": 0.031254486236331945
+        },
+        "gw_error_step": {
+          "dlogloss": 0.14649819184577986,
+          "dmacro_f1": 0.046078528654871755
+        },
+        "method": {
+          "dlogloss": 0.07440148838099675,
+          "dmacro_f1": 0.03279445058538181
+        },
+        "instrument_hint": {
+          "dlogloss": -0.0020566998063640263,
+          "dmacro_f1": -0.000630739693836091
+        },
+        "issuer_id": {
+          "dlogloss": 0.000996126638641311,
+          "dmacro_f1": -0.0001544333278939991
+        },
+        "psp_id": {
+          "dlogloss": -0.0004940610362201651,
+          "dmacro_f1": 0.0007356245991826382
+        },
+        "amount_minor": {
+          "dlogloss": 0.059030301313003464,
+          "dmacro_f1": 0.007371238297060693
+        },
+        "log_amount_minor": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "hour_ist": {
+          "dlogloss": 0.0013025808526512621,
+          "dmacro_f1": 0.001843041974889122
+        },
+        "weekday_ist": {
+          "dlogloss": -5.8969958404468205e-05,
+          "dmacro_f1": 0.0005377917626658105
+        },
+        "customer_attempts_7d": {
+          "dlogloss": 0.000508962259867111,
+          "dmacro_f1": 0.0008734550989628609
+        },
+        "customer_successes_7d": {
+          "dlogloss": -0.00024877855148739786,
+          "dmacro_f1": 0.00013344690129524217
+        },
+        "customer_failure_rate_7d": {
+          "dlogloss": 0.0011117339858972193,
+          "dmacro_f1": 0.0018677512871111412
+        },
+        "customer_last_success_age_s": {
+          "dlogloss": 0.0007534203547583015,
+          "dmacro_f1": -0.0009004005691516381
+        },
+        "amount_to_customer_mean_7d": {
+          "dlogloss": -0.004631686557960794,
+          "dmacro_f1": 0.00029123901045232287
+        },
+        "order_prior_attempts_7d": {
+          "dlogloss": 5.714703807518928e-05,
+          "dmacro_f1": 0.0
+        },
+        "issuer_attempts_5m": {
+          "dlogloss": -0.0009371533697472753,
+          "dmacro_f1": -0.0011196606096869344
+        },
+        "issuer_failure_rate_5m": {
+          "dlogloss": -0.000397390600071527,
+          "dmacro_f1": -0.00013642272995798935
+        },
+        "issuer_latency_p95_ms_5m": {
+          "dlogloss": 0.0005323617101672395,
+          "dmacro_f1": 0.0003886178624482965
+        },
+        "psp_attempts_5m": {
+          "dlogloss": -0.0002311178239532604,
+          "dmacro_f1": -0.0004634321147503802
+        },
+        "psp_failure_rate_5m": {
+          "dlogloss": -0.0008563986243316964,
+          "dmacro_f1": 0.0003718514780468955
+        },
+        "psp_latency_p95_ms_5m": {
+          "dlogloss": -0.000224969205389595,
+          "dmacro_f1": -0.0021362250171682953
+        },
+        "method_attempts_5m": {
+          "dlogloss": -0.006227597644226905,
+          "dmacro_f1": -0.0009415996156133902
+        },
+        "method_failure_rate_5m": {
+          "dlogloss": -0.0010681041293152764,
+          "dmacro_f1": -0.000611133048498432
+        },
+        "current_latency_ms": {
+          "dlogloss": -0.002996863978057318,
+          "dmacro_f1": -0.0008593560816921864
+        },
+        "error_reason": {
+          "dlogloss": 0.19519225566456475,
+          "dmacro_f1": 0.06585711953057294
+        },
+        "reason_family": {
+          "dlogloss": 1.4066417591631175,
+          "dmacro_f1": 0.3213383119241001
+        },
+        "is_generic_reason": {
+          "dlogloss": 0.0157069279723502,
+          "dmacro_f1": 0.0028522655473230594
+        },
+        "step_ordinal": {
+          "dlogloss": 0.025378090604292358,
+          "dmacro_f1": 0.008029186142362662
+        },
+        "attempt_duration_s": {
+          "dlogloss": 0.2877104255943194,
+          "dmacro_f1": 0.0688328216186495
+        },
+        "duration_vs_timeout_ratio": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "payment_flow": {
+          "dlogloss": -0.007073784372955157,
+          "dmacro_f1": -0.00022346462057017588
+        },
+        "latency_vs_issuer_p50": {
+          "dlogloss": 0.009356638089500047,
+          "dmacro_f1": 0.0014886526393437238
+        },
+        "instrument_consecutive_failures": {
+          "dlogloss": 0.009376808131705735,
+          "dmacro_f1": 0.005458669404702003
+        },
+        "instrument_attempts_24h": {
+          "dlogloss": -0.00028430652966136377,
+          "dmacro_f1": -0.0005271870073212023
+        },
+        "instrument_failure_rate_24h": {
+          "dlogloss": -0.00022863430144720587,
+          "dmacro_f1": 0.0
+        },
+        "instrument_last_success_age_s": {
+          "dlogloss": 0.0011635647957975632,
+          "dmacro_f1": -6.841580569498056e-05
+        },
+        "instrument_prev_reason": {
+          "dlogloss": 0.0034580099771719754,
+          "dmacro_f1": 0.0009563630797478165
+        },
+        "same_reason_as_prev": {
+          "dlogloss": 1.4494118868076575e-10,
+          "dmacro_f1": 0.0
+        },
+        "instrument_distinct_reasons_24h": {
+          "dlogloss": 6.554679930485345e-05,
+          "dmacro_f1": 0.0
+        },
+        "issuer_failure_rate_1h": {
+          "dlogloss": -0.0002357532225278717,
+          "dmacro_f1": -0.0012155084749880067
+        },
+        "issuer_failure_delta": {
+          "dlogloss": -0.0016866839370705544,
+          "dmacro_f1": -0.0019962354967849225
+        },
+        "issuer_failure_vs_baseline_7d": {
+          "dlogloss": -0.0009735461955086196,
+          "dmacro_f1": -0.0006019779000490481
+        },
+        "issuer_timeout_rate_5m": {
+          "dlogloss": -0.00025535924381438663,
+          "dmacro_f1": 0.00035682405418546725
+        },
+        "issuer_tech_reason_share_5m": {
+          "dlogloss": -0.00020868832740419027,
+          "dmacro_f1": 0.0
+        },
+        "psp_failure_rate_1h": {
+          "dlogloss": 0.0011176527367563471,
+          "dmacro_f1": -0.0010087776792926384
+        },
+        "psp_failure_delta": {
+          "dlogloss": -0.004019884415502421,
+          "dmacro_f1": -0.0026553002499192977
+        },
+        "psp_timeout_rate_5m": {
+          "dlogloss": 0.0001312617966433005,
+          "dmacro_f1": 0.0
+        },
+        "issuer_method_failure_rate_5m": {
+          "dlogloss": 0.00026194926759180265,
+          "dmacro_f1": 0.0006494381223378642
+        },
+        "global_failure_rate_5m": {
+          "dlogloss": 0.0002959241835789698,
+          "dmacro_f1": -0.00014093515669962495
+        },
+        "secs_since_prev_attempt": {
+          "dlogloss": 0.000882096738730039,
+          "dmacro_f1": -0.0014163781036527674
+        },
+        "customer_methods_tried_24h": {
+          "dlogloss": -1.6866673400580307e-05,
+          "dmacro_f1": 0.0010407645850553464
+        },
+        "amount_vs_max_success_amount": {
+          "dlogloss": 0.005816168811419627,
+          "dmacro_f1": -0.0016788097368506394
+        },
+        "customer_success_rate_14d": {
+          "dlogloss": 0.005182040304617108,
+          "dmacro_f1": -0.00010877564862306806
+        },
+        "matched_downtime_severity": {
+          "dlogloss": 0.000406375988594924,
+          "dmacro_f1": 0.0
+        },
+        "days_to_month_end": {
+          "dlogloss": 0.0010257232603451683,
+          "dmacro_f1": 0.0009940775616795738
+        }
+      }
+    },
+    "typical": {
+      "scenario": "typical",
+      "validation_failures": 5619,
+      "train_failures": 11217,
+      "sets": {
+        "baseline_5": {
+          "macro_f1": 0.6030581471467741,
+          "accuracy": 0.7348282612564513,
+          "logloss": 0.683413371801805
+        },
+        "existing_26": {
+          "macro_f1": 0.7002932737553401,
+          "accuracy": 0.793557572521801,
+          "logloss": 0.5525781666191545
+        },
+        "full_57": {
+          "macro_f1": 0.8949465209892026,
+          "accuracy": 0.9295248264815803,
+          "logloss": 0.2134658001719321
+        }
+      },
+      "ablation": {
+        "A_reason": {
+          "drop_from_57": {
+            "macro_f1": 0.8006542605483838,
+            "accuracy": 0.8684819362875956,
+            "logloss": 0.3827814357240324,
+            "loss_vs_full_57": {
+              "delta_mean": 0.09390046741459605,
+              "lo95": 0.07990577854431598,
+              "hi95": 0.10834653726332359
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.8625881752139803,
+            "accuracy": 0.9074568428546005,
+            "logloss": 0.2783616874638734,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.16183804306034866,
+              "lo95": 0.14350596462832335,
+              "hi95": 0.17633639594566872
+            }
+          }
+        },
+        "B_auth_timing": {
+          "drop_from_57": {
+            "macro_f1": 0.8728049196159328,
+            "accuracy": 0.9101263570030255,
+            "logloss": 0.26807692682043854,
+            "loss_vs_full_57": {
+              "delta_mean": 0.022590852966083864,
+              "lo95": 0.01574184703901455,
+              "hi95": 0.031207298400903614
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.7686483605850905,
+            "accuracy": 0.8560242035949457,
+            "logloss": 0.41581461462504415,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.06840843623235972,
+              "lo95": 0.05579888093727999,
+              "hi95": 0.08019518052722861
+            }
+          }
+        },
+        "C_instrument": {
+          "drop_from_57": {
+            "macro_f1": 0.8944822082584355,
+            "accuracy": 0.9295248264815803,
+            "logloss": 0.2257409711238384,
+            "loss_vs_full_57": {
+              "delta_mean": 0.00036105914010965484,
+              "lo95": -0.005140096532590302,
+              "hi95": 0.004838370729228139
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.7138605480220487,
+            "accuracy": 0.802100017796761,
+            "logloss": 0.5359998818373083,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.013584293772697705,
+              "lo95": 0.003277063502927649,
+              "hi95": 0.022974915090377374
+            }
+          }
+        },
+        "D_infrastructure": {
+          "drop_from_57": {
+            "macro_f1": 0.8946049490414603,
+            "accuracy": 0.9304146645310554,
+            "logloss": 0.21164655135254423,
+            "loss_vs_full_57": {
+              "delta_mean": 0.000304425232888903,
+              "lo95": -0.007016123759668999,
+              "hi95": 0.007222618582526644
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.7157693362743411,
+            "accuracy": 0.799252536038441,
+            "logloss": 0.5437252988910438,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.015361407627477449,
+              "lo95": 0.005408981317852108,
+              "hi95": 0.027219242046936043
+            }
+          }
+        },
+        "E_customer": {
+          "drop_from_57": {
+            "macro_f1": 0.8936358460710503,
+            "accuracy": 0.9288129560420003,
+            "logloss": 0.2194936768877326,
+            "loss_vs_full_57": {
+              "delta_mean": 0.0012377911792259258,
+              "lo95": -0.0029718748611295806,
+              "hi95": 0.005426732017291149
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.7026197814855989,
+            "accuracy": 0.794981313400961,
+            "logloss": 0.5522330934065902,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.002162023014884525,
+              "lo95": -0.008029646298855974,
+              "hi95": 0.012713126737077593
+            }
+          }
+        },
+        "F_external_calendar": {
+          "drop_from_57": {
+            "macro_f1": 0.8933354577922431,
+            "accuracy": 0.9281010856024203,
+            "logloss": 0.21652407563050724,
+            "loss_vs_full_57": {
+              "delta_mean": 0.0017913970606521282,
+              "lo95": -0.002528888768036691,
+              "hi95": 0.0070414836377751325
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.7056013901358315,
+            "accuracy": 0.796227086670226,
+            "logloss": 0.5446499478447215,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.005489341290320217,
+              "lo95": -0.005444229200454098,
+              "hi95": 0.017071642753835867
+            }
+          }
+        }
+      },
+      "leave_one_feature_out": {
+        "error_reason": {
+          "dlogloss": 0.02093419191512008,
+          "dmacro_f1": 0.009515273622979104
+        },
+        "reason_family": {
+          "dlogloss": -0.0020883562264917277,
+          "dmacro_f1": 0.0003158607548576775
+        },
+        "is_generic_reason": {
+          "dlogloss": -0.000507247112522452,
+          "dmacro_f1": -0.003481193870971455
+        },
+        "step_ordinal": {
+          "dlogloss": 0.005888589699849928,
+          "dmacro_f1": 0.0002908414611448862
+        },
+        "attempt_duration_s": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "duration_vs_timeout_ratio": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "payment_flow": {
+          "dlogloss": 0.0016308556946508235,
+          "dmacro_f1": 5.945995666811754e-05
+        },
+        "latency_vs_issuer_p50": {
+          "dlogloss": 0.004561159689790095,
+          "dmacro_f1": -0.0004261113345033207
+        },
+        "instrument_consecutive_failures": {
+          "dlogloss": 0.002713161637987682,
+          "dmacro_f1": -0.001877161725741483
+        },
+        "instrument_attempts_24h": {
+          "dlogloss": 0.000747139747711123,
+          "dmacro_f1": -0.0028217076515415496
+        },
+        "instrument_failure_rate_24h": {
+          "dlogloss": 0.0044675703342473005,
+          "dmacro_f1": -0.0005305751255061386
+        },
+        "instrument_last_success_age_s": {
+          "dlogloss": 0.005713650757459887,
+          "dmacro_f1": 0.00010494337250976926
+        },
+        "instrument_prev_reason": {
+          "dlogloss": 0.002164073487426338,
+          "dmacro_f1": -0.004044204187751088
+        },
+        "same_reason_as_prev": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "instrument_distinct_reasons_24h": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "issuer_failure_rate_1h": {
+          "dlogloss": 0.0024940819241086043,
+          "dmacro_f1": 0.00015606142719815086
+        },
+        "issuer_failure_delta": {
+          "dlogloss": 0.009197623028919022,
+          "dmacro_f1": -0.003810797152906331
+        },
+        "issuer_failure_vs_baseline_7d": {
+          "dlogloss": 0.0019742942023549814,
+          "dmacro_f1": 0.00044085790312520245
+        },
+        "issuer_timeout_rate_5m": {
+          "dlogloss": 0.004584360044886021,
+          "dmacro_f1": -0.0021657702122972466
+        },
+        "issuer_tech_reason_share_5m": {
+          "dlogloss": 0.0001285699222423886,
+          "dmacro_f1": 0.003854300767152541
+        },
+        "psp_failure_rate_1h": {
+          "dlogloss": 0.00436627864859096,
+          "dmacro_f1": -0.0007652154764368202
+        },
+        "psp_failure_delta": {
+          "dlogloss": 0.004397510183708236,
+          "dmacro_f1": -0.00392226649934313
+        },
+        "psp_timeout_rate_5m": {
+          "dlogloss": 0.0010934767431511616,
+          "dmacro_f1": -0.003497607907729683
+        },
+        "issuer_method_failure_rate_5m": {
+          "dlogloss": -0.0002659943615429816,
+          "dmacro_f1": -0.0020387720311689783
+        },
+        "global_failure_rate_5m": {
+          "dlogloss": 0.003082662322015761,
+          "dmacro_f1": -0.0016848238967307472
+        },
+        "secs_since_prev_attempt": {
+          "dlogloss": 0.00818375090091733,
+          "dmacro_f1": -0.003974220129933981
+        },
+        "customer_methods_tried_24h": {
+          "dlogloss": 0.0007389106231324161,
+          "dmacro_f1": -0.0037989528937074635
+        },
+        "amount_vs_max_success_amount": {
+          "dlogloss": 0.014279887150076692,
+          "dmacro_f1": -0.003939182606081282
+        },
+        "customer_success_rate_14d": {
+          "dlogloss": 0.003797664268876594,
+          "dmacro_f1": 0.0027087230818501062
+        },
+        "matched_downtime_severity": {
+          "dlogloss": 0.005096721918656233,
+          "dmacro_f1": -0.0006109457744041258
+        },
+        "days_to_month_end": {
+          "dlogloss": -0.000782703240102739,
+          "dmacro_f1": -0.00221545039096549
+        }
+      },
+      "permutation_importance": {
+        "gw_error_code": {
+          "dlogloss": 0.002187915866856044,
+          "dmacro_f1": -0.0008651141120998481
+        },
+        "gw_error_source": {
+          "dlogloss": 0.1853161490130464,
+          "dmacro_f1": 0.06472351278798731
+        },
+        "gw_error_step": {
+          "dlogloss": 0.15152216125292906,
+          "dmacro_f1": 0.08045653015325631
+        },
+        "method": {
+          "dlogloss": 0.22868501496287794,
+          "dmacro_f1": 0.0837018035950819
+        },
+        "instrument_hint": {
+          "dlogloss": 0.0003615874365958856,
+          "dmacro_f1": -0.0002886224672757898
+        },
+        "issuer_id": {
+          "dlogloss": 0.0012455932584944003,
+          "dmacro_f1": 0.0005919745837670298
+        },
+        "psp_id": {
+          "dlogloss": 0.001249065679410984,
+          "dmacro_f1": 0.00031980313197281046
+        },
+        "amount_minor": {
+          "dlogloss": 0.027736213824226735,
+          "dmacro_f1": 0.010619013638240951
+        },
+        "log_amount_minor": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "hour_ist": {
+          "dlogloss": 0.0010991748135347756,
+          "dmacro_f1": 0.0002932294315448984
+        },
+        "weekday_ist": {
+          "dlogloss": -0.000742490733222532,
+          "dmacro_f1": -0.001320557074805384
+        },
+        "customer_attempts_7d": {
+          "dlogloss": 0.00023171679687742733,
+          "dmacro_f1": 0.00013340850868696444
+        },
+        "customer_successes_7d": {
+          "dlogloss": 0.00025261422273411177,
+          "dmacro_f1": -0.0006522134276831423
+        },
+        "customer_failure_rate_7d": {
+          "dlogloss": 0.0024925031133510114,
+          "dmacro_f1": 0.0004932350987830366
+        },
+        "customer_last_success_age_s": {
+          "dlogloss": 0.0014991833095368834,
+          "dmacro_f1": 0.0003873253310827292
+        },
+        "amount_to_customer_mean_7d": {
+          "dlogloss": 0.0007198469205989636,
+          "dmacro_f1": -0.0004404057062189863
+        },
+        "order_prior_attempts_7d": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "issuer_attempts_5m": {
+          "dlogloss": 0.00020317229508721538,
+          "dmacro_f1": 0.00019973721061846325
+        },
+        "issuer_failure_rate_5m": {
+          "dlogloss": 0.0004726453108128322,
+          "dmacro_f1": 0.0004368454063186829
+        },
+        "issuer_latency_p95_ms_5m": {
+          "dlogloss": 1.695851677282108e-05,
+          "dmacro_f1": -0.0007423708211951041
+        },
+        "psp_attempts_5m": {
+          "dlogloss": -0.0002066091397183445,
+          "dmacro_f1": -0.001317443818207605
+        },
+        "psp_failure_rate_5m": {
+          "dlogloss": 0.0006743415498264479,
+          "dmacro_f1": -0.000130850540774848
+        },
+        "psp_latency_p95_ms_5m": {
+          "dlogloss": 0.0010174398696925768,
+          "dmacro_f1": -0.0006419207360657264
+        },
+        "method_attempts_5m": {
+          "dlogloss": -0.0010962876835167445,
+          "dmacro_f1": -0.0019273890004748069
+        },
+        "method_failure_rate_5m": {
+          "dlogloss": -0.0018589031762636377,
+          "dmacro_f1": -0.0014165680097938764
+        },
+        "current_latency_ms": {
+          "dlogloss": 0.014796029359776938,
+          "dmacro_f1": 0.013706800205009584
+        },
+        "error_reason": {
+          "dlogloss": 0.11940462118361017,
+          "dmacro_f1": 0.05468513415564576
+        },
+        "reason_family": {
+          "dlogloss": 0.45663052026269524,
+          "dmacro_f1": 0.21170823411135628
+        },
+        "is_generic_reason": {
+          "dlogloss": 0.007286420696297248,
+          "dmacro_f1": 0.004274358302102876
+        },
+        "step_ordinal": {
+          "dlogloss": 0.04741567763210424,
+          "dmacro_f1": 0.018127995167593076
+        },
+        "attempt_duration_s": {
+          "dlogloss": 0.3037729535114852,
+          "dmacro_f1": 0.09360079631275575
+        },
+        "duration_vs_timeout_ratio": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "payment_flow": {
+          "dlogloss": 7.706526977803903e-05,
+          "dmacro_f1": -0.00020390293633339626
+        },
+        "latency_vs_issuer_p50": {
+          "dlogloss": 0.004744989828570005,
+          "dmacro_f1": 0.003655322635261249
+        },
+        "instrument_consecutive_failures": {
+          "dlogloss": 0.004031482913498872,
+          "dmacro_f1": 0.0023906188365169965
+        },
+        "instrument_attempts_24h": {
+          "dlogloss": -2.1658095681692524e-05,
+          "dmacro_f1": 9.396055618123474e-05
+        },
+        "instrument_failure_rate_24h": {
+          "dlogloss": 2.450468269117138e-05,
+          "dmacro_f1": -0.0005154229807950994
+        },
+        "instrument_last_success_age_s": {
+          "dlogloss": 0.005352003055975912,
+          "dmacro_f1": 0.0023953697987114295
+        },
+        "instrument_prev_reason": {
+          "dlogloss": 0.001560817580055357,
+          "dmacro_f1": 0.00068740620706087
+        },
+        "same_reason_as_prev": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "instrument_distinct_reasons_24h": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "issuer_failure_rate_1h": {
+          "dlogloss": 0.0018714840773087493,
+          "dmacro_f1": 0.0005084131966160236
+        },
+        "issuer_failure_delta": {
+          "dlogloss": 0.0001630063944016713,
+          "dmacro_f1": -0.00021189950574551641
+        },
+        "issuer_failure_vs_baseline_7d": {
+          "dlogloss": 0.0019109912330136554,
+          "dmacro_f1": 0.0034005596084069425
+        },
+        "issuer_timeout_rate_5m": {
+          "dlogloss": 4.017825882099424e-05,
+          "dmacro_f1": 7.562907579898119e-06
+        },
+        "issuer_tech_reason_share_5m": {
+          "dlogloss": 0.0014790932256486256,
+          "dmacro_f1": -0.0005702809096940209
+        },
+        "psp_failure_rate_1h": {
+          "dlogloss": 0.003584640941596847,
+          "dmacro_f1": 0.001321970178598919
+        },
+        "psp_failure_delta": {
+          "dlogloss": -0.0006069854715613036,
+          "dmacro_f1": -0.0018267785445785039
+        },
+        "psp_timeout_rate_5m": {
+          "dlogloss": 0.0004719138779968786,
+          "dmacro_f1": -0.00020972950533271195
+        },
+        "issuer_method_failure_rate_5m": {
+          "dlogloss": 1.6688992779447426e-05,
+          "dmacro_f1": -0.0009960861037974593
+        },
+        "global_failure_rate_5m": {
+          "dlogloss": -7.831638002364638e-05,
+          "dmacro_f1": -0.0009060543982386537
+        },
+        "secs_since_prev_attempt": {
+          "dlogloss": 0.00041048275517761396,
+          "dmacro_f1": -0.0011554259776334064
+        },
+        "customer_methods_tried_24h": {
+          "dlogloss": 1.6016838437169872e-05,
+          "dmacro_f1": 0.0
+        },
+        "amount_vs_max_success_amount": {
+          "dlogloss": 0.0024704498042681746,
+          "dmacro_f1": 0.0025393813736148316
+        },
+        "customer_success_rate_14d": {
+          "dlogloss": 0.006182847580511501,
+          "dmacro_f1": 0.0015934171499940586
+        },
+        "matched_downtime_severity": {
+          "dlogloss": 0.0007633545645560532,
+          "dmacro_f1": 0.0012598218224720847
+        },
+        "days_to_month_end": {
+          "dlogloss": 0.00022784542777066577,
+          "dmacro_f1": -7.159632282853028e-05
+        }
+      }
+    },
+    "stressed": {
+      "scenario": "stressed",
+      "validation_failures": 8434,
+      "train_failures": 15912,
+      "sets": {
+        "baseline_5": {
+          "macro_f1": 0.646304685380136,
+          "accuracy": 0.7112876452454352,
+          "logloss": 0.7563772321808109
+        },
+        "existing_26": {
+          "macro_f1": 0.7511629965764598,
+          "accuracy": 0.7907280056912497,
+          "logloss": 0.5762265908112674
+        },
+        "full_57": {
+          "macro_f1": 0.8910437177737808,
+          "accuracy": 0.9102442494664453,
+          "logloss": 0.25632701725940393
+        }
+      },
+      "ablation": {
+        "A_reason": {
+          "drop_from_57": {
+            "macro_f1": 0.8417131792596778,
+            "accuracy": 0.867204173583116,
+            "logloss": 0.37836778960870737,
+            "loss_vs_full_57": {
+              "delta_mean": 0.049109063924191974,
+              "lo95": 0.04126435390068716,
+              "hi95": 0.05583401652424491
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.8442173851830335,
+            "accuracy": 0.8734882617974864,
+            "logloss": 0.35767967385305327,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.09298687223184543,
+              "lo95": 0.08386824118938613,
+              "hi95": 0.10180136157551568
+            }
+          }
+        },
+        "B_auth_timing": {
+          "drop_from_57": {
+            "macro_f1": 0.8580059137549189,
+            "accuracy": 0.8822622717571733,
+            "logloss": 0.3174405052012963,
+            "loss_vs_full_57": {
+              "delta_mean": 0.03296715455845218,
+              "lo95": 0.026059482621555892,
+              "hi95": 0.03918506927425094
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.8188198461464138,
+            "accuracy": 0.8501304244723737,
+            "logloss": 0.42320784780738113,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.0673749699562949,
+              "lo95": 0.05845903366069454,
+              "hi95": 0.07531290562662529
+            }
+          }
+        },
+        "C_instrument": {
+          "drop_from_57": {
+            "macro_f1": 0.883946259095191,
+            "accuracy": 0.9050272705714963,
+            "logloss": 0.2653687711446303,
+            "loss_vs_full_57": {
+              "delta_mean": 0.006963714657165134,
+              "lo95": 0.002503726741885623,
+              "hi95": 0.011453347767378289
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.7629622611684185,
+            "accuracy": 0.7996205833530946,
+            "logloss": 0.5508496526674547,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.011915891438511631,
+              "lo95": 0.0055630830862496376,
+              "hi95": 0.01819127602518732
+            }
+          }
+        },
+        "D_infrastructure": {
+          "drop_from_57": {
+            "macro_f1": 0.8813249193548485,
+            "accuracy": 0.9028930519326536,
+            "logloss": 0.2721602276720326,
+            "loss_vs_full_57": {
+              "delta_mean": 0.009577000504965788,
+              "lo95": 0.003964519717737022,
+              "hi95": 0.014503601251087836
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.7670655425130661,
+            "accuracy": 0.8015176665876216,
+            "logloss": 0.5429087648830536,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.015963115496374063,
+              "lo95": 0.009539158675510284,
+              "hi95": 0.02249105053576212
+            }
+          }
+        },
+        "E_customer": {
+          "drop_from_57": {
+            "macro_f1": 0.890508953205068,
+            "accuracy": 0.9089400047427081,
+            "logloss": 0.2566980581075403,
+            "loss_vs_full_57": {
+              "delta_mean": 0.0005915774516392096,
+              "lo95": -0.003092643456822197,
+              "hi95": 0.0042499442006148054
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.7556388571157274,
+            "accuracy": 0.7951150106710932,
+            "logloss": 0.5636394596287052,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.004432902600274844,
+              "lo95": -0.00245482597088989,
+              "hi95": 0.010336221108933851
+            }
+          }
+        },
+        "F_external_calendar": {
+          "drop_from_57": {
+            "macro_f1": 0.8915538816996172,
+            "accuracy": 0.9101256817642874,
+            "logloss": 0.2623638314646059,
+            "loss_vs_full_57": {
+              "delta_mean": -0.00042921819491666217,
+              "lo95": -0.00430023887974067,
+              "hi95": 0.0038368688530061854
+            }
+          },
+          "add_to_26": {
+            "macro_f1": 0.7562143176485723,
+            "accuracy": 0.795352146075409,
+            "logloss": 0.5606988394356061,
+            "gain_vs_existing_26": {
+              "delta_mean": 0.005522095075883751,
+              "lo95": -0.00027758094670386464,
+              "hi95": 0.011860569101506417
+            }
+          }
+        }
+      },
+      "leave_one_feature_out": {
+        "error_reason": {
+          "dlogloss": 0.0034873393181943935,
+          "dmacro_f1": 0.0009306988846385922
+        },
+        "reason_family": {
+          "dlogloss": 0.0023813462618881287,
+          "dmacro_f1": 0.0014442126971256908
+        },
+        "is_generic_reason": {
+          "dlogloss": 0.0014240319112456823,
+          "dmacro_f1": 0.0038090168542934677
+        },
+        "step_ordinal": {
+          "dlogloss": 0.0010398082379808882,
+          "dmacro_f1": 0.0016977986303660098
+        },
+        "attempt_duration_s": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "duration_vs_timeout_ratio": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "payment_flow": {
+          "dlogloss": -0.0024781804028039534,
+          "dmacro_f1": -0.0011421343623506663
+        },
+        "latency_vs_issuer_p50": {
+          "dlogloss": 0.00017198780730043328,
+          "dmacro_f1": -0.0012495803149564777
+        },
+        "instrument_consecutive_failures": {
+          "dlogloss": 0.0007709077217512572,
+          "dmacro_f1": 0.002605498627416769
+        },
+        "instrument_attempts_24h": {
+          "dlogloss": -0.0005943606463834072,
+          "dmacro_f1": 0.001622532508175789
+        },
+        "instrument_failure_rate_24h": {
+          "dlogloss": 0.001133006147309601,
+          "dmacro_f1": 0.000637321462518825
+        },
+        "instrument_last_success_age_s": {
+          "dlogloss": 0.00017567331863499458,
+          "dmacro_f1": 0.00025007617391470394
+        },
+        "instrument_prev_reason": {
+          "dlogloss": 0.0023385007934064173,
+          "dmacro_f1": 0.0029936993513604016
+        },
+        "same_reason_as_prev": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "instrument_distinct_reasons_24h": {
+          "dlogloss": 0.0021397083238632875,
+          "dmacro_f1": -0.0019834351502747705
+        },
+        "issuer_failure_rate_1h": {
+          "dlogloss": 0.004141907211059226,
+          "dmacro_f1": 0.0023481542436500913
+        },
+        "issuer_failure_delta": {
+          "dlogloss": 0.0024896420793920626,
+          "dmacro_f1": -0.0007258526490443451
+        },
+        "issuer_failure_vs_baseline_7d": {
+          "dlogloss": -0.0031000276960702067,
+          "dmacro_f1": -0.002393063172726695
+        },
+        "issuer_timeout_rate_5m": {
+          "dlogloss": 0.0013040558759397913,
+          "dmacro_f1": 0.002031784622708921
+        },
+        "issuer_tech_reason_share_5m": {
+          "dlogloss": -0.0004137355641433138,
+          "dmacro_f1": -0.00047451144127064193
+        },
+        "psp_failure_rate_1h": {
+          "dlogloss": 0.004261455486470611,
+          "dmacro_f1": 0.002486820164869785
+        },
+        "psp_failure_delta": {
+          "dlogloss": -9.758994128117315e-05,
+          "dmacro_f1": -0.00026309030006155254
+        },
+        "psp_timeout_rate_5m": {
+          "dlogloss": 0.001958762898532973,
+          "dmacro_f1": 0.003767606014215996
+        },
+        "issuer_method_failure_rate_5m": {
+          "dlogloss": 0.0020139271783278234,
+          "dmacro_f1": 9.978122073051043e-05
+        },
+        "global_failure_rate_5m": {
+          "dlogloss": 0.0030221382522488405,
+          "dmacro_f1": 0.004616279510559096
+        },
+        "secs_since_prev_attempt": {
+          "dlogloss": -0.0003349947112623597,
+          "dmacro_f1": 0.003128901293998565
+        },
+        "customer_methods_tried_24h": {
+          "dlogloss": 0.00020957798056819854,
+          "dmacro_f1": -0.0004576310798731775
+        },
+        "amount_vs_max_success_amount": {
+          "dlogloss": 0.00037253130867703765,
+          "dmacro_f1": 0.0004595762670525083
+        },
+        "customer_success_rate_14d": {
+          "dlogloss": -0.001797242852775549,
+          "dmacro_f1": 0.001158864455705233
+        },
+        "matched_downtime_severity": {
+          "dlogloss": 0.006160727684728418,
+          "dmacro_f1": 0.005056767452693567
+        },
+        "days_to_month_end": {
+          "dlogloss": 0.0027523567492011014,
+          "dmacro_f1": 0.0012859637793597445
+        }
+      },
+      "permutation_importance": {
+        "gw_error_code": {
+          "dlogloss": 0.0005475634610480248,
+          "dmacro_f1": 0.0002060103342022742
+        },
+        "gw_error_source": {
+          "dlogloss": 0.21781800775722449,
+          "dmacro_f1": 0.07425537331071141
+        },
+        "gw_error_step": {
+          "dlogloss": 0.24494616244040798,
+          "dmacro_f1": 0.0873814425852586
+        },
+        "method": {
+          "dlogloss": 0.3339824881664815,
+          "dmacro_f1": 0.08972031618117438
+        },
+        "instrument_hint": {
+          "dlogloss": -0.00021358089983462372,
+          "dmacro_f1": -0.0007779235894512793
+        },
+        "issuer_id": {
+          "dlogloss": 0.0002699836931022159,
+          "dmacro_f1": -0.00158232283447024
+        },
+        "psp_id": {
+          "dlogloss": 0.0009130361410281673,
+          "dmacro_f1": 0.00014330492073066914
+        },
+        "amount_minor": {
+          "dlogloss": 0.06162353125718665,
+          "dmacro_f1": 0.0177764827868702
+        },
+        "log_amount_minor": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "hour_ist": {
+          "dlogloss": 0.005864276092862257,
+          "dmacro_f1": 0.0026490185875038077
+        },
+        "weekday_ist": {
+          "dlogloss": 0.0003279780003644743,
+          "dmacro_f1": 0.00042724094779544863
+        },
+        "customer_attempts_7d": {
+          "dlogloss": 0.0005516856374003417,
+          "dmacro_f1": -0.00045927702336368004
+        },
+        "customer_successes_7d": {
+          "dlogloss": 0.00028304553626364487,
+          "dmacro_f1": -0.00022218572601665856
+        },
+        "customer_failure_rate_7d": {
+          "dlogloss": 0.0009075446406623574,
+          "dmacro_f1": 0.0005459449280363163
+        },
+        "customer_last_success_age_s": {
+          "dlogloss": -4.644399385680028e-05,
+          "dmacro_f1": 0.00012312511943842383
+        },
+        "amount_to_customer_mean_7d": {
+          "dlogloss": 0.0006829688964727354,
+          "dmacro_f1": 5.944526810867471e-05
+        },
+        "order_prior_attempts_7d": {
+          "dlogloss": 0.00016289202576515635,
+          "dmacro_f1": 0.00026245897685373
+        },
+        "issuer_attempts_5m": {
+          "dlogloss": 0.0007802274781732454,
+          "dmacro_f1": 0.00046657750264937164
+        },
+        "issuer_failure_rate_5m": {
+          "dlogloss": 0.002654181332259864,
+          "dmacro_f1": -0.0012310836752251013
+        },
+        "issuer_latency_p95_ms_5m": {
+          "dlogloss": 0.0024161903465138024,
+          "dmacro_f1": 0.0005022394454870701
+        },
+        "psp_attempts_5m": {
+          "dlogloss": -6.018288919606984e-06,
+          "dmacro_f1": 0.0009560114582226609
+        },
+        "psp_failure_rate_5m": {
+          "dlogloss": 0.0009267165821487122,
+          "dmacro_f1": 0.000381557438301372
+        },
+        "psp_latency_p95_ms_5m": {
+          "dlogloss": 0.005687473212581599,
+          "dmacro_f1": 0.0015853274470212602
+        },
+        "method_attempts_5m": {
+          "dlogloss": -0.0002730473526496395,
+          "dmacro_f1": 0.00041158174931736163
+        },
+        "method_failure_rate_5m": {
+          "dlogloss": -0.0007137259949097271,
+          "dmacro_f1": -0.0014346366935554429
+        },
+        "current_latency_ms": {
+          "dlogloss": 0.018480044173276422,
+          "dmacro_f1": 0.007388132550979032
+        },
+        "error_reason": {
+          "dlogloss": 0.0771417472793811,
+          "dmacro_f1": 0.0356781393715773
+        },
+        "reason_family": {
+          "dlogloss": 0.1817093866942223,
+          "dmacro_f1": 0.07318226547663727
+        },
+        "is_generic_reason": {
+          "dlogloss": 0.002191647524263022,
+          "dmacro_f1": 0.0004448568269213397
+        },
+        "step_ordinal": {
+          "dlogloss": 0.03877960825423723,
+          "dmacro_f1": 0.014004690676477841
+        },
+        "attempt_duration_s": {
+          "dlogloss": 0.36118283140728513,
+          "dmacro_f1": 0.11083019381279491
+        },
+        "duration_vs_timeout_ratio": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "payment_flow": {
+          "dlogloss": 0.0006719180284003682,
+          "dmacro_f1": 9.06877128233526e-05
+        },
+        "latency_vs_issuer_p50": {
+          "dlogloss": -0.00045233068253478875,
+          "dmacro_f1": -0.0007514928626169611
+        },
+        "instrument_consecutive_failures": {
+          "dlogloss": 0.005648246045460363,
+          "dmacro_f1": 0.001873644051180327
+        },
+        "instrument_attempts_24h": {
+          "dlogloss": 7.593783656204926e-06,
+          "dmacro_f1": 0.0
+        },
+        "instrument_failure_rate_24h": {
+          "dlogloss": 0.0004523975194426118,
+          "dmacro_f1": 0.00013394282770055424
+        },
+        "instrument_last_success_age_s": {
+          "dlogloss": 0.007121623470189076,
+          "dmacro_f1": 0.0032581298570274844
+        },
+        "instrument_prev_reason": {
+          "dlogloss": 0.002784551667347035,
+          "dmacro_f1": 0.0013814790588914845
+        },
+        "same_reason_as_prev": {
+          "dlogloss": 0.0,
+          "dmacro_f1": 0.0
+        },
+        "instrument_distinct_reasons_24h": {
+          "dlogloss": 0.00020630754518354463,
+          "dmacro_f1": 3.024937075453889e-05
+        },
+        "issuer_failure_rate_1h": {
+          "dlogloss": 0.011609406998833097,
+          "dmacro_f1": 0.005528024104166381
+        },
+        "issuer_failure_delta": {
+          "dlogloss": 0.00037559499869101637,
+          "dmacro_f1": -0.00134794902054014
+        },
+        "issuer_failure_vs_baseline_7d": {
+          "dlogloss": 0.011995567270056037,
+          "dmacro_f1": 0.005215629633363268
+        },
+        "issuer_timeout_rate_5m": {
+          "dlogloss": -0.000666074945775826,
+          "dmacro_f1": -0.0005595496763499685
+        },
+        "issuer_tech_reason_share_5m": {
+          "dlogloss": 0.0032307306108697587,
+          "dmacro_f1": 0.000488481874012033
+        },
+        "psp_failure_rate_1h": {
+          "dlogloss": 0.01244510098352906,
+          "dmacro_f1": 0.006311399137297465
+        },
+        "psp_failure_delta": {
+          "dlogloss": 0.0006883560049789813,
+          "dmacro_f1": -0.0014318138699518739
+        },
+        "psp_timeout_rate_5m": {
+          "dlogloss": 0.00045488320726283504,
+          "dmacro_f1": 0.00030865983715041195
+        },
+        "issuer_method_failure_rate_5m": {
+          "dlogloss": 0.0010385372246720832,
+          "dmacro_f1": -0.0014096840825912709
+        },
+        "global_failure_rate_5m": {
+          "dlogloss": -0.000505500353686239,
+          "dmacro_f1": -0.0005191221667750767
+        },
+        "secs_since_prev_attempt": {
+          "dlogloss": 0.00030355289211725367,
+          "dmacro_f1": 0.0010535240409120423
+        },
+        "customer_methods_tried_24h": {
+          "dlogloss": 6.846391760356729e-05,
+          "dmacro_f1": -5.409000752010229e-05
+        },
+        "amount_vs_max_success_amount": {
+          "dlogloss": 0.0030239758348294212,
+          "dmacro_f1": 0.0007601187011595142
+        },
+        "customer_success_rate_14d": {
+          "dlogloss": 0.005007604336311404,
+          "dmacro_f1": 0.0026417197097030978
+        },
+        "matched_downtime_severity": {
+          "dlogloss": 0.004398029363833526,
+          "dmacro_f1": 0.0016846381600703249
+        },
+        "days_to_month_end": {
+          "dlogloss": 0.004466724230051807,
+          "dmacro_f1": -0.0001793048268323716
+        }
+      }
+    }
+  },
+  "selection": {
+    "rules": {
+      "group": "95% paired-bootstrap lower bound of macro-F1 effect > 0 in >= 2 of 3 scenarios, for drop-from-57 OR add-to-26",
+      "feature": "within retained groups: leave-one-out dlogloss > 0.001 OR permutation dlogloss > 0.002, in >= 2 of 3 scenarios",
+      "scope": "only the 31 new candidates are screened; the existing 26 are always kept"
+    },
+    "groups": {
+      "A_reason": {
+        "scenarios_where_dropping_hurts_significantly": 3,
+        "scenarios_where_adding_helps_significantly": 3,
+        "retained": true
+      },
+      "B_auth_timing": {
+        "scenarios_where_dropping_hurts_significantly": 3,
+        "scenarios_where_adding_helps_significantly": 3,
+        "retained": true
+      },
+      "C_instrument": {
+        "scenarios_where_dropping_hurts_significantly": 1,
+        "scenarios_where_adding_helps_significantly": 3,
+        "retained": true
+      },
+      "D_infrastructure": {
+        "scenarios_where_dropping_hurts_significantly": 1,
+        "scenarios_where_adding_helps_significantly": 2,
+        "retained": true
+      },
+      "E_customer": {
+        "scenarios_where_dropping_hurts_significantly": 0,
+        "scenarios_where_adding_helps_significantly": 0,
+        "retained": false
+      },
+      "F_external_calendar": {
+        "scenarios_where_dropping_hurts_significantly": 0,
+        "scenarios_where_adding_helps_significantly": 1,
+        "retained": false
+      }
+    },
+    "features": {
+      "error_reason": {
+        "group": "A_reason",
+        "lofo_votes": 3,
+        "permutation_votes": 3,
+        "retained": true,
+        "mean_lofo_dlogloss": 0.014193451560988687,
+        "mean_permutation_dlogloss": 0.130579541375852
+      },
+      "reason_family": {
+        "group": "A_reason",
+        "lofo_votes": 1,
+        "permutation_votes": 3,
+        "retained": true,
+        "mean_lofo_dlogloss": -0.007594231140372933,
+        "mean_permutation_dlogloss": 0.681660555373345
+      },
+      "is_generic_reason": {
+        "group": "A_reason",
+        "lofo_votes": 1,
+        "permutation_votes": 3,
+        "retained": true,
+        "mean_lofo_dlogloss": -0.0009297910114338762,
+        "mean_permutation_dlogloss": 0.008394998730970157
+      },
+      "step_ordinal": {
+        "group": "A_reason",
+        "lofo_votes": 2,
+        "permutation_votes": 3,
+        "retained": true,
+        "mean_lofo_dlogloss": 0.0023731712814478445,
+        "mean_permutation_dlogloss": 0.03719112549687795
+      },
+      "attempt_duration_s": {
+        "group": "B_auth_timing",
+        "lofo_votes": 0,
+        "permutation_votes": 3,
+        "retained": true,
+        "mean_lofo_dlogloss": 0.0,
+        "mean_permutation_dlogloss": 0.31755540350436323
+      },
+      "duration_vs_timeout_ratio": {
+        "group": "B_auth_timing",
+        "lofo_votes": 0,
+        "permutation_votes": 0,
+        "retained": false,
+        "mean_lofo_dlogloss": 0.0,
+        "mean_permutation_dlogloss": 0.0
+      },
+      "payment_flow": {
+        "group": "B_auth_timing",
+        "lofo_votes": 1,
+        "permutation_votes": 0,
+        "retained": false,
+        "mean_lofo_dlogloss": -0.0006826218035186534,
+        "mean_permutation_dlogloss": -0.0021082670249255833
+      },
+      "latency_vs_issuer_p50": {
+        "group": "B_auth_timing",
+        "lofo_votes": 1,
+        "permutation_votes": 2,
+        "retained": true,
+        "mean_lofo_dlogloss": -0.0015055438800601524,
+        "mean_permutation_dlogloss": 0.0045497657451784215
+      },
+      "instrument_consecutive_failures": {
+        "group": "C_instrument",
+        "lofo_votes": 2,
+        "permutation_votes": 3,
+        "retained": true,
+        "mean_lofo_dlogloss": 0.0021780482278903612,
+        "mean_permutation_dlogloss": 0.006352179030221657
+      },
+      "instrument_attempts_24h": {
+        "group": "C_instrument",
+        "lofo_votes": 1,
+        "permutation_votes": 0,
+        "retained": false,
+        "mean_lofo_dlogloss": 0.0004969083629617529,
+        "mean_permutation_dlogloss": -9.945694722895045e-05
+      },
+      "instrument_failure_rate_24h": {
+        "group": "C_instrument",
+        "lofo_votes": 3,
+        "permutation_votes": 0,
+        "retained": true,
+        "mean_lofo_dlogloss": 0.00306181248373232,
+        "mean_permutation_dlogloss": 8.275596689552578e-05
+      },
+      "instrument_last_success_age_s": {
+        "group": "C_instrument",
+        "lofo_votes": 2,
+        "permutation_votes": 2,
+        "retained": true,
+        "mean_lofo_dlogloss": 0.002628135901490525,
+        "mean_permutation_dlogloss": 0.004545730440654184
+      },
+      "instrument_prev_reason": {
+        "group": "C_instrument",
+        "lofo_votes": 3,
+        "permutation_votes": 2,
+        "retained": true,
+        "mean_lofo_dlogloss": 0.0026348746068608577,
+        "mean_permutation_dlogloss": 0.0026011264081914555
+      },
+      "same_reason_as_prev": {
+        "group": "C_instrument",
+        "lofo_votes": 0,
+        "permutation_votes": 0,
+        "retained": false,
+        "mean_lofo_dlogloss": -0.0008697864766611755,
+        "mean_permutation_dlogloss": 4.831372956025525e-11
+      },
+      "instrument_distinct_reasons_24h": {
+        "group": "C_instrument",
+        "lofo_votes": 1,
+        "permutation_votes": 0,
+        "retained": false,
+        "mean_lofo_dlogloss": 0.000557170344254491,
+        "mean_permutation_dlogloss": 9.061811482946602e-05
+      },
+      "issuer_failure_rate_1h": {
+        "group": "D_infrastructure",
+        "lofo_votes": 2,
+        "permutation_votes": 1,
+        "retained": true,
+        "mean_lofo_dlogloss": 0.0011566060716262834,
+        "mean_permutation_dlogloss": 0.004415045951204659
+      },
+      "issuer_failure_delta": {
+        "group": "D_infrastructure",
+        "lofo_votes": 2,
+        "permutation_votes": 0,
+        "retained": true,
+        "mean_lofo_dlogloss": 0.003903628201860391,
+        "mean_permutation_dlogloss": -0.0003826941813259556
+      },
+      "issuer_failure_vs_baseline_7d": {
+        "group": "D_infrastructure",
+        "lofo_votes": 1,
+        "permutation_votes": 1,
+        "retained": false,
+        "mean_lofo_dlogloss": -0.0011336634733037458,
+        "mean_permutation_dlogloss": 0.004311004102520358
+      },
+      "issuer_timeout_rate_5m": {
+        "group": "D_infrastructure",
+        "lofo_votes": 3,
+        "permutation_votes": 0,
+        "retained": true,
+        "mean_lofo_dlogloss": 0.003966820041266241,
+        "mean_permutation_dlogloss": -0.00029375197692307285
+      },
+      "issuer_tech_reason_share_5m": {
+        "group": "D_infrastructure",
+        "lofo_votes": 1,
+        "permutation_votes": 1,
+        "retained": false,
+        "mean_lofo_dlogloss": 0.0018717892860203034,
+        "mean_permutation_dlogloss": 0.0015003785030380647
+      },
+      "psp_failure_rate_1h": {
+        "group": "D_infrastructure",
+        "lofo_votes": 2,
+        "permutation_votes": 2,
+        "retained": true,
+        "mean_lofo_dlogloss": 0.0009148030904422289,
+        "mean_permutation_dlogloss": 0.005715798220627418
+      },
+      "psp_failure_delta": {
+        "group": "D_infrastructure",
+        "lofo_votes": 1,
+        "permutation_votes": 0,
+        "retained": false,
+        "mean_lofo_dlogloss": 0.0015453990540118996,
+        "mean_permutation_dlogloss": -0.0013128379606949148
+      },
+      "psp_timeout_rate_5m": {
+        "group": "D_infrastructure",
+        "lofo_votes": 3,
+        "permutation_votes": 0,
+        "retained": true,
+        "mean_lofo_dlogloss": 0.0018100893137536396,
+        "mean_permutation_dlogloss": 0.0003526862939676714
+      },
+      "issuer_method_failure_rate_5m": {
+        "group": "D_infrastructure",
+        "lofo_votes": 1,
+        "permutation_votes": 0,
+        "retained": false,
+        "mean_lofo_dlogloss": -0.0007618037510852271,
+        "mean_permutation_dlogloss": 0.0004390584950144444
+      },
+      "global_failure_rate_5m": {
+        "group": "D_infrastructure",
+        "lofo_votes": 3,
+        "permutation_votes": 0,
+        "retained": true,
+        "mean_lofo_dlogloss": 0.0039879715446493975,
+        "mean_permutation_dlogloss": -9.596418337697186e-05
+      }
+    },
+    "selected_new_features": [
+      "error_reason",
+      "reason_family",
+      "is_generic_reason",
+      "step_ordinal",
+      "attempt_duration_s",
+      "latency_vs_issuer_p50",
+      "instrument_consecutive_failures",
+      "instrument_failure_rate_24h",
+      "instrument_last_success_age_s",
+      "instrument_prev_reason",
+      "issuer_failure_rate_1h",
+      "issuer_failure_delta",
+      "issuer_timeout_rate_5m",
+      "psp_failure_rate_1h",
+      "psp_timeout_rate_5m",
+      "global_failure_rate_5m"
+    ],
+    "dropped_new_features": [
+      "duration_vs_timeout_ratio",
+      "payment_flow",
+      "instrument_attempts_24h",
+      "same_reason_as_prev",
+      "instrument_distinct_reasons_24h",
+      "issuer_failure_vs_baseline_7d",
+      "issuer_tech_reason_share_5m",
+      "psp_failure_delta",
+      "issuer_method_failure_rate_5m",
+      "secs_since_prev_attempt",
+      "customer_methods_tried_24h",
+      "amount_vs_max_success_amount",
+      "customer_success_rate_14d",
+      "matched_downtime_severity",
+      "days_to_month_end"
+    ],
+    "selected_feature_set": [
+      "gw_error_code",
+      "gw_error_source",
+      "gw_error_step",
+      "method",
+      "instrument_hint",
+      "issuer_id",
+      "psp_id",
+      "amount_minor",
+      "log_amount_minor",
+      "hour_ist",
+      "weekday_ist",
+      "customer_attempts_7d",
+      "customer_successes_7d",
+      "customer_failure_rate_7d",
+      "customer_last_success_age_s",
+      "amount_to_customer_mean_7d",
+      "order_prior_attempts_7d",
+      "issuer_attempts_5m",
+      "issuer_failure_rate_5m",
+      "issuer_latency_p95_ms_5m",
+      "psp_attempts_5m",
+      "psp_failure_rate_5m",
+      "psp_latency_p95_ms_5m",
+      "method_attempts_5m",
+      "method_failure_rate_5m",
+      "current_latency_ms",
+      "error_reason",
+      "reason_family",
+      "is_generic_reason",
+      "step_ordinal",
+      "attempt_duration_s",
+      "latency_vs_issuer_p50",
+      "instrument_consecutive_failures",
+      "instrument_failure_rate_24h",
+      "instrument_last_success_age_s",
+      "instrument_prev_reason",
+      "issuer_failure_rate_1h",
+      "issuer_failure_delta",
+      "issuer_timeout_rate_5m",
+      "psp_failure_rate_1h",
+      "psp_timeout_rate_5m",
+      "global_failure_rate_5m"
+    ]
+  }
+}

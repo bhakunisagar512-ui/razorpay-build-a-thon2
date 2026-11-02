@@ -1,0 +1,123 @@
+{
+  "payments": 150,
+  "recovered": 121,
+  "recovery_rate": 0.8066666666666666,
+  "recovered_in_cycle": {
+    "cycle_1": 94,
+    "cycle_2": 21,
+    "cycle_3": 6
+  },
+  "unresolved_needs_human": 29,
+  "final_status_and_reason": {
+    "recovered|cycle_1": 93,
+    "recovered|cycle_2": 19,
+    "needs_human_intervention|cycles_exhausted": 18,
+    "needs_human_intervention|risk_blocked_escalation": 11,
+    "recovered|cycle_3": 6,
+    "recovered_externally|cycle_2": 2,
+    "recovered_externally|cycle_1": 1
+  },
+  "max_cycle_reached": {
+    "1": 103,
+    "2": 23,
+    "3": 24
+  },
+  "still_pending": 0,
+  "hard_declines": 19,
+  "unsafe_retries_executed": 0,
+  "hard_decline_payments_with_a_retry": 0,
+  "unsafe_retry_rate_of_hard_declines": 0.0,
+  "executed_action_counts": {
+    "payment_link": 131,
+    "silent_retry": 101,
+    "notify": 34,
+    "human_escalation": 11,
+    "card_update_link": 8,
+    "verify_no_silent_success": 3,
+    "rail_switch": 1
+  },
+  "simulated_step_outcomes": {
+    "NA": 37,
+    "SUCCESS": 117,
+    "FAILURE": 120,
+    "UNKNOWN": 4,
+    "-": 11
+  },
+  "unknown_outcomes": {
+    "unknown": 4,
+    "verified_before_further_action": 4
+  },
+  "guard_suppressions": {
+    "consent_required": 18,
+    "order_paid_elsewhere": 5
+  },
+  "per_actual_cause": {
+    "BD_INSUFFICIENT_FUNDS": {
+      "payments": 75,
+      "recovered": 65
+    },
+    "BD_USER_ABANDONED_OTP": {
+      "payments": 43,
+      "recovered": 40
+    },
+    "CARD_EXPIRED": {
+      "payments": 10,
+      "recovered": 8
+    },
+    "RISK_BLOCKED": {
+      "payments": 9,
+      "recovered": 0
+    },
+    "TD_ISSUER_DOWN": {
+      "payments": 4,
+      "recovered": 2
+    },
+    "TD_PSP_TIMEOUT": {
+      "payments": 9,
+      "recovered": 6
+    }
+  },
+  "duplicate_protection": {
+    "order_settlements": 116,
+    "recovery_credits": 116
+  },
+  "example_payment": {
+    "payment_id": "pay_v4_typical_777001_0019595-3f1eaf",
+    "status": "recovered",
+    "reason": "cycle_1",
+    "cycles": [
+      {
+        "cycle": 1,
+        "cause": "AMBIGUOUS",
+        "cause_conf": 0.518,
+        "cause_stage": "model_c:low_confidence",
+        "actions": [
+          "payment_link"
+        ],
+        "outcome": "SUCCESS"
+      }
+    ],
+    "attempts": [
+      {
+        "cycle": 1,
+        "step_idx": 0,
+        "action": "payment_link",
+        "outcome": "mock_sent",
+        "suppressed_by": null,
+        "sim_outcome": "SUCCESS",
+        "verified_outcome": null
+      }
+    ]
+  },
+  "meta": {
+    "seed": 777001,
+    "scenario": "typical",
+    "orders": 4000,
+    "sample": 150,
+    "runtime_s": 112.9,
+    "real_payments": 0,
+    "isolated_schema": true,
+    "guard_clock": "fixed to IST daytime",
+    "timers": "collapsed (time_scale 1e9)"
+  }
+}
