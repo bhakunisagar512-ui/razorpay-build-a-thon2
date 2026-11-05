@@ -118,7 +118,7 @@ def test(name):
 
 
 TEXT = "document.body.innerText"
-FORBIDDEN_DATASET_WORDS = ['acceptance', 'threshold', 'benchmark', 'compliance', 'upper bound', 'wilson', 'exposure', 'unsafe', 'pass/fail', 'passed', 'meets the']
+FORBIDDEN_DATASET_WORDS = ['acceptance criteri', 'threshold', 'benchmark', 'compliance', 'upper bound', 'wilson', 'exposure', 'unsafe', 'pass/fail', 'passed', 'meets the']
 
 
 def click(b, selector, nth=0):
@@ -364,6 +364,35 @@ def t_routes_in_ui(b):
     b.shot('individual-model-c-route')
 
 
+@test('payment page: the wording and the offered methods follow the recovery action and the event; methods are display-only and the answer carries no method')
+def t_payment_page_actions(b):
+    cases = (
+        ({'event_type': 'CHECKOUT_ABANDONMENT', 'customer_id': 'cust_syn_01', 'amount_rupees': 999, 'failure_time': 't_1500', 'checkout_stage': 'payment_page'},
+         ('Your checkout is incomplete', 'Left at the payment page', 'Reminder', 'UPI', 'Credit / Debit Card', 'Netbanking', 'Eligible')),
+        ({'event_type': 'SUBSCRIPTION_FAILURE', 'customer_id': 'cust_syn_06', 'plan_id': 'plan_pro_monthly', 'method': 'card', 'failure_kind': 'CARD_EXPIRED', 'failure_time': 't_1200'},
+         ('Your card needs updating', 'Update your card', 'Credit / Debit Card', 'Not part of this request', 'Pro, monthly')),
+        ({'event_type': 'OVERDUE_RECEIVABLE', 'customer_id': 'cust_syn_07', 'invoice_id': 'inv_syn_03', 'failure_time': 't_1200'},
+         ('Your invoice is overdue', 'INV-0003', '30 days', 'Outstanding amount', '₹2,499', 'Reminder')),
+        (dict(OTP_BODY),
+         ('Try another payment method', 'Originally attempted', 'not offered again', 'Credit / Debit Card', 'Netbanking', 'Available')),
+    )
+    for body, needles in cases:
+        ev = api('/revenue/events', body)
+        first = wait_api(lambda e=ev: (lambda r: r[0] if r else None)(api(f"/revenue/events/{e['event_id']}")['requests']), what='first request')
+        b.goto(BASE + f"/pay/{first['request_id']}", ready='#pay-root')
+        b.wait("document.querySelector('#accept')", 15, 'payment page')
+        txt = b.js(TEXT)
+        for needle in (*needles, 'Simulated customer outcome', 'ACCEPT: the customer completes the payment', 'REJECT: the customer does not pay', 'SIMULATED'):
+            assert needle.lower() in txt.lower(), (body['event_type'], needle, txt[:900])
+        assert b.js("document.querySelectorAll('input, textarea, select').length") == 0
+        assert b.js("document.querySelectorAll('.pp-methods button, .pp-methods a, .pp-methods [tabindex], .pp-methods input').length") == 0, 'methods are display-only'
+        assert b.js("document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1"), 'no horizontal scroll'
+        b.shot('payment-page-' + body['event_type'].lower())
+        respond(first['request_id'], 'REJECT')
+    for r in api('/revenue/requests?limit=50')['pending']:
+        respond(r['request_id'], 'REJECT')
+
+
 @test('intervention: revenue-pipeline cases (contradictory data, risk block, no consent) are listed read-only with their reasons and conflicting fields')
 def t_revenue_interventions(b):
     from services.app.revenue import fixtures
@@ -435,6 +464,127 @@ def run_card(b, dataset, limit='', temporal='0', csv_id=None):
     b.wait("(()=>{const got=Object.fromEntries([...document.querySelectorAll('#rr-out .stat')].map(s=>[s.querySelector('.l').textContent,s.querySelector('.v').textContent]));"
            f"const want={json.dumps(expect)};return Object.keys(want).every(k=>got[k]===want[k]);}})()", 30, 'the numbers of THIS run on the page')
     return doc, stats()
+
+
+@test('dataset: the 203-entry revenue-event dataset is selected in the UI, its entries viewed, run manually with a 50-case Temporal sample, and reported per scenario')
+def t_dataset_203(b):
+    b.goto(BASE + '/ui#dataset')
+    b.wait("document.querySelector('#rr-dataset option[value=revenue_events_203]')", 20, 'the dataset option')
+    set_value(b, '#rr-dataset', 'revenue_events_203')
+    b.wait("document.querySelectorAll('#rr-entries tbody tr').length>0", 20, 'entries listed')
+    assert b.js("document.querySelector('#rr-temporal').value") == '50', 'the Temporal sample defaults to 50'
+    txt = b.js("document.querySelector('#rr-entries').innerText")
+    assert '(203)' in txt and 'revenue-event format' in txt.lower() and 'demo203-001' in txt and 'checkout abandonment' in txt.lower()
+    assert 'behaves as' not in txt and b.js("document.querySelectorAll('#panel-dataset input[type=text], #panel-dataset textarea').length") == 0
+    set_value(b, '#rr-ent-scn', 'EDGE_CASE')
+    b.wait("document.querySelectorAll('#rr-entries tbody tr').length===3", 15, 'the three edge cases')
+    set_value(b, '#rr-ent-scn', '')
+    b.wait("document.querySelectorAll('#rr-entries tbody tr').length===12", 15, 'all entries again')
+    assert not b.js("document.querySelector('#rr-out').innerText.includes('Total cases')"), 'nothing runs until the button is pressed'
+    click(b, '#rr-start')
+    b.wait("document.querySelector('#rr-by-scenario') && document.querySelector('#rr-out').innerText.includes('sampled workflows')", 240, 'run results')
+    run = api('/revenue/runs?limit=1')['runs'][0]
+    doc = api(f"/revenue/runs/{run['run_id']}")
+    m = doc['metrics']
+    assert run['dataset'] == 'revenue_events_203' and m['total_cases'] == 203 and doc['temporal']['requested'] + doc['temporal']['without_workflow'] == 50 and doc['temporal']['completed'] == doc['temporal']['requested'] and not doc['temporal']['mismatches']
+    page = b.js("document.querySelector('#rr-out').innerText")
+    assert f"{doc['temporal']['completed']} of {doc['temporal']['requested']} sampled workflows completed" in page and 'Model C confidence (only the 26 cases that used Model C' in page
+    rows = b.js("[...document.querySelectorAll('#rr-by-scenario tbody tr')].map(r=>[...r.cells].map(c=>c.innerText))")
+    assert [r[0].lower() for r in rows] == ['checkout abandonment', 'subscription failure', 'overdue receivable', 'payment failure', 'edge case']
+    for row, key in zip(rows, ('CHECKOUT_ABANDONMENT', 'SUBSCRIPTION_FAILURE', 'OVERDUE_RECEIVABLE', 'PAYMENT_FAILURE', 'EDGE_CASE')):
+        s = m['by_scenario'][key]
+        assert row[1:7] == [str(s['cases']), str(s['workflows_expected']), str(s['SIMULATED_RECOVERED']), str(s['SIMULATED_FAILED']), str(s['HUMAN_INTERVENTION']), str(s['model_c_calls'])], (key, row)
+    assert [r[7] for r in rows[:3]] == ['—', '—', '—'], 'no confidence is shown for scenarios that do not use Model C'
+    set_value(b, '#rr-scn', 'PAYMENT_FAILURE')
+    b.wait("document.querySelectorAll('#rr-cases tr.case-row').length===20 && document.querySelector('#rr-page-label').innerText.includes('Page 1 of 3')", 20, 'payment failure cases, 20 per page')
+    assert 'Individual Payment Evaluation Results' in b.js("document.querySelector('#rr-out').innerText")
+    rows = b.js("[...document.querySelectorAll('#rr-cases tr.case-row')].map(r=>[r.cells[2].innerText, r.cells[3].innerText])")
+    set_value(b, '#rr-route', 'MISSING_OR_GENERIC')
+    b.wait("document.querySelectorAll('#rr-cases tr.case-row').length>0 && [...document.querySelectorAll('#rr-cases tr.case-row')].every(r=>r.cells[2].innerText.includes('missing'))", 15, 'Model C cases')
+    b.js("document.querySelector('#rr-cases tr.case-row').click()")
+    b.wait("document.querySelector('#rr-cases .case-detail')", 10, 'a Model C case expanded')
+    detail = b.js("document.querySelector('#rr-cases .case-detail').innerText")
+    assert all(h.lower() in detail.lower() for h in ('A. Original input', 'B. Diagnosis', 'C. Recovery planning', 'D. Temporal execution', 'E. Final outcome')) and 'Model C confidence' in detail, detail[:300]
+    set_value(b, '#rr-route', 'CLEAR_AND_CONSISTENT')
+    b.wait("document.querySelectorAll('#rr-cases tr.case-row').length>0 && ![...document.querySelectorAll('#rr-cases tr.case-row')].some(r=>r.cells[2].innerText.includes('missing'))", 15, 'clear cases')
+    b.js("document.querySelector('#rr-cases tr.case-row').click()")
+    b.wait("document.querySelector('#rr-cases .case-detail')", 10, 'a rule case expanded')
+    assert 'Model C confidence' not in b.js("document.querySelector('#rr-cases .case-detail').innerText"), 'a rule-based case shows no confidence'
+    b.shot('dataset-203')
+
+
+@test('dataset: the attached revenue-events CSV is uploaded, a 50% acceptance rate chosen, ALL eligible cases run through Temporal with progress, and every payment is inspectable, 20 per page')
+def t_events_upload_all_eligible(b):
+    b.goto(BASE + '/ui#dataset')
+    b.wait("document.querySelector('#rr-file') && document.querySelector('#rr-behaviour')", 20, 'controls')
+    assert b.js("document.querySelector('#rr-pct').min") == '0' and b.js("document.querySelector('#rr-pct').max") == '100'
+    assert [o for o in b.js("[...document.querySelectorAll('#rr-temporal option')].map(o=>o.textContent)")][-2:] == ['Sample of 50 cases', 'All eligible cases']
+    # the same file the user attaches
+    tmp = Path(tempfile.mkdtemp(prefix='ui-events-'))
+    path = tmp / 'demo_203_entries.csv'
+    path.write_text(Path('eval/data/demo_203/entries.csv').read_text(encoding='utf-8'), encoding='utf-8')
+    node = b.send('DOM.getDocument')['root']['nodeId']
+    nid = b.send('DOM.querySelector', nodeId=node, selector='#rr-file')['nodeId']
+    b.send('DOM.setFileInputFiles', files=[str(path)], nodeId=nid)
+    b.wait("document.querySelector('#rr-csv-out .notice.good')", 30, 'valid revenue-events file')
+    note = b.js("document.querySelector('#rr-csv-out').innerText")
+    assert 'Valid revenue-events file: 203 event(s)' in note and 'checkout abandonment 50' in note and 'edge case 3' in note and b.js("document.querySelector('#rr-dataset').value") == '__events_csv__'
+    b.wait("document.querySelectorAll('#rr-entries tbody tr').length===12", 20, 'entries of the upload listed')
+    set_value(b, '#rr-pct', '50', 'input')
+    assert b.js("document.querySelector('#rr-pct-out').innerText") == '50%'
+    set_value(b, '#rr-temporal', 'all')
+    runs_before = {r['run_id'] for r in api('/revenue/runs?limit=100')['runs']}
+    click(b, '#rr-start')
+    b.wait("document.querySelector('#rr-progress').innerText.includes('Execution progress')", 40, 'progress panel')
+    progress = b.js("document.querySelector('#rr-progress').innerText")
+    assert 'Total cases to evaluate' in progress and 'Temporal workflows started' in progress and 'Pending / running workflows' in progress and 'Failed workflow executions' in progress
+    assert b.js("document.querySelector('#rr-start').disabled") and not b.js("document.querySelector('#rr-sim')"), 'no report until the workflows have finished'
+    b.wait("document.querySelector('#rr-sim') && document.querySelector('#rr-temporal-note')", 360, 'the finished report')
+    assert not b.js("document.querySelector('#rr-progress').innerText"), 'the progress panel is replaced by the report'
+    runs_list = api('/revenue/runs?limit=100')['runs']
+    new_runs = [r for r in runs_list if r['run_id'] not in runs_before]
+    run = new_runs[0]
+    doc = api(f"/revenue/runs/{run['run_id']}")
+    m, sim, t = doc['metrics'], doc['metrics']['simulation'], doc['temporal']
+    assert len(new_runs) == 1 and doc['status'] == 'completed' and run['dataset'].startswith('events:') and m['total_cases'] == 203
+    assert sim['acceptance_rate_selected_pct'] == 50 and sim['eligible_cases'] == 184 and sim['cases_assigned_to_accept'] == 92
+    assert t['mode'] == 'all_eligible' and t['requested'] == t['started'] == t['completed'] == 184 and t['timed_out'] == 0 and t['failed_to_start'] == 0 and not t['mismatches'] and t['matched_in_process'] == 184
+    assert t['responses']['ACCEPTED'] == sim['simulated_accepts'] and t['responses']['REJECTED'] == sim['simulated_rejects']              # what the workflows recorded is what the report says
+    stats = dict(b.js("[...document.querySelectorAll('#rr-sim .stat')].map(s=>[s.querySelector('.l').innerText, s.querySelector('.v').innerText])"))
+    assert stats['Acceptance rate selected'] == '50%' and stats['Eligible recovery cases'] == '184' and stats['Simulated ACCEPT answers'] == str(sim['simulated_accepts'])
+    assert stats['Simulated REJECT answers'] == str(sim['simulated_rejects']) and stats['Temporal workflows started / completed'] == '184 / 184' and stats['Successful recoveries'] == str(sim['successful_recoveries'])
+    text = b.js("document.querySelector('#rr-out').innerText")
+    assert not [ln for ln in text.splitlines() if ln.strip() == 'null'], 'no stray null text in the report'
+    assert 'SIMULATED' in text and '184 of 184 eligible workflows completed' in text and 'Model C confidence (only the 26 cases that used Model C' in text
+    by = b.js("[...document.querySelectorAll('#rr-by-scenario tbody tr')].map(r=>[...r.cells].map(c=>c.innerText))")
+    assert [r[0] for r in by] == ['checkout abandonment', 'subscription failure', 'overdue receivable', 'payment failure', 'edge case'] and sum(int(r[1]) for r in by) == 203
+    # the individual list: 20 per page, 11 pages, paging does not re-run anything, expanding one row does not touch the others
+    b.wait("document.querySelectorAll('#rr-cases tr.case-row').length===20", 20, 'first page')
+    assert 'Page 1 of 11' in b.js("document.querySelector('#rr-page-label').innerText") and b.js("document.querySelector('#rr-prev').disabled") and not b.js("document.querySelector('#rr-next').disabled")
+    first_ids = b.js("[...document.querySelectorAll('#rr-cases tr.case-row')].map(r=>r.cells[0].innerText)")
+    b.js("document.querySelectorAll('#rr-cases tr.case-row')[2].click()")
+    b.wait("document.querySelectorAll('#rr-cases .case-detail').length===1", 10, 'one row expanded')
+    b.js("document.querySelectorAll('#rr-cases tr.case-row')[5].click()")
+    b.wait("document.querySelectorAll('#rr-cases .case-detail').length===2", 10, 'a second row expanded, the first stays open')
+    detail = b.js("document.querySelector('#rr-cases .case-detail').innerText")
+    for section in ('A. Original input', 'B. Diagnosis', 'C. Recovery planning', 'D. Temporal execution', 'E. Final outcome'):
+        assert section.lower() in detail.lower(), section
+    assert ('Workflow ID' in detail and 'revenue-' in detail) or 'Why' in detail, detail[:500]
+    click(b, '#rr-next')
+    b.wait("document.querySelector('#rr-page-label').innerText.includes('Page 2 of 11')", 15, 'page 2')
+    assert b.js("[...document.querySelectorAll('#rr-cases tr.case-row')].map(r=>r.cells[0].innerText)") != first_ids
+    click(b, '#rr-prev')
+    b.wait("document.querySelector('#rr-page-label').innerText.includes('Page 1 of 11')", 15, 'back to page 1')
+    assert {r['run_id'] for r in api('/revenue/runs?limit=100')['runs']} - runs_before == {run['run_id']}, 'changing pages did not start another run'
+    for page in range(2, 12):
+        click(b, '#rr-next')
+        b.wait(f"document.querySelector('#rr-page-label').innerText.includes('Page {page} of 11')", 10, f'page {page}')
+    b.wait("document.querySelector('#rr-page-label').innerText.includes('Page 11 of 11') && document.querySelectorAll('#rr-cases tr.case-row').length===3", 15, 'the last page holds the last 3 payments')
+    assert b.js("document.querySelector('#rr-next').disabled")
+    # blocked and directly escalated cases: not sent to Temporal, still reported
+    set_value(b, '#rr-route', 'CONTRADICTORY')
+    b.wait("document.querySelectorAll('#rr-cases tr.case-row').length===4 && document.querySelector('#rr-cases tr.case-row').innerText.includes('Not started: contradictory')", 15, 'contradictory cases')
+    b.shot('events-203-all-eligible')
 
 
 @test('dataset: every prebuilt dataset and the controlled event mix run automatically and the page matches the API; no safety-limit judgments are shown')

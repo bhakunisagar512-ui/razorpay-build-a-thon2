@@ -28,7 +28,11 @@ async def rv_simulate_response(event_id: str, request_id: str) -> str:
         ev = store._lock_event(conn, event_id)
         req = conn.execute(text("SELECT step_idx, action FROM payment_request WHERE request_id=:r"), {'r': request_id}).mappings().first()
         hidden = store.hidden_cause(conn, event_id) or (ev['payload'].get('failure_kind') if ev['event_type'] == C.SUBSCRIPTION else None)
-        decision = E.simulate(ev['event_type'], req['action'], ev['payload'].get('sim_key', event_id), req['step_idx'], hidden)
+        accept = E.accept_params(ev['payload'])
+        if accept is None:
+            decision = E.simulate(ev['event_type'], req['action'], ev['payload'].get('sim_key', event_id), req['step_idx'], hidden)
+        else:                                                                           # a configured acceptance rate (Dataset Testing): same function as the in-process run
+            decision = E.configured_response(accept, ev['payload'].get('sim_key', event_id), *E.opportunity_position(ev['plan'], req['step_idx']))
         return store.resolve_request(conn, request_id, 'ACCEPT' if decision == 'ACCEPTED' else 'REJECT', 'simulator')['status']
 
 

@@ -315,3 +315,18 @@ def test_the_label_does_not_change_the_route_or_the_number_of_model_c_calls():
     b = create({**GENERIC_IN, 'diagnosis_scenario': 'generic', 'evaluation_label': 'RISK_BLOCKED'})
     pick = lambda ev: (ev['route'], ev['diagnosis']['method'], ev['diagnosis']['model_c_calls'], ev['diagnosis']['rule_id'])
     assert pick(a) == pick(b) == ('MISSING_OR_GENERIC', 'model_c', 1, 'NEEDS_MODEL')
+
+
+def test_the_payment_page_view_carries_the_attempted_method_and_customer_safe_context():
+    ev = create({**BASE_PF, **FUNDS})
+    req = open_request(ev['event_id'])
+    page = call('GET', f"/revenue/requests/{req['request_id']}")[1]
+    assert page['method'] == 'upi' and page['context'] == {'original_method': 'upi'} and page['action'] == 'alternative_payment_method'
+    chk = create(OTHER['CHECKOUT_ABANDONMENT'])
+    page = call('GET', f"/revenue/requests/{open_request(chk['event_id'])['request_id']}")[1]
+    assert page['context']['checkout_stage'] == 'Left at the payment page' and page['action'] == 'checkout_reminder'
+    inv = create(OTHER['OVERDUE_RECEIVABLE'])
+    page = call('GET', f"/revenue/requests/{open_request(inv['event_id'])['request_id']}")[1]
+    assert page['context']['invoice_number'] == 'INV-0003' and page['context']['days_overdue'] == 30
+    for text in (json.dumps(page), ):
+        assert 'diagnosis' not in text and 'RISK' not in text and 'evaluation' not in text

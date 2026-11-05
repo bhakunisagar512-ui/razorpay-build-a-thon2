@@ -1,0 +1,241 @@
+entry_id,scenario,event_type,customer_id,amount_rupees,failure_time,checkout_stage,plan_id,method,failure_kind,invoice_id,issuer_id,diagnosis_scenario,instrument_hint,gw_error_code,gw_error_source,gw_error_step,error_reason,expected_route,expected_cause,customer_behaviour,purpose
+demo240-001,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_01,199,t_0930,cart_review,,,,,,,,,,,,,,reject_all,checkout left at cart_review
+demo240-002,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_04,999,t_0930,address_entry,,,,,,,,,,,,,,accept_first,checkout left at address_entry
+demo240-003,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_08,4999,t_1200,payment_page,,,,,,,,,,,,,,reject_all,checkout left at payment_page
+demo240-004,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_03,499,t_1200,cart_review,,,,,,,,,,,,,,accept_first,checkout left at cart_review
+demo240-005,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_07,2499,t_1500,address_entry,,,,,,,,,,,,,,reject_then_accept,checkout left at address_entry
+demo240-006,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_02,499,t_1500,payment_page,,,,,,,,,,,,,,accept_first,checkout left at payment_page
+demo240-007,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_06,2499,t_1830,cart_review,,,,,,,,,,,,,,reject_then_accept,checkout left at cart_review
+demo240-008,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_01,199,t_1830,address_entry,,,,,,,,,,,,,,accept_first,checkout left at address_entry
+demo240-009,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_04,999,t_0930,payment_page,,,,,,,,,,,,,,accept_first,checkout left at payment_page
+demo240-010,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_08,4999,t_0930,cart_review,,,,,,,,,,,,,,accept_first,checkout left at cart_review
+demo240-011,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_03,999,t_1200,address_entry,,,,,,,,,,,,,,reject_then_accept,checkout left at address_entry
+demo240-012,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_07,4999,t_1200,payment_page,,,,,,,,,,,,,,accept_first,checkout left at payment_page
+demo240-013,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_02,499,t_1500,cart_review,,,,,,,,,,,,,,reject_then_accept,checkout left at cart_review
+demo240-014,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_06,2499,t_1500,address_entry,,,,,,,,,,,,,,accept_first,checkout left at address_entry
+demo240-015,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_01,199,t_1830,payment_page,,,,,,,,,,,,,,reject_then_accept,checkout left at payment_page
+demo240-016,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_04,2499,t_1830,cart_review,,,,,,,,,,,,,,accept_first,checkout left at cart_review
+demo240-017,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_08,199,t_0930,address_entry,,,,,,,,,,,,,,accept_first,checkout left at address_entry
+demo240-018,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_03,999,t_0930,payment_page,,,,,,,,,,,,,,accept_first,checkout left at payment_page
+demo240-019,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_07,4999,t_1200,cart_review,,,,,,,,,,,,,,reject_then_accept,checkout left at cart_review
+demo240-020,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_02,499,t_1200,address_entry,,,,,,,,,,,,,,reject_all,checkout left at address_entry
+demo240-021,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_06,4999,t_1500,payment_page,,,,,,,,,,,,,,reject_all,checkout left at payment_page
+demo240-022,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_01,499,t_1500,cart_review,,,,,,,,,,,,,,accept_first,checkout left at cart_review
+demo240-023,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_04,2499,t_1830,address_entry,,,,,,,,,,,,,,accept_first,checkout left at address_entry
+demo240-024,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_08,199,t_1830,payment_page,,,,,,,,,,,,,,reject_then_accept,checkout left at payment_page
+demo240-025,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_03,999,t_0930,cart_review,,,,,,,,,,,,,,reject_all,checkout left at cart_review
+demo240-026,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_07,199,t_0930,address_entry,,,,,,,,,,,,,,reject_then_accept,checkout left at address_entry
+demo240-027,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_02,999,t_1200,payment_page,,,,,,,,,,,,,,accept_first,checkout left at payment_page
+demo240-028,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_06,4999,t_1200,cart_review,,,,,,,,,,,,,,reject_all,checkout left at cart_review
+demo240-029,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_01,499,t_1500,address_entry,,,,,,,,,,,,,,reject_then_accept,checkout left at address_entry
+demo240-030,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_04,2499,t_1500,payment_page,,,,,,,,,,,,,,reject_all,checkout left at payment_page
+demo240-031,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_08,499,t_1830,cart_review,,,,,,,,,,,,,,accept_first,checkout left at cart_review
+demo240-032,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_03,2499,t_1830,address_entry,,,,,,,,,,,,,,accept_first,checkout left at address_entry
+demo240-033,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_07,199,t_0930,payment_page,,,,,,,,,,,,,,accept_first,checkout left at payment_page
+demo240-034,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_02,999,t_0930,cart_review,,,,,,,,,,,,,,accept_first,checkout left at cart_review
+demo240-035,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_06,4999,t_1200,address_entry,,,,,,,,,,,,,,accept_first,checkout left at address_entry
+demo240-036,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_01,999,t_1200,payment_page,,,,,,,,,,,,,,accept_first,checkout left at payment_page
+demo240-037,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_04,4999,t_1500,cart_review,,,,,,,,,,,,,,accept_first,checkout left at cart_review
+demo240-038,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_08,499,t_1500,address_entry,,,,,,,,,,,,,,accept_first,checkout left at address_entry
+demo240-039,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_03,2499,t_1830,payment_page,,,,,,,,,,,,,,reject_then_accept,checkout left at payment_page
+demo240-040,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_07,199,t_1830,cart_review,,,,,,,,,,,,,,reject_all,checkout left at cart_review
+demo240-041,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_02,2499,t_0930,address_entry,,,,,,,,,,,,,,accept_first,checkout left at address_entry
+demo240-042,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_06,199,t_0930,payment_page,,,,,,,,,,,,,,accept_first,checkout left at payment_page
+demo240-043,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_01,999,t_1200,cart_review,,,,,,,,,,,,,,accept_first,checkout left at cart_review
+demo240-044,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_04,4999,t_1200,address_entry,,,,,,,,,,,,,,reject_all,checkout left at address_entry
+demo240-045,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_08,499,t_1500,payment_page,,,,,,,,,,,,,,accept_first,checkout left at payment_page
+demo240-046,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_03,4999,t_1500,cart_review,,,,,,,,,,,,,,accept_first,checkout left at cart_review
+demo240-047,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_07,499,t_1830,address_entry,,,,,,,,,,,,,,accept_first,checkout left at address_entry
+demo240-048,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_02,2499,t_1830,payment_page,,,,,,,,,,,,,,accept_first,checkout left at payment_page
+demo240-049,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_06,199,t_0930,cart_review,,,,,,,,,,,,,,accept_first,checkout left at cart_review
+demo240-050,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_01,999,t_0930,address_entry,,,,,,,,,,,,,,reject_all,checkout left at address_entry
+demo240-051,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_04,199,t_1200,payment_page,,,,,,,,,,,,,,accept_first,checkout left at payment_page
+demo240-052,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_08,999,t_1200,cart_review,,,,,,,,,,,,,,accept_first,checkout left at cart_review
+demo240-053,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_03,4999,t_1500,address_entry,,,,,,,,,,,,,,accept_first,checkout left at address_entry
+demo240-054,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_07,499,t_1500,payment_page,,,,,,,,,,,,,,reject_all,checkout left at payment_page
+demo240-055,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_02,2499,t_1830,cart_review,,,,,,,,,,,,,,reject_then_accept,checkout left at cart_review
+demo240-056,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_06,499,t_1830,address_entry,,,,,,,,,,,,,,reject_all,checkout left at address_entry
+demo240-057,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_01,2499,t_0930,payment_page,,,,,,,,,,,,,,accept_first,checkout left at payment_page
+demo240-058,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_04,199,t_0930,cart_review,,,,,,,,,,,,,,accept_first,checkout left at cart_review
+demo240-059,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_08,999,t_1200,address_entry,,,,,,,,,,,,,,reject_all,checkout left at address_entry
+demo240-060,CHECKOUT_ABANDONMENT,CHECKOUT_ABANDONMENT,cust_syn_03,4999,t_1200,payment_page,,,,,,,,,,,,,,accept_first,checkout left at payment_page
+demo240-061,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_03,,t_0930,,plan_basic_monthly,netbanking,TD_PSP_TIMEOUT,,,,,,,,,,TD_PSP_TIMEOUT,accept_first,the payment state is verified before anyone is asked to pay again
+demo240-062,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_01,,t_1500,,plan_basic_monthly,netbanking,TD_ISSUER_DOWN,,,,,,,,,,TD_ISSUER_DOWN,reject_all,renewal failed (TD_ISSUER_DOWN)
+demo240-063,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_07,,t_1200,,plan_basic_monthly,netbanking,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,accept_first,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-064,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_03,,t_1500,,plan_team_annual,upi,BD_USER_ABANDONED_OTP,,,,,,,,,,BD_USER_ABANDONED_OTP,reject_then_accept,renewal failed (BD_USER_ABANDONED_OTP)
+demo240-065,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_06,,t_1200,,plan_team_annual,netbanking,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,reject_then_accept,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-066,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_03,,t_1200,,plan_basic_monthly,card,CARD_EXPIRED,,,,,,,,,,CARD_EXPIRED,reject_all,renewal failed (CARD_EXPIRED)
+demo240-067,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_03,,t_1500,,plan_basic_monthly,card,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,accept_first,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-068,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_03,,t_1200,,plan_team_annual,upi,TD_ISSUER_DOWN,,,,,,,,,,TD_ISSUER_DOWN,accept_first,renewal failed (TD_ISSUER_DOWN)
+demo240-069,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_08,,t_0930,,plan_pro_monthly,netbanking,BD_USER_ABANDONED_OTP,,,,,,,,,,BD_USER_ABANDONED_OTP,reject_all,renewal failed (BD_USER_ABANDONED_OTP)
+demo240-070,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_08,,t_1500,,plan_team_annual,card,CARD_EXPIRED,,,,,,,,,,CARD_EXPIRED,accept_first,renewal failed (CARD_EXPIRED)
+demo240-071,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_04,,t_1500,,plan_team_annual,upi,TD_PSP_TIMEOUT,,,,,,,,,,TD_PSP_TIMEOUT,reject_then_accept,the payment state is verified before anyone is asked to pay again
+demo240-072,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_04,,t_1200,,plan_basic_monthly,card,TD_PSP_TIMEOUT,,,,,,,,,,TD_PSP_TIMEOUT,reject_all,the payment state is verified before anyone is asked to pay again
+demo240-073,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_01,,t_1830,,plan_team_annual,netbanking,TD_ISSUER_DOWN,,,,,,,,,,TD_ISSUER_DOWN,reject_then_accept,renewal failed (TD_ISSUER_DOWN)
+demo240-074,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_06,,t_0930,,plan_basic_monthly,netbanking,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,accept_first,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-075,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_01,,t_1200,,plan_pro_monthly,card,CARD_EXPIRED,,,,,,,,,,CARD_EXPIRED,accept_first,renewal failed (CARD_EXPIRED)
+demo240-076,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_07,,t_0930,,plan_basic_monthly,netbanking,TD_ISSUER_DOWN,,,,,,,,,,TD_ISSUER_DOWN,reject_then_accept,renewal failed (TD_ISSUER_DOWN)
+demo240-077,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_03,,t_0930,,plan_pro_monthly,card,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,reject_all,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-078,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_01,,t_0930,,plan_basic_monthly,netbanking,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,reject_then_accept,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-079,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_07,,t_1500,,plan_pro_monthly,card,TD_ISSUER_DOWN,,,,,,,,,,TD_ISSUER_DOWN,accept_first,renewal failed (TD_ISSUER_DOWN)
+demo240-080,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_07,,t_1830,,plan_pro_monthly,netbanking,BD_USER_ABANDONED_OTP,,,,,,,,,,BD_USER_ABANDONED_OTP,reject_then_accept,renewal failed (BD_USER_ABANDONED_OTP)
+demo240-081,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_01,,t_0930,,plan_team_annual,card,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,accept_first,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-082,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_04,,t_1200,,plan_pro_monthly,netbanking,BD_USER_ABANDONED_OTP,,,,,,,,,,BD_USER_ABANDONED_OTP,reject_all,renewal failed (BD_USER_ABANDONED_OTP)
+demo240-083,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_01,,t_1500,,plan_pro_monthly,card,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,reject_then_accept,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-084,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_02,,t_1830,,plan_team_annual,card,RISK_BLOCKED,,,,,,,,,,RISK_BLOCKED,reject_all,"a risk block is escalated to a person, never retried"
+demo240-085,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_02,,t_1830,,plan_pro_monthly,card,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,accept_first,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-086,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_08,,t_1200,,plan_team_annual,card,RISK_BLOCKED,,,,,,,,,,RISK_BLOCKED,reject_all,"a risk block is escalated to a person, never retried"
+demo240-087,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_08,,t_1200,,plan_pro_monthly,netbanking,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,accept_first,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-088,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_03,,t_1830,,plan_pro_monthly,card,CARD_EXPIRED,,,,,,,,,,CARD_EXPIRED,reject_then_accept,renewal failed (CARD_EXPIRED)
+demo240-089,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_08,,t_1200,,plan_basic_monthly,card,TD_ISSUER_DOWN,,,,,,,,,,TD_ISSUER_DOWN,reject_then_accept,renewal failed (TD_ISSUER_DOWN)
+demo240-090,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_06,,t_1830,,plan_team_annual,card,TD_PSP_TIMEOUT,,,,,,,,,,TD_PSP_TIMEOUT,accept_first,the payment state is verified before anyone is asked to pay again
+demo240-091,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_07,,t_0930,,plan_team_annual,upi,TD_PSP_TIMEOUT,,,,,,,,,,TD_PSP_TIMEOUT,accept_first,the payment state is verified before anyone is asked to pay again
+demo240-092,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_02,,t_1200,,plan_team_annual,card,BD_USER_ABANDONED_OTP,,,,,,,,,,BD_USER_ABANDONED_OTP,accept_first,renewal failed (BD_USER_ABANDONED_OTP)
+demo240-093,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_02,,t_0930,,plan_team_annual,upi,TD_ISSUER_DOWN,,,,,,,,,,TD_ISSUER_DOWN,reject_all,renewal failed (TD_ISSUER_DOWN)
+demo240-094,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_02,,t_0930,,plan_basic_monthly,netbanking,BD_USER_ABANDONED_OTP,,,,,,,,,,BD_USER_ABANDONED_OTP,accept_first,renewal failed (BD_USER_ABANDONED_OTP)
+demo240-095,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_06,,t_1500,,plan_pro_monthly,card,BD_USER_ABANDONED_OTP,,,,,,,,,,BD_USER_ABANDONED_OTP,accept_first,renewal failed (BD_USER_ABANDONED_OTP)
+demo240-096,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_02,,t_1200,,plan_basic_monthly,card,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,accept_first,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-097,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_01,,t_1830,,plan_basic_monthly,upi,BD_USER_ABANDONED_OTP,,,,,,,,,,BD_USER_ABANDONED_OTP,accept_first,renewal failed (BD_USER_ABANDONED_OTP)
+demo240-098,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_02,,t_1500,,plan_pro_monthly,card,CARD_EXPIRED,,,,,,,,,,CARD_EXPIRED,reject_then_accept,renewal failed (CARD_EXPIRED)
+demo240-099,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_04,,t_0930,,plan_team_annual,netbanking,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,accept_first,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-100,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_01,,t_0930,,plan_pro_monthly,netbanking,TD_PSP_TIMEOUT,,,,,,,,,,TD_PSP_TIMEOUT,accept_first,the payment state is verified before anyone is asked to pay again
+demo240-101,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_04,,t_1830,,plan_basic_monthly,netbanking,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,accept_first,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-102,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_04,,t_0930,,plan_pro_monthly,card,TD_ISSUER_DOWN,,,,,,,,,,TD_ISSUER_DOWN,accept_first,renewal failed (TD_ISSUER_DOWN)
+demo240-103,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_08,,t_1830,,plan_team_annual,netbanking,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,reject_then_accept,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-104,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_07,,t_1500,,plan_team_annual,upi,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,accept_first,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-105,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_04,,t_1500,,plan_basic_monthly,card,CARD_EXPIRED,,,,,,,,,,CARD_EXPIRED,accept_first,renewal failed (CARD_EXPIRED)
+demo240-106,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_04,,t_1830,,plan_pro_monthly,upi,RISK_BLOCKED,,,,,,,,,,RISK_BLOCKED,reject_all,"a risk block is escalated to a person, never retried"
+demo240-107,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_06,,t_1500,,plan_basic_monthly,netbanking,RISK_BLOCKED,,,,,,,,,,RISK_BLOCKED,reject_all,"a risk block is escalated to a person, never retried"
+demo240-108,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_03,,t_1500,,plan_pro_monthly,upi,RISK_BLOCKED,,,,,,,,,,RISK_BLOCKED,reject_all,"a risk block is escalated to a person, never retried"
+demo240-109,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_07,,t_1830,,plan_basic_monthly,card,RISK_BLOCKED,,,,,,,,,,RISK_BLOCKED,reject_all,"a risk block is escalated to a person, never retried"
+demo240-110,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_06,,t_0930,,plan_team_annual,card,CARD_EXPIRED,,,,,,,,,,CARD_EXPIRED,accept_first,renewal failed (CARD_EXPIRED)
+demo240-111,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_07,,t_1200,,plan_team_annual,card,CARD_EXPIRED,,,,,,,,,,CARD_EXPIRED,reject_then_accept,renewal failed (CARD_EXPIRED)
+demo240-112,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_07,,t_0930,,plan_pro_monthly,upi,BD_INSUFFICIENT_FUNDS,,,,,,,,,,BD_INSUFFICIENT_FUNDS,reject_then_accept,renewal failed (BD_INSUFFICIENT_FUNDS)
+demo240-113,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_08,,t_1830,,plan_pro_monthly,netbanking,TD_PSP_TIMEOUT,,,,,,,,,,TD_PSP_TIMEOUT,reject_then_accept,the payment state is verified before anyone is asked to pay again
+demo240-114,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_02,,t_1200,,plan_pro_monthly,card,RISK_BLOCKED,,,,,,,,,,RISK_BLOCKED,reject_all,"a risk block is escalated to a person, never retried"
+demo240-115,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_01,,t_1500,,plan_team_annual,upi,RISK_BLOCKED,,,,,,,,,,RISK_BLOCKED,reject_all,"a risk block is escalated to a person, never retried"
+demo240-116,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_06,,t_1830,,plan_basic_monthly,card,CARD_EXPIRED,,,,,,,,,,CARD_EXPIRED,accept_first,renewal failed (CARD_EXPIRED)
+demo240-117,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_04,,t_1830,,plan_team_annual,card,BD_USER_ABANDONED_OTP,,,,,,,,,,BD_USER_ABANDONED_OTP,accept_first,renewal failed (BD_USER_ABANDONED_OTP)
+demo240-118,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_02,,t_1830,,plan_basic_monthly,card,TD_PSP_TIMEOUT,,,,,,,,,,TD_PSP_TIMEOUT,reject_all,the payment state is verified before anyone is asked to pay again
+demo240-119,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_06,,t_1200,,plan_pro_monthly,upi,TD_ISSUER_DOWN,,,,,,,,,,TD_ISSUER_DOWN,accept_first,renewal failed (TD_ISSUER_DOWN)
+demo240-120,SUBSCRIPTION_FAILURE,SUBSCRIPTION_FAILURE,cust_syn_08,,t_1500,,plan_basic_monthly,card,BD_USER_ABANDONED_OTP,,,,,,,,,,BD_USER_ABANDONED_OTP,reject_then_accept,renewal failed (BD_USER_ABANDONED_OTP)
+demo240-121,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_01,,t_0930,,,,,inv_syn_01,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-122,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_01,,t_0930,,,,,inv_syn_02,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-123,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_01,,t_0930,,,,,inv_syn_03,,,,,,,,,,accept_first,30-day overdue invoice
+demo240-124,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_01,,t_1200,,,,,inv_syn_04,,,,,,,,,,reject_then_accept,30-day overdue invoice
+demo240-125,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_01,,t_1200,,,,,inv_syn_05,,,,,,,,,,accept_first,60-day overdue invoice
+demo240-126,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_01,,t_1200,,,,,inv_syn_01,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-127,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_01,,t_1500,,,,,inv_syn_02,,,,,,,,,,reject_all,7-day overdue invoice
+demo240-128,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_02,,t_1500,,,,,inv_syn_03,,,,,,,,,,reject_all,30-day overdue invoice
+demo240-129,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_02,,t_1500,,,,,inv_syn_04,,,,,,,,,,reject_then_accept,30-day overdue invoice
+demo240-130,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_02,,t_1830,,,,,inv_syn_05,,,,,,,,,,accept_first,60-day overdue invoice
+demo240-131,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_02,,t_1830,,,,,inv_syn_01,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-132,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_02,,t_1830,,,,,inv_syn_02,,,,,,,,,,reject_then_accept,7-day overdue invoice
+demo240-133,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_02,,t_0930,,,,,inv_syn_03,,,,,,,,,,reject_all,30-day overdue invoice
+demo240-134,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_02,,t_0930,,,,,inv_syn_04,,,,,,,,,,reject_then_accept,30-day overdue invoice
+demo240-135,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_03,,t_0930,,,,,inv_syn_05,,,,,,,,,,accept_first,60-day overdue invoice
+demo240-136,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_03,,t_1200,,,,,inv_syn_01,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-137,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_03,,t_1200,,,,,inv_syn_02,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-138,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_03,,t_1200,,,,,inv_syn_03,,,,,,,,,,reject_then_accept,30-day overdue invoice
+demo240-139,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_03,,t_1500,,,,,inv_syn_04,,,,,,,,,,reject_then_accept,30-day overdue invoice
+demo240-140,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_03,,t_1500,,,,,inv_syn_05,,,,,,,,,,accept_first,60-day overdue invoice
+demo240-141,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_03,,t_1500,,,,,inv_syn_01,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-142,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_04,,t_1830,,,,,inv_syn_02,,,,,,,,,,reject_all,7-day overdue invoice
+demo240-143,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_04,,t_1830,,,,,inv_syn_03,,,,,,,,,,accept_first,30-day overdue invoice
+demo240-144,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_04,,t_1830,,,,,inv_syn_04,,,,,,,,,,reject_then_accept,30-day overdue invoice
+demo240-145,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_04,,t_0930,,,,,inv_syn_05,,,,,,,,,,reject_twice_then_accept,60-day overdue invoice
+demo240-146,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_04,,t_0930,,,,,inv_syn_01,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-147,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_04,,t_0930,,,,,inv_syn_02,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-148,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_04,,t_1200,,,,,inv_syn_03,,,,,,,,,,reject_then_accept,30-day overdue invoice
+demo240-149,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_06,,t_1200,,,,,inv_syn_04,,,,,,,,,,accept_first,30-day overdue invoice
+demo240-150,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_06,,t_1200,,,,,inv_syn_05,,,,,,,,,,reject_then_accept,60-day overdue invoice
+demo240-151,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_06,,t_1500,,,,,inv_syn_01,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-152,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_06,,t_1500,,,,,inv_syn_02,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-153,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_06,,t_1500,,,,,inv_syn_03,,,,,,,,,,accept_first,30-day overdue invoice
+demo240-154,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_06,,t_1830,,,,,inv_syn_04,,,,,,,,,,accept_first,30-day overdue invoice
+demo240-155,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_06,,t_1830,,,,,inv_syn_05,,,,,,,,,,reject_twice_then_accept,60-day overdue invoice
+demo240-156,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_07,,t_1830,,,,,inv_syn_01,,,,,,,,,,reject_then_accept,7-day overdue invoice
+demo240-157,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_07,,t_0930,,,,,inv_syn_02,,,,,,,,,,reject_all,7-day overdue invoice
+demo240-158,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_07,,t_0930,,,,,inv_syn_03,,,,,,,,,,reject_twice_then_accept,30-day overdue invoice
+demo240-159,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_07,,t_0930,,,,,inv_syn_04,,,,,,,,,,reject_all,30-day overdue invoice
+demo240-160,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_07,,t_1200,,,,,inv_syn_05,,,,,,,,,,accept_first,60-day overdue invoice
+demo240-161,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_07,,t_1200,,,,,inv_syn_01,,,,,,,,,,reject_then_accept,7-day overdue invoice
+demo240-162,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_07,,t_1200,,,,,inv_syn_02,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-163,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_08,,t_1500,,,,,inv_syn_03,,,,,,,,,,reject_twice_then_accept,30-day overdue invoice
+demo240-164,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_08,,t_1500,,,,,inv_syn_04,,,,,,,,,,reject_then_accept,30-day overdue invoice
+demo240-165,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_08,,t_1500,,,,,inv_syn_05,,,,,,,,,,reject_twice_then_accept,60-day overdue invoice
+demo240-166,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_08,,t_1830,,,,,inv_syn_01,,,,,,,,,,reject_then_accept,7-day overdue invoice
+demo240-167,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_08,,t_1830,,,,,inv_syn_02,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-168,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_08,,t_1830,,,,,inv_syn_03,,,,,,,,,,reject_then_accept,30-day overdue invoice
+demo240-169,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_08,,t_0930,,,,,inv_syn_04,,,,,,,,,,accept_first,30-day overdue invoice
+demo240-170,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_01,,t_0930,,,,,inv_syn_05,,,,,,,,,,reject_twice_then_accept,60-day overdue invoice
+demo240-171,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_02,,t_0930,,,,,inv_syn_01,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-172,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_01,,t_1200,,,,,inv_syn_02,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-173,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_01,,t_1200,,,,,inv_syn_03,,,,,,,,,,accept_first,30-day overdue invoice
+demo240-174,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_02,,t_1200,,,,,inv_syn_04,,,,,,,,,,accept_first,30-day overdue invoice
+demo240-175,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_01,,t_1500,,,,,inv_syn_05,,,,,,,,,,reject_all,60-day overdue invoice
+demo240-176,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_01,,t_1500,,,,,inv_syn_01,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-177,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_02,,t_1500,,,,,inv_syn_02,,,,,,,,,,accept_first,7-day overdue invoice
+demo240-178,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_02,,t_1830,,,,,inv_syn_03,,,,,,,,,,reject_then_accept,30-day overdue invoice
+demo240-179,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_02,,t_1830,,,,,inv_syn_04,,,,,,,,,,accept_first,30-day overdue invoice
+demo240-180,OVERDUE_RECEIVABLE,OVERDUE_RECEIVABLE,cust_syn_03,,t_1830,,,,,inv_syn_05,,,,,,,,,,reject_then_accept,60-day overdue invoice
+demo240-181,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_07,4999,t_1200,,,card,,,issuer_01,clear,unknown,BAD_REQUEST_ERROR,issuer_bank,payment_capture,insufficient_funds,CLEAR_AND_CONSISTENT,BD_INSUFFICIENT_FUNDS,accept_first,"clear gateway evidence (insufficient_funds): decided by rule, Model C not called"
+demo240-182,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_06,2499,t_0930,,,card,,,issuer_00,clear,valid,GATEWAY_ERROR,gateway,payment_capture,transaction_daily_limit_exceeded,CLEAR_AND_CONSISTENT,BD_INSUFFICIENT_FUNDS,reject_then_accept,"clear gateway evidence (transaction_daily_limit_exceeded): decided by rule, Model C not called"
+demo240-183,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_07,199,t_1500,,,upi,,,issuer_01,clear,na,BAD_REQUEST_ERROR,issuer_bank,payment_response,transaction_frequency_limit_exceeded,CLEAR_AND_CONSISTENT,BD_INSUFFICIENT_FUNDS,reject_all,"clear gateway evidence (transaction_frequency_limit_exceeded): decided by rule, Model C not called"
+demo240-184,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_06,2499,t_1830,,,card,,,issuer_03,clear,unknown,GATEWAY_ERROR,customer,payment_authorization,transaction_daily_limit_exceeded,CLEAR_AND_CONSISTENT,BD_INSUFFICIENT_FUNDS,reject_all,"clear gateway evidence (transaction_daily_limit_exceeded): decided by rule, Model C not called"
+demo240-185,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_06,2499,t_1830,,,netbanking,,,issuer_09,clear,na,BAD_REQUEST_ERROR,customer,payment_authorization,insufficient_funds,CLEAR_AND_CONSISTENT,BD_INSUFFICIENT_FUNDS,accept_first,"clear gateway evidence (insufficient_funds): decided by rule, Model C not called"
+demo240-186,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_08,499,t_1200,,,card,,,issuer_03,clear,unknown,BAD_REQUEST_ERROR,issuer_bank,payment_authorization,incorrect_otp,CLEAR_AND_CONSISTENT,BD_USER_ABANDONED_OTP,accept_first,"clear gateway evidence (incorrect_otp): decided by rule, Model C not called"
+demo240-187,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_04,2499,t_1200,,,netbanking,,,issuer_06,clear,na,GATEWAY_ERROR,customer,payment_authentication,authentication_failed,CLEAR_AND_CONSISTENT,BD_USER_ABANDONED_OTP,accept_first,"clear gateway evidence (authentication_failed): decided by rule, Model C not called"
+demo240-188,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_07,499,t_1830,,,upi,,,issuer_06,clear,na,GATEWAY_ERROR,network,payment_creation,authentication_failed,CLEAR_AND_CONSISTENT,BD_USER_ABANDONED_OTP,accept_first,"clear gateway evidence (authentication_failed): decided by rule, Model C not called"
+demo240-189,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_06,999,t_1200,,,netbanking,,,issuer_04,clear,na,GATEWAY_ERROR,issuer_bank,payment_initiation,authentication_failed,CLEAR_AND_CONSISTENT,BD_USER_ABANDONED_OTP,accept_first,"clear gateway evidence (authentication_failed): decided by rule, Model C not called"
+demo240-190,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_01,2499,t_1200,,,card,,,issuer_01,clear,valid,BAD_REQUEST_ERROR,issuer_bank,payment_authorization,card_expired,CLEAR_AND_CONSISTENT,CARD_EXPIRED,accept_first,"clear gateway evidence (card_expired): decided by rule, Model C not called"
+demo240-191,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_06,4999,t_1500,,,card,,,issuer_03,clear,valid,BAD_REQUEST_ERROR,customer,payment_authorization,card_expired,CLEAR_AND_CONSISTENT,CARD_EXPIRED,reject_then_accept,"clear gateway evidence (card_expired): decided by rule, Model C not called"
+demo240-192,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_07,2499,t_1200,,,card,,,issuer_02,clear,expired,BAD_REQUEST_ERROR,customer,payment_authorization,card_expired,CLEAR_AND_CONSISTENT,CARD_EXPIRED,reject_all,"clear gateway evidence (card_expired): decided by rule, Model C not called"
+demo240-193,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_04,4999,t_0930,,,card,,,issuer_04,clear,valid,GATEWAY_ERROR,issuer_bank,payment_authorization,payment_risk_check_failed,CLEAR_AND_CONSISTENT,RISK_BLOCKED,reject_all,"clear gateway evidence (payment_risk_check_failed): decided by rule, Model C not called"
+demo240-194,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_03,2499,t_1200,,,netbanking,,,issuer_07,clear,na,BAD_REQUEST_ERROR,internal,payment_authorization,payment_risk_check_failed,CLEAR_AND_CONSISTENT,RISK_BLOCKED,reject_all,"clear gateway evidence (payment_risk_check_failed): decided by rule, Model C not called"
+demo240-195,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_07,499,t_1830,,,netbanking,,,issuer_06,clear,na,GATEWAY_ERROR,business,payment_authentication,payment_risk_check_failed,CLEAR_AND_CONSISTENT,RISK_BLOCKED,reject_all,"clear gateway evidence (payment_risk_check_failed): decided by rule, Model C not called"
+demo240-196,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_02,4999,t_0930,,,card,,,issuer_09,clear,unknown,GATEWAY_ERROR,gateway,card_enrollment_check,issuer_technical_error,CLEAR_AND_CONSISTENT,TD_ISSUER_DOWN,accept_first,"clear gateway evidence (issuer_technical_error): decided by rule, Model C not called"
+demo240-197,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_01,999,t_1200,,,netbanking,,,issuer_01,clear,na,BAD_REQUEST_ERROR,internal,payment_authorization,bank_technical_error,CLEAR_AND_CONSISTENT,TD_ISSUER_DOWN,accept_first,"clear gateway evidence (bank_technical_error): decided by rule, Model C not called"
+demo240-198,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_02,4999,t_1830,,,upi,,,issuer_07,clear,na,GATEWAY_ERROR,network,payment_status_response,bank_technical_error,CLEAR_AND_CONSISTENT,TD_ISSUER_DOWN,reject_all,"clear gateway evidence (bank_technical_error): decided by rule, Model C not called"
+demo240-199,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_04,999,t_0930,,,netbanking,,,issuer_03,clear,na,SERVER_ERROR,internal,payment_initiation,server_error,CLEAR_AND_CONSISTENT,TD_PSP_TIMEOUT,accept_first,"clear gateway evidence (server_error): decided by rule, Model C not called"
+demo240-200,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_01,2499,t_1500,,,netbanking,,,issuer_03,clear,na,GATEWAY_ERROR,issuer_bank,payment_authentication,request_timed_out,CLEAR_AND_CONSISTENT,TD_PSP_TIMEOUT,reject_all,"clear gateway evidence (request_timed_out): decided by rule, Model C not called"
+demo240-201,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_03,2499,t_0930,,,card,,,issuer_03,generic,valid,GATEWAY_ERROR,issuer_bank,payment_authorization,card_declined,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-202,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_03,999,t_1200,,,upi,,,issuer_02,generic,na,BAD_REQUEST_ERROR,customer,payment_response,payment_failed,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-203,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_08,199,t_1500,,,card,,,issuer_07,generic,unknown,GATEWAY_ERROR,gateway,card_enrollment_check,payment_failed,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-204,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_03,999,t_1200,,,upi,,,issuer_07,generic,na,GATEWAY_ERROR,customer,payment_response,payment_failed,MISSING_OR_GENERIC,,reject_then_accept,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-205,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_04,499,t_0930,,,card,,,issuer_05,generic,unknown,GATEWAY_ERROR,issuer_bank,card_enrollment_check,payment_cancelled,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-206,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_08,199,t_1830,,,card,,,issuer_00,generic,unknown,BAD_REQUEST_ERROR,issuer_bank,payment_initiation,authentication_failed,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-207,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_07,199,t_1200,,,card,,,issuer_03,generic,valid,GATEWAY_ERROR,issuer_bank,payment_capture,card_declined,MISSING_OR_GENERIC,,reject_then_accept,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-208,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_03,4999,t_1200,,,upi,,,issuer_05,generic,na,GATEWAY_ERROR,beneficiary_bank,payment_authentication,payment_declined,MISSING_OR_GENERIC,,reject_all,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-209,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_06,2499,t_1200,,,upi,,,issuer_06,generic,na,BAD_REQUEST_ERROR,network,payment_creation,,MISSING_OR_GENERIC,,reject_then_accept,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-210,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_06,199,t_1200,,,netbanking,,,issuer_07,generic,na,BAD_REQUEST_ERROR,business,payment_authentication,,MISSING_OR_GENERIC,,reject_then_accept,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-211,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_02,2499,t_1830,,,upi,,,issuer_01,generic,na,GATEWAY_ERROR,customer,payment_creation,payment_declined,MISSING_OR_GENERIC,,reject_all,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-212,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_06,499,t_1830,,,netbanking,,,issuer_01,generic,na,BAD_REQUEST_ERROR,issuer_bank,payment_authorization,payment_cancelled,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-213,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_02,2499,t_1500,,,upi,,,issuer_07,generic,na,BAD_REQUEST_ERROR,gateway,payment_debit_request,payment_failed,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-214,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_07,499,t_1200,,,netbanking,,,issuer_05,generic,na,GATEWAY_ERROR,issuer_bank,payment_authentication,payment_timed_out,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-215,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_04,4999,t_1830,,,upi,,,issuer_04,generic,na,GATEWAY_ERROR,customer_psp,payment_request,payment_declined,MISSING_OR_GENERIC,,reject_then_accept,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-216,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_06,199,t_1830,,,card,,,issuer_01,generic,valid,BAD_REQUEST_ERROR,gateway,payment_authentication,payment_timed_out,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-217,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_04,4999,t_1830,,,upi,,,issuer_06,generic,na,GATEWAY_ERROR,gateway,payment_creation,debit_declined,MISSING_OR_GENERIC,,reject_all,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-218,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_06,199,t_1500,,,upi,,,issuer_07,generic,na,BAD_REQUEST_ERROR,issuer_bank,payment_response,,MISSING_OR_GENERIC,,reject_all,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-219,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_02,199,t_0930,,,upi,,,issuer_04,generic,na,GATEWAY_ERROR,gateway,payment_debit_response,payment_timed_out,MISSING_OR_GENERIC,,reject_then_accept,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-220,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_08,999,t_1200,,,upi,,,issuer_09,generic,na,GATEWAY_ERROR,network,payment_debit_request,payment_failed,MISSING_OR_GENERIC,,reject_all,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-221,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_02,499,t_1500,,,upi,,,issuer_01,generic,na,BAD_REQUEST_ERROR,customer,payment_authentication,payment_failed,MISSING_OR_GENERIC,,reject_then_accept,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-222,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_01,4999,t_1500,,,card,,,issuer_09,generic,unknown,GATEWAY_ERROR,customer,payment_authentication,card_declined,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-223,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_02,199,t_0930,,,upi,,,issuer_03,generic,na,GATEWAY_ERROR,gateway,payment_initiation,request_timed_out,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-224,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_08,2499,t_1200,,,netbanking,,,issuer_08,generic,na,GATEWAY_ERROR,internal,payment_initiation,payment_timed_out,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-225,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_02,999,t_1200,,,upi,,,issuer_03,generic,na,BAD_REQUEST_ERROR,gateway,payment_status_response,payment_timed_out,MISSING_OR_GENERIC,,reject_then_accept,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-226,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_08,499,t_1500,,,upi,,,issuer_07,generic,na,GATEWAY_ERROR,issuer_bank,payment_debit_response,request_timed_out,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-227,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_03,499,t_0930,,,upi,,,issuer_01,generic,na,BAD_REQUEST_ERROR,beneficiary_bank,payment_debit_response,payment_failed,MISSING_OR_GENERIC,,reject_all,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-228,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_08,499,t_1200,,,upi,,,issuer_05,generic,na,GATEWAY_ERROR,gateway,payment_debit_response,payment_failed,MISSING_OR_GENERIC,,reject_all,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-229,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_02,4999,t_1200,,,upi,,,issuer_04,generic,na,BAD_REQUEST_ERROR,gateway,payment_status_response,payment_failed,MISSING_OR_GENERIC,,reject_all,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-230,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_08,499,t_1500,,,netbanking,,,issuer_02,generic,na,GATEWAY_ERROR,internal,payment_authentication,payment_declined,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-231,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_02,999,t_0930,,,netbanking,,,issuer_00,generic,na,GATEWAY_ERROR,business,payment_authorization,payment_declined,MISSING_OR_GENERIC,,reject_all,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-232,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_04,2499,t_1500,,,upi,,,issuer_08,generic,na,GATEWAY_ERROR,network,payment_response,payment_failed,MISSING_OR_GENERIC,,reject_all,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-233,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_08,2499,t_1830,,,upi,,,issuer_04,generic,na,GATEWAY_ERROR,customer,payment_debit_response,payment_failed,MISSING_OR_GENERIC,,accept_first,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-234,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_04,4999,t_1500,,,upi,,,issuer_07,generic,na,GATEWAY_ERROR,network,payment_debit_request,,MISSING_OR_GENERIC,,reject_then_accept,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-235,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_01,499,t_1830,,,upi,,,issuer_00,generic,na,GATEWAY_ERROR,issuer_bank,payment_response,,MISSING_OR_GENERIC,,reject_then_accept,missing or generic gateway evidence: the frozen Model C is asked once
+demo240-236,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_03,499,t_1200,,,upi,,,issuer_05,contradictory,na,BAD_REQUEST_ERROR,customer,payment_authentication,card_expired,CONTRADICTORY,,accept_first,"contradictory gateway evidence (a card-only reason on a UPI payment): Human Intervention, Model C not called, no workflow"
+demo240-237,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_07,499,t_1200,,,upi,,,issuer_05,contradictory,valid,BAD_REQUEST_ERROR,customer,payment_authentication,payment_cancelled,CONTRADICTORY,,accept_first,"contradictory gateway evidence (a card instrument hint on a UPI payment): Human Intervention, Model C not called, no workflow"
+demo240-238,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_07,199,t_1830,,,netbanking,,,issuer_07,contradictory,na,BAD_REQUEST_ERROR,customer_psp,payment_authentication,authentication_failed,CONTRADICTORY,,accept_first,"contradictory gateway evidence (an error source that does not exist for netbanking): Human Intervention, Model C not called, no workflow"
+demo240-239,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_03,199,t_1830,,,card,,,issuer_03,contradictory,valid,GATEWAY_ERROR,issuer_bank,payment_authorization,insufficient_funds,CONTRADICTORY,,accept_first,"contradictory gateway evidence (a reason that is never reported with GATEWAY_ERROR): Human Intervention, Model C not called, no workflow"
+demo240-240,PAYMENT_FAILURE,PAYMENT_FAILURE,cust_syn_08,4999,t_1200,,,card,,,issuer_02,contradictory,expired,BAD_REQUEST_ERROR,issuer_bank,payment_authorization,insufficient_funds,CONTRADICTORY,,accept_first,"contradictory gateway evidence (an expired card hint with an insufficient-funds reason): Human Intervention, Model C not called, no workflow"

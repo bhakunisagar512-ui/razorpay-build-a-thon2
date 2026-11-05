@@ -224,12 +224,29 @@ def hidden_cause(conn, event_id: str):
 
 
 # ------------------------------------------------------------------------------------------------- reads
+def customer_context(event_type: str, payload: dict) -> dict:
+    """What the simulated customer page may show about the event: catalog labels of the stage / plan / invoice and the method that was attempted. Read-only, derived
+    from the stored controlled inputs; it never includes the diagnosis, the cause or any hidden evaluation label."""
+    ctx = {'original_method': payload.get('method')}
+    stage = C.lookup('stage', payload.get('checkout_stage')) if payload.get('checkout_stage') else None
+    plan = C.lookup('plan', payload.get('plan_id')) if payload.get('plan_id') else None
+    invoice = C.lookup('invoice', payload.get('invoice_id')) if payload.get('invoice_id') else None
+    if stage:
+        ctx['checkout_stage'] = stage['label']
+    if plan:
+        ctx['subscription_plan'] = plan['label']
+    if invoice:
+        ctx.update(invoice_number=invoice['label'].split(' · ')[0], days_overdue=invoice['days_overdue'])
+    return ctx
+
+
 def request_view(conn, request_id: str) -> dict | None:
     r = conn.execute(text("""SELECT r.*, e.event_type, e.status AS event_status, e.customer_id, e.payload FROM payment_request r JOIN revenue_event e ON e.event_id=r.event_id
         WHERE r.request_id=:r"""), {'r': request_id}).mappings().first()
     if r is None:
         return None
-    return {'request_id': r['request_id'], 'event_id': r['event_id'], 'workflow_id': r['workflow_id'], 'event_type': r['event_type'], 'event_label': C.EVENT_LABEL[r['event_type']],
+    return {'context': customer_context(r['event_type'], r['payload'] or {}),
+            'request_id': r['request_id'], 'event_id': r['event_id'], 'workflow_id': r['workflow_id'], 'event_type': r['event_type'], 'event_label': C.EVENT_LABEL[r['event_type']],
             'action': r['action'], 'recovery_action': r['title'], 'amount_minor': r['amount_minor'], 'currency': 'INR', 'method': r['method'], 'status': r['status'],
             'event_status': r['event_status'], 'created_at': r['created_at'], 'resolved_at': r['resolved_at'], 'decided_by': r['decided_by'],
             'message': 'Your payment is pending. Complete payment using the available option.', 'step': r['step_idx'], 'simulated': True}

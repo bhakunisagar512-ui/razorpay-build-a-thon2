@@ -1,0 +1,64 @@
+{
+  "file": "eval/data/csv_demo_200/dataset_200.csv",
+  "valid": true,
+  "errors": [],
+  "warnings": [],
+  "summary": {
+    "rows": 200,
+    "failed_rows": 200,
+    "history_rows": 0,
+    "has_ground_truth": true,
+    "mode": "verified"
+  },
+  "rows": 200,
+  "routes": {
+    "MISSING_OR_GENERIC": 100,
+    "CONTRADICTORY": 20,
+    "CLEAR_AND_CONSISTENT": 80
+  },
+  "model_c_rows": 100,
+  "above_0.6": 92,
+  "share_above_0.6": 0.92,
+  "confidence_histogram": {
+    "< 0.50": 8,
+    "0.50 - 0.60": 0,
+    "0.60 - 0.70": 5,
+    "0.70 - 0.80": 17,
+    "0.80 - 0.90": 23,
+    ">= 0.90": 47
+  },
+  "confidence_min_median_max": [
+    0.202,
+    0.897,
+    0.998
+  ],
+  "model_c_gate": {
+    "reliable_diagnosis": 90,
+    "low_confidence": 2,
+    "independent_risk_detection": 6,
+    "hard_decline_mass_veto": 2
+  },
+  "model_c_predicted_causes": {
+    "TD_ISSUER_DOWN": 7,
+    "RISK_BLOCKED": 17,
+    "AMBIGUOUS": 4,
+    "BD_USER_ABANDONED_OTP": 23,
+    "TD_PSP_TIMEOUT": 16,
+    "CARD_EXPIRED": 19,
+    "BD_INSUFFICIENT_FUNDS": 14
+  },
+  "model_c_matches_hidden_label": 0.64,
+  "rule_matches_hidden_label": 1.0,
+  "hidden_label_counts": {
+    "TD_ISSUER_DOWN": 33,
+    "RISK_BLOCKED": 30,
+    "TD_PSP_TIMEOUT": 45,
+    "BD_INSUFFICIENT_FUNDS": 36,
+    "BD_USER_ABANDONED_OTP": 35,
+    "CARD_EXPIRED": 21
+  },
+  "customers": 57,
+  "issuers": 10,
+  "first_occurred_at": "2026-10-05T03:45:00+00:00",
+  "last_occurred_at": "2026-10-19T06:13:00+00:00"
+}

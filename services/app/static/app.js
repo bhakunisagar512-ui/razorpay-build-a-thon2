@@ -410,7 +410,7 @@ function renderRevenueEvent(v, readOnly) {
       h('div', { class: 'row' }, badge(v.status, STATUS_BADGE[v.status]), badge(v.workflow_state, STATUS_BADGE[v.workflow_state] || 'neutral'), simTag())),
     notice('Everything on this page is simulated: no real message is sent and no real payment or revenue is involved.', 'warn'),
     v.workflow_warning ? notice(`The workflow could not be started (${v.workflow_warning}). The event is saved; start the worker and refresh.`, 'bad') : null,
-    kv([['Customer', v.customer_id], ['Amount', money(v.amount_minor)], ...Object.entries(v.inputs || {}).filter(([k]) => !['customer_id', 'amount_rupees', 'sim_key'].includes(k)).map(([k, val]) => [pretty(k), val == null ? 'not provided' : String(val)])])));
+    kv([['Customer', v.customer_id], ['Amount', money(v.amount_minor)], ...Object.entries(v.inputs || {}).filter(([k]) => !['customer_id', 'amount_rupees'].includes(k) && !k.startsWith('sim_')).map(([k, val]) => [pretty(k), val == null ? 'not provided' : String(val)])])));
   root.append(h('section', { class: 'card' }, h('header', {}, h('h3', {}, 'Diagnosis (made once)'), v.route ? badge(v.route, v.route === 'CONTRADICTORY' ? 'escalated' : 'neutral') : null),
     v.route ? h('p', { class: 'small' }, ROUTE_TEXT[v.route]) : null,
     kv([['Scenario selected', v.inputs && v.inputs.diagnosis_scenario ? pretty(v.inputs.diagnosis_scenario) : null], ['Route taken', v.route ? pretty(v.route) : null], ['Decided by', METHOD_TEXT[d.method] || d.method],
@@ -453,82 +453,213 @@ async function loadPending() {
   } catch (e) { /* optional */ }
 }
 /* ================================================================== Automated revenue pipeline (Dataset tab) and its Human Intervention view */
-const RR = { dataset: 'routing_fixtures', limit: '', temporal: '0', runId: null, poll: 0, route: '', doc: null, csvId: null };
+const RR = { dataset: 'routing_fixtures', limit: '', temporal: '0', runId: null, poll: 0, route: '', scenario: '', status: '', page: 0, open: new Set(), pageData: null, doc: null, csvId: null, eventsCsvId: null, behaviour: 'rate', pct: 80 };
+const DEMO_SET = 'revenue_events_203';
+const ENT = { scenario: '', offset: 0, limit: 12 };
+const CASES_PER_PAGE = 20;
+const entriesDataset = () => (RR.dataset === DEMO_SET ? DEMO_SET : RR.dataset === '__events_csv__' && RR.eventsCsvId ? `events:${RR.eventsCsvId}` : null);
 function renderRevenueRunCard() {
   const box = clear($('#d-rv'));
   const sets = (RV.catalog && RV.catalog.datasets) || [];
   box.append(h('header', {}, h('h2', {}, 'Automated revenue pipeline'), badge('SIMULATED', 'sim')),
     h('p', { class: 'hint' }, 'Every case runs on its own, with no manual answers: the event is classified, a payment failure is routed (rule, Model C once, or a human), diagnosed once, planned and executed, and an independent simulator answers each payment opportunity. Recovery is counted only when a simulated payment succeeds; a correct diagnosis is not revenue.'),
     h('div', { class: 'form' },
-      selectField('rr-dataset', 'Dataset', [...sets.map((d) => [d.name, `${d.name}${d.records ? ` (${d.records})` : ''}${d.available ? '' : ' (not built)'}`]), ['__csv__', 'Uploaded CSV (validate a file below first)']], RR.dataset, (e) => { RR.dataset = e.target.value; }),
+      selectField('rr-dataset', 'Dataset', [...sets.map((d) => [d.name, `${d.name}${d.records ? ` (${d.records})` : ''}${d.available ? '' : ' (not built)'}`]), ['__csv__', 'Uploaded payment-failure CSV (validate a file below first)'], ['__events_csv__', 'Uploaded revenue-events CSV (validate a file below first)']], RR.dataset, (e) => onRunDataset(e.target.value)),
       selectField('rr-limit', 'Cases to run', [['', 'All'], ['50', 'First 50'], ['200', 'First 200'], ['500', 'First 500']], RR.limit, (e) => { RR.limit = e.target.value; }),
-      selectField('rr-temporal', 'Also execute through Temporal', [['0', 'No (in-process only)'], ['5', 'First 5 cases'], ['10', 'First 10 cases'], ['20', 'First 20 cases']], RR.temporal, (e) => { RR.temporal = e.target.value; })),
-    h('div', { class: 'stack' }, h('label', { for: 'rr-file' }, 'Or test your own CSV of payment failures'), h('input', { id: 'rr-file', type: 'file', accept: '.csv,text/csv', onchange: onRevenueCsv }),
-      h('a', { class: 'small', href: '/tests/csv-template', download: 'payment_failures_template.csv' }, 'Download the CSV template'), h('div', { id: 'rr-csv-out' })),
+      selectField('rr-temporal', 'Also execute through Temporal (sample)', [['0', 'No (in-process only)'], ['5', 'First 5 cases'], ['10', 'First 10 cases'], ['20', 'First 20 cases'], ['50', 'Sample of 50 cases'], ['all', 'All eligible cases']], RR.temporal, (e) => { RR.temporal = e.target.value; })),
+    h('div', { class: 'card', id: 'rr-rate-box' }, h('div', { class: 'row' },
+      h('div', { style: 'min-width:240px' }, h('label', { for: 'rr-behaviour' }, 'Simulated customer responses'), h('select', { id: 'rr-behaviour', onchange: (e) => { RR.behaviour = e.target.value; const b = $('#rr-rate-slider'); if (b) b.hidden = RR.behaviour !== 'rate'; } },
+        h('option', { value: 'rate', selected: RR.behaviour === 'rate' }, 'Configured acceptance rate'), h('option', { value: 'builtin', selected: RR.behaviour === 'builtin' }, 'Built-in cause-based simulator'))),
+      h('div', { id: 'rr-rate-slider', style: 'flex:1;min-width:260px', hidden: RR.behaviour !== 'rate' }, h('label', { for: 'rr-pct' }, 'Simulated Customer Acceptance Rate (%) ', h('strong', { id: 'rr-pct-out' }, `${RR.pct}%`)),
+        h('input', { id: 'rr-pct', type: 'range', min: 0, max: 100, step: 5, value: RR.pct, 'aria-valuemin': 0, 'aria-valuemax': 100, oninput: (e) => { RR.pct = Number(e.target.value); $('#rr-pct-out').textContent = `${RR.pct}%`; } }))),
+      h('p', { class: 'small muted' }, 'The rate applies to the eligible cases (a payment opportunity exists after diagnosis, planning and safety checks), not to the whole dataset. It is deterministic: the same dataset and rate always give the same answers, in-process and in Temporal. An ACCEPT is only a simulated payment; safety rules still apply and a case is never marked recovered automatically.')),
+    h('div', { class: 'stack' }, h('label', { for: 'rr-file' }, 'Or test your own CSV (payment failures, or revenue events with an event_type column)'), h('input', { id: 'rr-file', type: 'file', accept: '.csv,text/csv', onchange: onRevenueCsv }),
+      h('span', { class: 'small' }, h('a', { href: '/tests/csv-template', download: 'payment_failures_template.csv' }, 'Payment-failure template'), ' · ', h('a', { href: '/revenue/events-csv/template', download: 'revenue_events_template.csv' }, 'Revenue-events template')), h('div', { id: 'rr-csv-out' })),
     h('div', { class: 'row' }, h('button', { class: 'btn primary', type: 'button', id: 'rr-start', onclick: startRevenueRun }, 'Run the automated pipeline'), h('span', { class: 'hint', id: 'rr-msg' })),
+    h('div', { id: 'rr-progress', style: 'margin-top:12px', 'aria-live': 'polite' }),
+    h('div', { id: 'rr-entries', style: 'margin-top:12px' }),
     h('div', { id: 'rr-out', style: 'margin-top:12px' }));
+  if (entriesDataset()) loadEntries();
   if (RR.doc) paintRevenueRun(RR.doc);
+}
+function onRunDataset(v) {
+  RR.dataset = v; ENT.offset = 0; ENT.scenario = '';
+  if (v === DEMO_SET && RR.temporal === '0') { RR.temporal = '50'; const s = $('#rr-temporal'); if (s) s.value = '50'; }       // the 203-entry dataset defaults to a 50-case Temporal sample (configurable)
+  loadEntries();
+}
+async function loadEntries() {
+  const host = $('#rr-entries');
+  if (!host) return;
+  const name = entriesDataset();
+  if (!name) { clear(host); return; }
+  try {
+    const q = new URLSearchParams({ offset: ENT.offset, limit: ENT.limit });
+    if (ENT.scenario) q.set('scenario', ENT.scenario);
+    const d = await api(`/revenue/datasets/${encodeURIComponent(name)}/entries?${q}`);
+    const scn = Object.entries(d.scenarios);
+    clear(host).append(h('div', { class: 'card' }, h('header', {}, h('h3', {}, `Entries in ${name === DEMO_SET ? DEMO_SET : 'your revenue-events upload'} (${scn.reduce((a, [, n]) => a + n, 0)})`), badge('revenue-event format', 'neutral')),
+      h('p', { class: 'small muted' }, 'These are revenue events, not payment-failure CSV rows. Each case is run on its own and an independent simulator answers its payment requests. Cases that reach Model C show its confidence; rule-based and plan-only cases have none. The Temporal sample is spread evenly over all five groups.'),
+      h('div', { class: 'row' }, h('label', { for: 'rr-ent-scn' }, 'Show'), h('select', { id: 'rr-ent-scn', onchange: (e) => { ENT.scenario = e.target.value; ENT.offset = 0; loadEntries(); } },
+        [['', 'All entries'], ...scn.map(([k, n]) => [k, `${pretty(k).toLowerCase()} (${n})`])].map(([v, tx]) => h('option', { value: v, selected: ENT.scenario === v }, tx)))),
+      h('div', { class: 'table-wrap' }, h('table', {}, h('thead', {}, h('tr', {}, ['Entry', 'Scenario', 'Inputs', 'Expected route'].map((c) => h('th', {}, c)))),
+        h('tbody', {}, d.items.map((r) => h('tr', {}, h('td', { class: 'mono' }, r.entry_id), h('td', {}, pretty(r.scenario).toLowerCase()),
+          h('td', { class: 'small' }, Object.entries(r.inputs).filter(([k]) => k !== 'diagnosis_scenario').map(([k, v]) => `${pretty(k)}: ${v}`).join(' · ')), h('td', { class: 'small' }, r.expected_route ? pretty(r.expected_route).toLowerCase() : 'plan only (no diagnosis)')))))),
+      pager(ENT, d.total, (o) => { ENT.offset = o; loadEntries(); })));
+  } catch (e) { clear(host).append(notice(`Could not load the entries: ${e.message}`, 'bad')); }
 }
 async function startRevenueRun() {
   const b = $('#rr-start'), m = $('#rr-msg');
   b.disabled = true; m.textContent = 'Starting…';
   try {
-    const r = await api('/revenue/runs', { method: 'POST', body: { ...(RR.dataset === '__csv__' ? { csv_id: RR.csvId } : { dataset: RR.dataset }), limit: RR.limit ? Number(RR.limit) : null, temporal_limit: Number(RR.temporal) } });
-    RR.runId = r.run_id; RR.poll++;
+    const which = RR.dataset === '__csv__' ? { csv_id: RR.csvId } : RR.dataset === '__events_csv__' ? { events_csv_id: RR.eventsCsvId } : { dataset: RR.dataset };
+    const r = await api('/revenue/runs', { method: 'POST', body: { ...which, limit: RR.limit ? Number(RR.limit) : null, temporal_limit: RR.temporal === 'all' ? 0 : Number(RR.temporal), temporal_all: RR.temporal === 'all',
+      acceptance_pct: RR.behaviour === 'rate' ? RR.pct : null } });
+    RR.runId = r.run_id; RR.poll++; RR.page = 0; RR.open = new Set(); clear($('#rr-out'));
     const token = RR.poll;
     m.textContent = `Run ${r.run_id} started…`;
     const tick = async () => {
       if (token !== RR.poll) return;
       try {
         const d = await api(`/revenue/runs/${encodeURIComponent(r.run_id)}`);
-        if (['completed', 'failed', 'interrupted'].includes(d.status)) {
+        if (['completed', 'partial', 'failed', 'interrupted'].includes(d.status)) {
           b.disabled = false; m.textContent = d.status === 'completed' ? '' : `Run ${d.status}${d.error ? ': ' + d.error : ''}`;
-          if (d.status === 'completed') { RR.doc = d; RR.route = ''; paintRevenueRun(d); }
+          clear($('#rr-progress'));
+          if (d.status === 'completed' || d.status === 'partial') { RR.doc = d; RR.route = ''; RR.scenario = ''; RR.status = ''; paintRevenueRun(d); }
           return;
         }
+        paintProgress(d);
       } catch (e) { /* keep polling */ }
       setTimeout(tick, 1200);
     };
     setTimeout(tick, 800);
   } catch (e) { b.disabled = false; m.textContent = e.message; toast(e.message); }
 }
+const PHASE = { queued: 'Queued', evaluating: 'Evaluating cases', evaluated: 'Evaluated; preparing Temporal', temporal: 'Running Temporal workflows', done: 'Finishing' };
+function paintProgress(d) {
+  const box = $('#rr-progress');
+  if (!box) return;
+  const p = d.progress || {}, started = p.workflows_started || 0, done = p.workflows_completed || 0, want = p.workflows_requested || 0;
+  const frac = p.phase === 'temporal' && want ? done / want : p.total ? (p.evaluated || 0) / p.total : 0;
+  clear(box).append(h('div', { class: 'card' }, h('header', {}, h('h3', {}, 'Execution progress'), badge(PHASE[p.phase] || p.phase || 'Running', 'active'), simTag()),
+    h('progress', { max: 100, value: Math.round(frac * 100), style: 'width:100%', 'aria-label': 'Run progress' }),
+    h('div', { class: 'grid cols-4', style: 'margin-top:8px' }, stat(p.total || '—', 'Total cases to evaluate'), stat(p.evaluated || 0, 'Cases evaluated'), stat(p.eligible == null ? '—' : p.eligible, 'Eligible cases'),
+      stat(want || '—', 'Workflows to run'), stat(started, 'Temporal workflows started'), stat(done, 'Temporal workflows completed'), stat(Math.max(0, started - done), 'Pending / running workflows'), stat(p.workflows_failed || 0, 'Failed workflow executions', p.workflows_failed ? 'bad' : '')),
+    h('p', { class: 'small muted' }, 'The run is complete only when every started workflow has finished.')));
+}
 function paintRevenueRun(d) {
   const out = $('#rr-out');
   if (!out) return;
-  const m = d.metrics, rd = m.route_distribution || {}, t = d.temporal;
-  clear(out).append(
+  const m = d.metrics, rd = m.route_distribution || {}, t = d.temporal, sim = m.simulation || {}, dm = m.diagnosis_methods || {}, rate = sim.acceptance_rate_selected_pct;
+  clear(out).append(...[
     notice(d.label, 'warn'),
+    d.status === 'partial' ? notice(`PARTIAL RUN: ${t && t.error ? t.error : 'some workflows did not finish'} Only workflows that actually finished are counted as executed.`, 'bad') : null,
     h('div', { class: 'grid cols-4' }, stat(m.total_cases, 'Total cases'), stat(rd.CLEAR_AND_CONSISTENT || 0, 'Clear and consistent (rule)'), stat(rd.MISSING_OR_GENERIC || 0, 'Missing or generic (Model C)'),
       stat(rd.CONTRADICTORY || 0, 'Contradictory (human)'), stat(`${m.model_c_calls} (max ${m.max_model_c_calls_per_case} per case)`, 'Model C calls'),
       stat(m.human_interventions, 'HUMAN_INTERVENTION', 'esc'), stat(m.safety_violations, 'Safety violations', m.safety_violations ? 'bad' : ''),
       stat(m.SIMULATED_RECOVERED, 'SIMULATED_RECOVERED', 'good'), stat(m.SIMULATED_FAILED, 'SIMULATED_FAILED', 'bad'),
       stat(`${money(m.simulated_recovered_amount_minor)} of ${money(m.total_amount_minor)}`, 'Simulated recovered amount'), stat(`${m.simulated_recovery_percentage}%`, 'Simulated recovery rate')),
+    h('h3', { style: 'margin:14px 0 6px' }, 'How the simulated customer responded'),
+    h('div', { class: 'grid cols-4', id: 'rr-sim' }, stat(rate == null ? 'Built-in simulator' : `${rate}%`, 'Acceptance rate selected'), stat(sim.eligible_cases, 'Eligible recovery cases'),
+      stat(sim.recovery_opportunities, 'Recovery opportunities (requests)'), stat(sim.simulated_accepts, 'Simulated ACCEPT answers'), stat(sim.simulated_rejects, 'Simulated REJECT answers'),
+      stat(sim.successful_recoveries, 'Successful recoveries'), stat(t ? `${t.started} / ${t.completed}` : 'not run', 'Temporal workflows started / completed'),
+      stat(`${dm.rule || 0} / ${dm.model_c || 0}`, 'Rule-based / Model C diagnoses')),
+    h('p', { class: 'small muted' }, `These are different numbers: ${sim.eligible_cases} cases were eligible (a payment opportunity exists); ${sim.recovery_opportunities} payment requests were actually made`
+      + (sim.cases_assigned_to_accept != null ? `; ${sim.cases_assigned_to_accept} customers were assigned to pay at some opportunity, and ${sim.cases_with_an_accept} actually did (an assigned step may never happen: the payment state is verified first, or a safety rule suppresses it)` : '')
+      + `; ${sim.successful_recoveries} cases were recovered (${sim.recoveries_by_accept} by a simulated ACCEPT, ${sim.recoveries_by_verified_original_payment} because verification found the original payment had succeeded). Contradictory cases (${sim.contradictory_cases}) and directly escalated cases (${sim.directly_escalated_cases}) have no payment opportunity and are never sent to Temporal in the "All eligible cases" mode.`),
     h('p', { class: 'small muted' }, m.diagnosis_match.note + ` Diagnosis matched the hidden cause in ${m.diagnosis_match.matched} of ${m.diagnosis_match.judged} judged cases.`),
+    m.by_scenario ? h('div', { class: 'table-wrap', id: 'rr-by-scenario' }, h('table', {}, h('thead', {}, h('tr', {}, ['Scenario', 'Cases', 'Workflows expected', 'SIMULATED_RECOVERED', 'SIMULATED_FAILED', 'HUMAN_INTERVENTION', 'Model C calls', 'Model C confidence above 0.6'].map((c, i) => h('th', { class: i ? 'num' : '' }, c)))),
+      h('tbody', {}, Object.entries(m.by_scenario).map(([k, v]) => h('tr', {}, h('td', {}, pretty(k).toLowerCase()), h('td', { class: 'num' }, v.cases), h('td', { class: 'num' }, v.workflows_expected), h('td', { class: 'num' }, v.SIMULATED_RECOVERED),
+        h('td', { class: 'num' }, v.SIMULATED_FAILED), h('td', { class: 'num' }, v.HUMAN_INTERVENTION), h('td', { class: 'num' }, v.model_c_calls),
+        h('td', { class: 'num' }, v.model_c_confidence ? `${v.model_c_confidence['above_0.6']} of ${v.model_c_confidence.cases}` : '—')))))) : null,
+    m.model_c_confidence ? h('p', { class: 'small', id: 'rr-confidence' }, `Model C confidence (only the ${m.model_c_confidence.cases} cases that used Model C; rule-based and plan-only cases have none): ${m.model_c_confidence['above_0.6']} above 0.6 (${Math.round(m.model_c_confidence['share_above_0.6'] * 100)}%), median ${m.model_c_confidence.median}, range ${m.model_c_confidence.min} to ${m.model_c_confidence.max}. `
+      + Object.entries(m.model_c_confidence.histogram).map(([k, v]) => `${k}: ${v}`).join(' · ')) : null,
     h('div', { class: 'table-wrap' }, h('table', {}, h('thead', {}, h('tr', {}, ['Route / group', 'Cases', 'SIMULATED_RECOVERED', 'SIMULATED_FAILED', 'HUMAN_INTERVENTION', 'Model C calls'].map((c, i) => h('th', { class: i ? 'num' : '' }, c)))),
       h('tbody', {}, Object.entries(m.by_route).map(([k, v]) => h('tr', {}, h('td', {}, pretty(k)), h('td', { class: 'num' }, v.cases), h('td', { class: 'num' }, v.SIMULATED_RECOVERED),
         h('td', { class: 'num' }, v.SIMULATED_FAILED), h('td', { class: 'num' }, v.HUMAN_INTERVENTION), h('td', { class: 'num' }, v.model_c_calls)))))),
     h('p', { class: 'small' }, 'Event types: ' + Object.entries(m.by_event_type).map(([k, v]) => `${pretty(k).toLowerCase()} ${v}`).join(' · ')
       + (Object.keys(m.human_intervention_reasons).length ? ' · Human interventions: ' + Object.entries(m.human_intervention_reasons).map(([k, v]) => `${pretty(k)} ${v}`).join(', ') : '')),
-    t ? h('div', { class: t.error ? 'notice bad' : 'notice good', role: 'status' }, h('strong', {}, 'Temporal execution: '),
-      `${t.completed} of ${t.requested} sampled workflows completed on queue ${t.task_queue}; ${t.matched_in_process} matched the in-process result exactly.`, t.error ? ` ${t.error}` : '',
+    t ? h('div', { class: t.error ? 'notice bad' : 'notice good', role: 'status', id: 'rr-temporal-note' }, h('strong', {}, 'Temporal execution: '),
+      `${t.completed} of ${t.requested} ${t.mode === 'all_eligible' ? 'eligible' : 'sampled'} workflows completed on queue ${t.task_queue}${t.started != null ? ` (${t.started} started, ${t.timed_out || 0} still running or timed out, ${t.failed_to_start || 0} failed to start)` : ''}; ${t.matched_in_process} of ${t.compared != null ? t.compared : t.requested} compared cases matched the in-process result exactly.`, t.error ? ` ${t.error}` : '',
+      t.responses ? ` Responses recorded by the workflows: ${t.responses.ACCEPTED} ACCEPT, ${t.responses.REJECTED} REJECT${t.responses.EXPIRED ? `, ${t.responses.EXPIRED} expired` : ''}.` : '',
       t.mismatches.length ? ` Differences: ${t.mismatches.map((x) => x.case).join(', ')}.` : '') : null,
-    h('div', { class: 'row' }, h('label', { for: 'rr-route' }, 'Show cases'), h('select', { id: 'rr-route', onchange: (e) => { RR.route = e.target.value; loadRevenueCases(); } },
-      [['', 'All routes'], ['CLEAR_AND_CONSISTENT', 'Clear and consistent'], ['MISSING_OR_GENERIC', 'Missing or generic'], ['CONTRADICTORY', 'Contradictory']].map(([v, tx]) => h('option', { value: v, selected: RR.route === v }, tx)))),
-    h('div', { id: 'rr-cases' }, loading('Loading cases…')));
+    h('h3', { style: 'margin:16px 0 6px' }, 'Individual Payment Evaluation Results'),
+    h('div', { class: 'row' }, m.by_scenario ? [h('label', { for: 'rr-scn' }, 'Scenario'), h('select', { id: 'rr-scn', onchange: (e) => { RR.scenario = e.target.value; RR.page = 0; loadRevenueCases(); } },
+      [['', 'All scenarios'], ...Object.keys(m.by_scenario).map((k) => [k, pretty(k).toLowerCase()])].map(([v, tx]) => h('option', { value: v, selected: RR.scenario === v }, tx)))] : null,
+      h('label', { for: 'rr-route' }, 'Route'), h('select', { id: 'rr-route', onchange: (e) => { RR.route = e.target.value; RR.page = 0; loadRevenueCases(); } },
+        [['', 'All routes'], ['CLEAR_AND_CONSISTENT', 'Clear and consistent'], ['MISSING_OR_GENERIC', 'Missing or generic'], ['CONTRADICTORY', 'Contradictory']].map(([v, tx]) => h('option', { value: v, selected: RR.route === v }, tx))),
+      h('label', { for: 'rr-status' }, 'Outcome'), h('select', { id: 'rr-status', onchange: (e) => { RR.status = e.target.value; RR.page = 0; loadRevenueCases(); } },
+        [['', 'All outcomes'], ['SIMULATED_RECOVERED', 'SIMULATED_RECOVERED'], ['SIMULATED_FAILED', 'SIMULATED_FAILED'], ['HUMAN_INTERVENTION', 'HUMAN_INTERVENTION']].map(([v, tx]) => h('option', { value: v, selected: RR.status === v }, tx)))),
+    h('div', { id: 'rr-cases' }, loading('Loading cases…'))].filter(Boolean));            // absent parts are dropped (a bare null would be printed as the word null)
   loadRevenueCases();
+}
+function temporalText(r) {
+  const t = RR.doc && RR.doc.temporal, tr = r.temporal;
+  if (tr && tr.started) return tr.finished ? `Completed · ${pretty(tr.status).toLowerCase()}` : 'Running / timed out';
+  if (tr && tr.error) return 'Failed to start';
+  if (r.route === 'CONTRADICTORY') return 'Not started: contradictory';
+  if (!r.eligible) return 'Not started: directly escalated';
+  return t ? (t.mode === 'all_eligible' ? 'Not run' : 'Not in the Temporal sample') : 'In-process only';
 }
 async function loadRevenueCases() {
   const host = $('#rr-cases');
   if (!host || !RR.runId) return;
   try {
-    const q = new URLSearchParams({ limit: 15 });
+    const q = new URLSearchParams({ limit: CASES_PER_PAGE, offset: RR.page * CASES_PER_PAGE });
     if (RR.route) q.set('route', RR.route);
-    const d = await api(`/revenue/runs/${encodeURIComponent(RR.runId)}/cases?${q}`);
-    clear(host).append(d.items.length ? h('div', { class: 'table-wrap' }, h('table', {}, h('thead', {}, h('tr', {}, ['Case', 'Event', 'Route', 'Decided by', 'Cause', 'Result'].map((c) => h('th', {}, c)))),
-      h('tbody', {}, d.items.map((r) => h('tr', {}, h('td', { class: 'mono' }, r.case.replace(/^routing_fixtures\|/, '')), h('td', {}, pretty(r.event_type).toLowerCase()), h('td', {}, r.route ? pretty(r.route).toLowerCase() : '—'),
-        h('td', {}, METHOD_TEXT[r.diagnosis_method] || r.diagnosis_method), h('td', {}, r.cause ? causeName(r.cause) : '—'), h('td', {}, badge(r.status, STATUS_BADGE[r.status])))))),
-      h('p', { class: 'small muted' }, `Showing the first ${d.items.length} of ${d.total} cases.`)) : empty('No cases for this filter.'));
+    if (RR.scenario) q.set('scenario', RR.scenario);
+    if (RR.status) q.set('status', RR.status);
+    RR.pageData = await api(`/revenue/runs/${encodeURIComponent(RR.runId)}/cases?${q}`);
+    paintCases();
   } catch (e) { clear(host).append(notice(`Could not load cases: ${e.message}`, 'bad')); }
+}
+function paintCases() {
+  const host = $('#rr-cases'), d = RR.pageData;
+  if (!host || !d) return;
+  const pages = Math.max(1, Math.ceil(d.total / CASES_PER_PAGE));
+  const toggle = (key) => { if (RR.open.has(key)) RR.open.delete(key); else RR.open.add(key); paintCases(); };
+  const rows = d.items.flatMap((r) => {
+    const open = RR.open.has(r.case);
+    const main = h('tr', { class: `clickable case-row ${open ? 'selected' : ''}`, tabindex: 0, role: 'button', 'aria-expanded': String(open), onclick: () => toggle(r.case), onkeydown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(r.case); } } },
+      h('td', { class: 'mono' }, `${open ? '▾' : '▸'} ${r.case.replace(/^routing_fixtures\|/, '')}`), h('td', {}, (r.scenario ? pretty(r.scenario) : pretty(r.event_type)).toLowerCase()),
+      h('td', {}, r.route ? pretty(r.route).toLowerCase() : 'no diagnosis needed'), h('td', {}, r.cause ? causeName(r.cause) : '—'), h('td', {}, badge(r.status, STATUS_BADGE[r.status])), h('td', { class: 'small' }, temporalText(r)));
+    return open ? [main, h('tr', { class: 'case-detail' }, h('td', { colspan: 6 }, renderCaseDetail(r)))] : [main];
+  });
+  clear(host).append(d.items.length ? h('div', { class: 'table-wrap' }, h('table', {}, h('thead', {}, h('tr', {}, ['Payment / event ID', 'Scenario', 'Diagnosis route', 'Predicted cause', 'Final outcome', 'Temporal execution'].map((c) => h('th', {}, c)))), h('tbody', {}, rows)))
+    : empty('No cases for this filter.'),
+    h('div', { class: 'pager' }, h('span', { class: 'small muted', id: 'rr-page-label' }, `Page ${RR.page + 1} of ${pages} · ${d.total} payment${d.total === 1 ? '' : 's'}, ${CASES_PER_PAGE} per page`),
+      h('span', { class: 'row' }, h('button', { class: 'btn small', type: 'button', id: 'rr-prev', disabled: RR.page <= 0, onclick: () => { RR.page -= 1; loadRevenueCases(); } }, '‹ Previous'),
+        h('button', { class: 'btn small', type: 'button', id: 'rr-next', disabled: RR.page + 1 >= pages, onclick: () => { RR.page += 1; loadRevenueCases(); } }, 'Next ›'))));
+}
+function renderCaseDetail(r) {
+  const d = r.diagnosis || {}, pl = r.plan || {}, tr = r.temporal, mc = d.model_c, section = (title, ...kids) => h('section', { class: 'card' }, h('header', {}, h('h4', { style: 'margin:0' }, title)), ...kids);
+  const skip = new Set(['customer_id', 'amount_rupees', 'dataset', 'source_payment_id']);
+  const inputs = Object.entries(r.inputs || {}).filter(([k]) => !skip.has(k)).map(([k, v]) => [pretty(k), v == null ? 'not provided' : String(v)]);
+  const consent = Object.entries(r.consent || {}).filter(([, v]) => v).map(([k]) => k).join(', ') || 'none';
+  const log = {}; (r.steps || []).forEach((s) => { log[s.idx] = s; });
+  const suppressed = (r.steps || []).filter((s) => s.status === 'SUPPRESSED');
+  const ran = (tr && tr.steps) || [];
+  const responses = (tr && tr.requests) || [];
+  return h('div', { class: 'stack case-detail-body' },
+    section('A. Original input', kv([['Event / payment', r.case], ['Event type', pretty(r.event_type)], ['Customer', r.customer_id], ['Amount', money(r.amount_minor)], ['Contact consent', consent], ...inputs])),
+    section('B. Diagnosis', kv([['Route', d.route ? pretty(d.route) : 'none: no failure diagnosis is needed for this event'], ['Decided by', METHOD_TEXT[d.method] || d.method], ['Predicted cause', d.cause ? causeName(d.cause) : (d.method === 'model_c' ? 'none (Model C abstained)' : null)],
+        ['Rule', d.rule_id], ['Model C calls', d.route ? String(d.model_c_calls ?? 0) : null], ['Model C confidence', mc ? mc.confidence.toFixed(3) : null], ['Safety gate', mc ? `${pretty(mc.decision)} (${pretty(mc.route)})` : null],
+        ['Top probabilities', mc ? mc.top_probabilities.map((x) => `${causeName(x.cause)} ${(x.probability * 100).toFixed(1)}%`).join(', ') : null]]),
+      d.explanation ? h('p', { class: 'small' }, d.explanation) : null,
+      (d.conflicts || []).length ? h('ul', { class: 'small' }, d.conflicts.map((c) => h('li', {}, h('strong', {}, c.fields.map(pretty).join(' + ')), ': ', c.message))) : null),
+    section('C. Recovery planning', pl.version ? kv([['Plan version', pl.version], ['Planned for cause', pl.cause ? causeName(pl.cause) : null], ['Eligible for automated recovery', r.eligible ? 'yes (a payment opportunity exists)' : 'no']]) : null,
+      pl.rationale ? h('p', { class: 'small' }, pl.rationale) : h('p', { class: 'small' }, 'No recovery action is planned.'),
+      (pl.steps || []).length ? h('ol', { class: 'steps small' }, pl.steps.map((s) => h('li', {}, h('strong', {}, s.label), ` · ${planDelay(s.delay_s)}`, s.channel ? ` · via ${s.channel}` : '', s.payment_opportunity ? ' · carries a payment opportunity' : '', s.system_retry ? ' · automatic retry' : '',
+        log[s.idx] && log[s.idx].status === 'SUPPRESSED' ? h('span', { class: 'badge warn' }, ` blocked by ${pretty(log[s.idx].guard)}`) : null))) : null,
+      suppressed.length ? notice(`Safety rules blocked ${suppressed.length} planned action(s): ${suppressed.map((s) => `${pretty(s.action)} (${pretty(s.guard)})`).join(', ')}.`, 'warn') : null),
+    section('D. Temporal execution', tr && tr.started ? kv([['Workflow started', 'yes'], ['Workflow ID', tr.workflow_id], ['Workflow state', pretty(tr.workflow_state)], ['Final result in Temporal', `${tr.status}${tr.status === r.status ? ' (same as the in-process result)' : ` (in-process: ${r.status})`}`]])
+        : kv([['Workflow started', 'no'], ['Why', temporalText(r)]]),
+      ran.length ? h('ol', { class: 'steps small' }, ran.map((s) => h('li', {}, h('strong', {}, s.label), s.channel ? ` · via ${s.channel}` : '', ' ', badge(s.status, STEP_BADGE[s.status]), s.guard ? ` stopped by ${pretty(s.guard)}` : ''))) : null,
+      responses.length ? h('p', { class: 'small' }, 'Simulated customer responses in the workflow: ', responses.map((x) => `${x.title}: ${x.status === 'ACCEPTED' ? 'ACCEPT' : x.status === 'REJECTED' ? 'REJECT' : x.status}`).join(' → ')) : null,
+      !tr && (r.steps || []).some((s) => s.decision) ? h('p', { class: 'small' }, 'Simulated responses (in-process run): ', r.steps.filter((s) => s.decision).map((s) => `${pretty(s.action)}: ${s.decision === 'ACCEPTED' ? 'ACCEPT' : 'REJECT'}`).join(' → ')) : null,
+      tr && tr.error ? notice(tr.error, 'bad') : null),
+    section('E. Final outcome', h('div', { class: 'row' }, badge(r.status, STATUS_BADGE[r.status]), simTag()),
+      kv([['Result', revenueReason(r.reason)], ['Simulated recovered amount', r.status === 'SIMULATED_RECOVERED' ? `${money(r.recovered_amount_minor)} (not real revenue)` : null],
+        ['Escalation reason', r.status === 'HUMAN_INTERVENTION' ? pretty(r.reason) : null], ['Safety violations', (r.violations || []).length ? r.violations.map(pretty).join(', ') : 'none']])));
 }
 function renderRevenueCase(d) {
   const root = h('div', { class: 'journey' });
@@ -554,16 +685,30 @@ async function onRevenueCsv(ev) {
   if (!file) return;
   clear(out).append(loading('Validating…'));
   try {
-    const v = await api('/tests/csv/validate', { method: 'POST', body: await file.text(), rawType: 'text/csv' });
+    const text = await file.text();
+    const first = text.split('\n', 1)[0] || '';
+    const events = first.split(',').map((c) => c.trim().replace('\r', '')).includes('event_type') && !first.includes('payment_id');       // the header says which kind of file this is
+    const v = await api(events ? '/revenue/events-csv/validate' : '/tests/csv/validate', { method: 'POST', body: text, rawType: 'text/csv' });
     if (!v.valid) {
-      RR.csvId = null;
+      if (events) RR.eventsCsvId = null; else RR.csvId = null;
       clear(out).append(notice(`The file cannot be used (${v.errors.length} problem${v.errors.length === 1 ? '' : 's'}).`, 'bad'),
         h('ul', { class: 'small' }, v.errors.slice(0, 8).map((e) => h('li', {}, `${e.row ? 'row ' + e.row + ': ' : ''}${e.column ? e.column + ': ' : ''}${e.message}`))));
       return;
     }
+    const sel = $('#rr-dataset');
+    if (events) {
+      RR.eventsCsvId = v.events_csv_id; RR.dataset = '__events_csv__'; ENT.offset = 0; ENT.scenario = '';
+      if (sel) sel.value = '__events_csv__';
+      const by = Object.entries(v.summary.by_scenario).map(([k, n]) => `${pretty(k).toLowerCase()} ${n}`).join(', ');
+      clear(out).append(notice(`Valid revenue-events file: ${v.summary.rows} event(s) (${by}). ${v.summary.has_hidden_labels ? 'Hidden labels were found: the simulator will use them.' : 'No hidden labels.'} Pick the settings above and press Run.`, 'good'),
+        ...v.warnings.map((w) => h('div', { class: 'small muted' }, w)));
+      loadEntries();
+      return;
+    }
     RR.csvId = v.csv_id; RR.dataset = '__csv__';
-    const sel = $('#rr-dataset'); if (sel) sel.value = '__csv__';
-    clear(out).append(notice(`Valid: ${v.summary.failed_rows} failed payment(s) to test, ${v.summary.history_rows} history row(s). ${v.summary.has_ground_truth ? 'Hidden labels were found: the simulator will use them.' : 'No hidden labels: outcomes are simulated without a known cause.'}`, 'good'));
+    if (sel) sel.value = '__csv__';
+    clear(out).append(notice(`Valid: ${v.summary.failed_rows} failed payment(s) to test, ${v.summary.history_rows} history row(s). ${v.summary.has_ground_truth ? 'Hidden labels were found: the simulator will use them.' : 'No hidden labels: outcomes are simulated from the payment details only.'}`, 'good'));
+    loadEntries();
   } catch (e) { clear(out).append(notice(`Could not validate the file: ${e.message}`, 'bad')); }
 }
 

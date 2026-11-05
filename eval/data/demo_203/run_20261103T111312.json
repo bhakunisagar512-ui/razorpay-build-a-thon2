@@ -1,0 +1,499 @@
+{
+  "summary": {
+    "entries_run": 12,
+    "api_errors": [],
+    "unfinished": [],
+    "workflows_started": 12,
+    "workflows_completed": 12,
+    "no_workflow_by_design": 0,
+    "by_status": {
+      "SIMULATED_RECOVERED": 10,
+      "SIMULATED_FAILED": 2
+    },
+    "by_scenario_status": {
+      "CHECKOUT_ABANDONMENT": {
+        "SIMULATED_RECOVERED": 10,
+        "SIMULATED_FAILED": 2
+      }
+    },
+    "escalation_reasons": {},
+    "failure_reasons": {
+      "plan_exhausted": 2
+    },
+    "recovery_reasons": {
+      "simulated payment accepted": 10
+    },
+    "simulated_recovered_rupees": 17590.0,
+    "amount_at_risk_rupees": 21088.0,
+    "routes_payment_failure": {},
+    "model_c": {
+      "entries": 0,
+      "calls_total": 0,
+      "max_calls_per_entry": 0,
+      "confidence_histogram": {
+        "< 0.50": 0,
+        "0.50 - 0.60": 0,
+        "0.60 - 0.70": 0,
+        "0.70 - 0.80": 0,
+        "0.80 - 0.90": 0,
+        ">= 0.90": 0
+      },
+      "above_0.6": 0,
+      "share_above_0.6": null,
+      "min": null,
+      "median": null,
+      "max": null,
+      "gate_decisions": {},
+      "predicted_causes": {}
+    },
+    "deterministic_entries_with_a_confidence": 0,
+    "route_mismatches": [],
+    "wall_seconds": 3.1
+  },
+  "rows": [
+    {
+      "entry_id": "demo203-001",
+      "scenario": "CHECKOUT_ABANDONMENT",
+      "event_type": "CHECKOUT_ABANDONMENT",
+      "event_id": "chk_5aab554036",
+      "route": null,
+      "decided_by": "event_policy",
+      "cause": null,
+      "model_c_calls": 0,
+      "confidence": null,
+      "gate": null,
+      "plan": [
+        "checkout_reminder",
+        "checkout_reminder"
+      ],
+      "workflow_id": "revenue-chk_5aab554036",
+      "workflow_state": "WORKFLOW_COMPLETED",
+      "status": "SIMULATED_RECOVERED",
+      "status_reason": "accepted_step_1",
+      "recovered_minor": 19900,
+      "amount_minor": 19900,
+      "requests": [
+        "REJECTED",
+        "ACCEPTED"
+      ],
+      "answers": [
+        "REJECT",
+        "ACCEPT"
+      ],
+      "seconds": 1.5,
+      "expected": {
+        "route": null,
+        "cause": null,
+        "workflow": true,
+        "model_c": false
+      },
+      "finished": true
+    },
+    {
+      "entry_id": "demo203-002",
+      "scenario": "CHECKOUT_ABANDONMENT",
+      "event_type": "CHECKOUT_ABANDONMENT",
+      "event_id": "chk_49fe8970d6",
+      "route": null,
+      "decided_by": "event_policy",
+      "cause": null,
+      "model_c_calls": 0,
+      "confidence": null,
+      "gate": null,
+      "plan": [
+        "checkout_reminder",
+        "checkout_reminder"
+      ],
+      "workflow_id": "revenue-chk_49fe8970d6",
+      "workflow_state": "WORKFLOW_COMPLETED",
+      "status": "SIMULATED_FAILED",
+      "status_reason": "plan_exhausted",
+      "recovered_minor": 0,
+      "amount_minor": 249900,
+      "requests": [
+        "REJECTED",
+        "REJECTED"
+      ],
+      "answers": [
+        "REJECT",
+        "REJECT"
+      ],
+      "seconds": 2.0,
+      "expected": {
+        "route": null,
+        "cause": null,
+        "workflow": true,
+        "model_c": false
+      },
+      "finished": true
+    },
+    {
+      "entry_id": "demo203-003",
+      "scenario": "CHECKOUT_ABANDONMENT",
+      "event_type": "CHECKOUT_ABANDONMENT",
+      "event_id": "chk_710734767a",
+      "route": null,
+      "decided_by": "event_policy",
+      "cause": null,
+      "model_c_calls": 0,
+      "confidence": null,
+      "gate": null,
+      "plan": [
+        "checkout_reminder",
+        "checkout_reminder"
+      ],
+      "workflow_id": "revenue-chk_710734767a",
+      "workflow_state": "WORKFLOW_COMPLETED",
+      "status": "SIMULATED_RECOVERED",
+      "status_reason": "accepted_step_0",
+      "recovered_minor": 49900,
+      "amount_minor": 49900,
+      "requests": [
+        "ACCEPTED"
+      ],
+      "answers": [
+        "ACCEPT"
+      ],
+      "seconds": 1.5,
+      "expected": {
+        "route": null,
+        "cause": null,
+        "workflow": true,
+        "model_c": false
+      },
+      "finished": true
+    },
+    {
+      "entry_id": "demo203-004",
+      "scenario": "CHECKOUT_ABANDONMENT",
+      "event_type": "CHECKOUT_ABANDONMENT",
+      "event_id": "chk_7310d92616",
+      "route": null,
+      "decided_by": "event_policy",
+      "cause": null,
+      "model_c_calls": 0,
+      "confidence": null,
+      "gate": null,
+      "plan": [
+        "checkout_reminder",
+        "checkout_reminder"
+      ],
+      "workflow_id": "revenue-chk_7310d92616",
+      "workflow_state": "WORKFLOW_COMPLETED",
+      "status": "SIMULATED_RECOVERED",
+      "status_reason": "accepted_step_0",
+      "recovered_minor": 499900,
+      "amount_minor": 499900,
+      "requests": [
+        "ACCEPTED"
+      ],
+      "answers": [
+        "ACCEPT"
+      ],
+      "seconds": 1.6,
+      "expected": {
+        "route": null,
+        "cause": null,
+        "workflow": true,
+        "model_c": false
+      },
+      "finished": true
+    },
+    {
+      "entry_id": "demo203-005",
+      "scenario": "CHECKOUT_ABANDONMENT",
+      "event_type": "CHECKOUT_ABANDONMENT",
+      "event_id": "chk_9e311ae03c",
+      "route": null,
+      "decided_by": "event_policy",
+      "cause": null,
+      "model_c_calls": 0,
+      "confidence": null,
+      "gate": null,
+      "plan": [
+        "checkout_reminder",
+        "checkout_reminder"
+      ],
+      "workflow_id": "revenue-chk_9e311ae03c",
+      "workflow_state": "WORKFLOW_COMPLETED",
+      "status": "SIMULATED_FAILED",
+      "status_reason": "plan_exhausted",
+      "recovered_minor": 0,
+      "amount_minor": 99900,
+      "requests": [
+        "REJECTED",
+        "REJECTED"
+      ],
+      "answers": [
+        "REJECT",
+        "REJECT"
+      ],
+      "seconds": 2.1,
+      "expected": {
+        "route": null,
+        "cause": null,
+        "workflow": true,
+        "model_c": false
+      },
+      "finished": true
+    },
+    {
+      "entry_id": "demo203-006",
+      "scenario": "CHECKOUT_ABANDONMENT",
+      "event_type": "CHECKOUT_ABANDONMENT",
+      "event_id": "chk_deafd6ced2",
+      "route": null,
+      "decided_by": "event_policy",
+      "cause": null,
+      "model_c_calls": 0,
+      "confidence": null,
+      "gate": null,
+      "plan": [
+        "checkout_reminder",
+        "checkout_reminder"
+      ],
+      "workflow_id": "revenue-chk_deafd6ced2",
+      "workflow_state": "WORKFLOW_COMPLETED",
+      "status": "SIMULATED_RECOVERED",
+      "status_reason": "accepted_step_0",
+      "recovered_minor": 19900,
+      "amount_minor": 19900,
+      "requests": [
+        "ACCEPTED"
+      ],
+      "answers": [
+        "ACCEPT"
+      ],
+      "seconds": 1.6,
+      "expected": {
+        "route": null,
+        "cause": null,
+        "workflow": true,
+        "model_c": false
+      },
+      "finished": true
+    },
+    {
+      "entry_id": "demo203-007",
+      "scenario": "CHECKOUT_ABANDONMENT",
+      "event_type": "CHECKOUT_ABANDONMENT",
+      "event_id": "chk_9a929a705a",
+      "route": null,
+      "decided_by": "event_policy",
+      "cause": null,
+      "model_c_calls": 0,
+      "confidence": null,
+      "gate": null,
+      "plan": [
+        "checkout_reminder",
+        "checkout_reminder"
+      ],
+      "workflow_id": "revenue-chk_9a929a705a",
+      "workflow_state": "WORKFLOW_COMPLETED",
+      "status": "SIMULATED_RECOVERED",
+      "status_reason": "accepted_step_0",
+      "recovered_minor": 249900,
+      "amount_minor": 249900,
+      "requests": [
+        "ACCEPTED"
+      ],
+      "answers": [
+        "ACCEPT"
+      ],
+      "seconds": 1.7,
+      "expected": {
+        "route": null,
+        "cause": null,
+        "workflow": true,
+        "model_c": false
+      },
+      "finished": true
+    },
+    {
+      "entry_id": "demo203-008",
+      "scenario": "CHECKOUT_ABANDONMENT",
+      "event_type": "CHECKOUT_ABANDONMENT",
+      "event_id": "chk_61af7b8fd0",
+      "route": null,
+      "decided_by": "event_policy",
+      "cause": null,
+      "model_c_calls": 0,
+      "confidence": null,
+      "gate": null,
+      "plan": [
+        "checkout_reminder",
+        "checkout_reminder"
+      ],
+      "workflow_id": "revenue-chk_61af7b8fd0",
+      "workflow_state": "WORKFLOW_COMPLETED",
+      "status": "SIMULATED_RECOVERED",
+      "status_reason": "accepted_step_0",
+      "recovered_minor": 49900,
+      "amount_minor": 49900,
+      "requests": [
+        "ACCEPTED"
+      ],
+      "answers": [
+        "ACCEPT"
+      ],
+      "seconds": 1.7,
+      "expected": {
+        "route": null,
+        "cause": null,
+        "workflow": true,
+        "model_c": false
+      },
+      "finished": true
+    },
+    {
+      "entry_id": "demo203-009",
+      "scenario": "CHECKOUT_ABANDONMENT",
+      "event_type": "CHECKOUT_ABANDONMENT",
+      "event_id": "chk_7fa2bd4f1f",
+      "route": null,
+      "decided_by": "event_policy",
+      "cause": null,
+      "model_c_calls": 0,
+      "confidence": null,
+      "gate": null,
+      "plan": [
+        "checkout_reminder",
+        "checkout_reminder"
+      ],
+      "workflow_id": "revenue-chk_7fa2bd4f1f",
+      "workflow_state": "WORKFLOW_COMPLETED",
+      "status": "SIMULATED_RECOVERED",
+      "status_reason": "accepted_step_1",
+      "recovered_minor": 499900,
+      "amount_minor": 499900,
+      "requests": [
+        "REJECTED",
+        "ACCEPTED"
+      ],
+      "answers": [
+        "REJECT",
+        "ACCEPT"
+      ],
+      "seconds": 2.1,
+      "expected": {
+        "route": null,
+        "cause": null,
+        "workflow": true,
+        "model_c": false
+      },
+      "finished": true
+    },
+    {
+      "entry_id": "demo203-010",
+      "scenario": "CHECKOUT_ABANDONMENT",
+      "event_type": "CHECKOUT_ABANDONMENT",
+      "event_id": "chk_186009d3fa",
+      "route": null,
+      "decided_by": "event_policy",
+      "cause": null,
+      "model_c_calls": 0,
+      "confidence": null,
+      "gate": null,
+      "plan": [
+        "checkout_reminder",
+        "checkout_reminder"
+      ],
+      "workflow_id": "revenue-chk_186009d3fa",
+      "workflow_state": "WORKFLOW_COMPLETED",
+      "status": "SIMULATED_RECOVERED",
+      "status_reason": "accepted_step_1",
+      "recovered_minor": 99900,
+      "amount_minor": 99900,
+      "requests": [
+        "REJECTED",
+        "ACCEPTED"
+      ],
+      "answers": [
+        "REJECT",
+        "ACCEPT"
+      ],
+      "seconds": 1.4,
+      "expected": {
+        "route": null,
+        "cause": null,
+        "workflow": true,
+        "model_c": false
+      },
+      "finished": true
+    },
+    {
+      "entry_id": "demo203-011",
+      "scenario": "CHECKOUT_ABANDONMENT",
+      "event_type": "CHECKOUT_ABANDONMENT",
+      "event_id": "chk_a2ed1ae971",
+      "route": null,
+      "decided_by": "event_policy",
+      "cause": null,
+      "model_c_calls": 0,
+      "confidence": null,
+      "gate": null,
+      "plan": [
+        "checkout_reminder",
+        "checkout_reminder"
+      ],
+      "workflow_id": "revenue-chk_a2ed1ae971",
+      "workflow_state": "WORKFLOW_COMPLETED",
+      "status": "SIMULATED_RECOVERED",
+      "status_reason": "accepted_step_1",
+      "recovered_minor": 19900,
+      "amount_minor": 19900,
+      "requests": [
+        "REJECTED",
+        "ACCEPTED"
+      ],
+      "answers": [
+        "REJECT",
+        "ACCEPT"
+      ],
+      "seconds": 1.4,
+      "expected": {
+        "route": null,
+        "cause": null,
+        "workflow": true,
+        "model_c": false
+      },
+      "finished": true
+    },
+    {
+      "entry_id": "demo203-012",
+      "scenario": "CHECKOUT_ABANDONMENT",
+      "event_type": "CHECKOUT_ABANDONMENT",
+      "event_id": "chk_297cd5fb61",
+      "route": null,
+      "decided_by": "event_policy",
+      "cause": null,
+      "model_c_calls": 0,
+      "confidence": null,
+      "gate": null,
+      "plan": [
+        "checkout_reminder",
+        "checkout_reminder"
+      ],
+      "workflow_id": "revenue-chk_297cd5fb61",
+      "workflow_state": "WORKFLOW_COMPLETED",
+      "status": "SIMULATED_RECOVERED",
+      "status_reason": "accepted_step_0",
+      "recovered_minor": 249900,
+      "amount_minor": 249900,
+      "requests": [
+        "ACCEPTED"
+      ],
+      "answers": [
+        "ACCEPT"
+      ],
+      "seconds": 1.0,
+      "expected": {
+        "route": null,
+        "cause": null,
+        "workflow": true,
+        "model_c": false
+      },
+      "finished": true
+    }
+  ]
+}

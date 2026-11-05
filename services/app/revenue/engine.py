@@ -73,6 +73,38 @@ def _u(*parts) -> float:
     return int(hashlib.sha256('|'.join(map(str, parts)).encode()).hexdigest()[:12], 16) / 16 ** 12
 
 
+def accept_params(payload: dict) -> dict | None:
+    """The configured simulated-customer acceptance rate stored on an event by Dataset Testing (None = the built-in cause-based simulator).
+    'will' / 'ordinal' are the case's assignment (does this customer pay, and at which payment opportunity), made once per run (see runs.assign_acceptance)."""
+    pct = (payload or {}).get('sim_acceptance_pct')
+    if pct is None:
+        return None
+    out = {'pct': float(pct), 'seed': int(payload.get('sim_seed', 1))}
+    if 'sim_accepts' in payload:
+        out.update(will=bool(payload['sim_accepts']), ordinal=int(payload.get('sim_accept_at', 0)))
+    return out
+
+
+def opportunity_position(plan: dict, step_idx: int) -> tuple[int, int]:
+    """(ordinal of this step among the plan's payment opportunities, number of opportunities). Read from the plan, so the in-process run and the workflow agree."""
+    opp = [s['idx'] for s in plan['steps'] if s['payment_opportunity']]
+    return sum(i < step_idx for i in opp), len(opp)
+
+
+def configured_response(accept: dict, sim_key: str, ordinal: int, n_opp: int) -> str:
+    """The deterministic response for a configured acceptance rate, the same function in-process and in Temporal. A case's customer either will pay (and at which of the plan's
+    payment opportunities) or will not; earlier opportunities are REJECTED, so the plan continues, and a customer who would pay at a step that never happens (the payment
+    state was verified first, or the step is suppressed by a safety rule) simply never accepts. Without an assignment (an event created outside Dataset Testing) the
+    same decision is drawn from the seed and the case key."""
+    if n_opp <= 0:
+        return 'REJECTED'
+    if 'will' in accept:
+        return 'ACCEPTED' if accept['will'] and ordinal == min(accept['ordinal'], n_opp - 1) else 'REJECTED'
+    if _u('accept', accept['seed'], sim_key) * 100 >= accept['pct']:
+        return 'REJECTED'
+    return 'ACCEPTED' if ordinal == min(int(_u('accept-step', accept['seed'], sim_key) * n_opp), n_opp - 1) else 'REJECTED'
+
+
 def simulate(event_type: str, action: str, event_id: str, step_idx: int, hidden_cause: str | None = None) -> str:
     """ACCEPTED only when the simulated customer completes the payment. A correct diagnosis is not a payment."""
     if hidden_cause and action in OUTCOME_ACTION:
@@ -104,7 +136,7 @@ def final_status(plan: dict, executed: int, suppressed: int):
 
 
 def execute(*, event_id: str, event_type: str, customer_id: str, amount_minor: int, plan: dict, consent: dict, sim_start: datetime,
-            hidden_cause: str | None = None, week: dict | None = None, sim_key: str | None = None) -> dict:
+            hidden_cause: str | None = None, week: dict | None = None, sim_key: str | None = None, accept: dict | None = None) -> dict:
     """Run a plan to its end, deterministically. `hidden_cause` is for the simulator only. `week` is shared per-customer contact history."""
     week = week if week is not None else {}
     state = new_state(consent, week.setdefault(customer_id, []))
@@ -136,7 +168,10 @@ def execute(*, event_id: str, event_type: str, customer_id: str, amount_minor: i
                 return {'status': C.HUMAN, 'reason': 'payment_state_unverified', 'recovered_amount_minor': 0, 'steps': log, 'executed': executed, 'suppressed': suppressed}
             continue
         if step['payment_opportunity']:
-            entry['decision'] = simulate(event_type, step['action'], sim_key or event_id, step['idx'], hidden_cause)
+            if accept is None:
+                entry['decision'] = simulate(event_type, step['action'], sim_key or event_id, step['idx'], hidden_cause)
+            else:
+                entry['decision'] = configured_response(accept, sim_key or event_id, *opportunity_position(plan, step['idx']))
         log.append(entry)
         if entry.get('decision') == 'ACCEPTED':
             return {'status': C.RECOVERED, 'reason': f"accepted_step_{step['idx']}", 'recovered_amount_minor': amount_minor, 'steps': log, 'executed': executed, 'suppressed': suppressed}

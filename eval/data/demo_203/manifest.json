@@ -1,0 +1,34 @@
+{
+  "version": "demo-203@1",
+  "seed": 203,
+  "entries": 203,
+  "by_scenario": {
+    "CHECKOUT_ABANDONMENT": 50,
+    "SUBSCRIPTION_FAILURE": 50,
+    "OVERDUE_RECEIVABLE": 50,
+    "PAYMENT_FAILURE": 50,
+    "EDGE_CASE": 3
+  },
+  "by_event_type": {
+    "CHECKOUT_ABANDONMENT": 51,
+    "SUBSCRIPTION_FAILURE": 50,
+    "OVERDUE_RECEIVABLE": 50,
+    "PAYMENT_FAILURE": 52
+  },
+  "by_expected_route_payment_failure": {
+    "CLEAR_AND_CONSISTENT": 22,
+    "MISSING_OR_GENERIC": 26,
+    "CONTRADICTORY": 4
+  },
+  "workflows_expected": 199,
+  "model_c_entries": 26,
+  "precheck": {
+    "event_ids_scored_per_entry": 8,
+    "confident_threshold": 0.66,
+    "expected_confident": 23,
+    "entries_whose_lowest_precheck_confidence_exceeds_0.6": 23,
+    "share": 0.885
+  },
+  "selection_note": "Entries were SELECTED so that most Model C answers are stable and above 0.6, plus a few hard ones kept on purpose. The confidence of those entries is therefore not representative of Model C on real traffic. Deterministic entries have no confidence. The hidden evaluation label is not used.",
+  "sha256_entries": "dc49a8e48c6eb03952d1f553b78b878b67401424c236288efcc144c8d069f3e7"
+}

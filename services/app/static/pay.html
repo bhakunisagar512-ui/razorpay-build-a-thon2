@@ -5,12 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Simulated payment request</title>
   <link rel="stylesheet" href="/ui/assets/app.css">
+  <style>
+    .pp { max-width: 560px; margin: 18px auto 40px; padding: 0 16px; }
+    .pp-shop { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 10px; color: var(--muted); font-size: .85rem; }
+    .pp-shop strong { color: var(--brand); font-size: .95rem; }
+    .pp-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; }
+    .pp-reminder { background: var(--wait-soft); color: #5d3a00; border-bottom: 1px solid #f3d9a0; padding: 12px 18px; font-size: .9rem; display: flex; gap: 10px; align-items: flex-start; }
+    .pp-reminder b { text-transform: uppercase; letter-spacing: .05em; font-size: .72rem; background: #fff; border: 1px solid #f3d9a0; border-radius: 999px; padding: 2px 8px; white-space: nowrap; }
+    .pp-head { padding: 20px 18px 6px; }
+    .pp-head h1 { font-size: 1.25rem; margin: 0 0 6px; color: var(--brand); }
+    .pp-head p { margin: 0 0 6px; color: var(--ink); }
+    .pp-amount { padding: 4px 18px 14px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .pp-amount .v { font-size: 2.1rem; font-weight: 700; color: var(--ink); letter-spacing: -.01em; }
+    .pp-amount .l { color: var(--muted); font-size: .85rem; }
+    .pp-facts { margin: 0 18px 14px; padding: 12px 14px; background: var(--soft); border-radius: 12px; }
+    .pp-sec { padding: 14px 18px; border-top: 1px solid var(--line); }
+    .pp-sec h2 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 4px; }
+    .pp-sec .sub { font-size: .8rem; color: var(--muted); margin: 0 0 10px; }
+    .pp-methods { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .pp-method { display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: #fff; }
+    .pp-method .ico { width: 34px; height: 34px; border-radius: 9px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 700; font-size: .78rem; flex: none; }
+    .pp-method .t { flex: 1; min-width: 0; }
+    .pp-method .t b { display: block; font-size: .95rem; }
+    .pp-method .t span { font-size: .8rem; color: var(--muted); }
+    .pp-method .tag { font-size: .72rem; border-radius: 12px; padding: 2px 8px; background: var(--soft); color: var(--muted); max-width: 46%; text-align: right; }
+    .pp-method.attempted { border-color: #f3d9a0; background: #fffaf0; }
+    .pp-method.attempted .tag { background: var(--wait-soft); color: #5d3a00; }
+    .pp-method.offered .tag { background: var(--accent-soft); color: var(--accent); }
+    .pp-method.unavailable { opacity: .6; background: var(--skip-soft); }
+    .pp-sim { background: #f8faff; }
+    .pp-sim .row { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; margin-top: 10px; }
+    @media (max-width: 480px) { .pp-sim .row { grid-template-columns: 1fr; } .pp-amount .v { font-size: 1.8rem; } }
+    .pp-sim .btn { width: 100%; justify-content: center; text-align: left; padding: 12px; }
+    .pp-details summary { cursor: pointer; font-size: .85rem; color: var(--muted); }
+    .pp-details .kv { margin-top: 10px; }
+    .pp-foot { margin: 12px 4px 0; font-size: .78rem; color: var(--muted); }
+  </style>
 </head>
 <body>
   <div class="banner" role="note">
     <div class="wrap"><strong>SIMULATED.</strong> This is a mock customer payment page for the demonstration. No real payment gateway, message or money is involved.</div>
   </div>
-  <main class="wrap" style="max-width:640px;margin-top:18px">
+  <main class="pp">
     <div id="toast" aria-live="polite"></div>
     <div id="pay-root"><div class="muted">Loading the payment request&hellip;</div></div>
   </main>

@@ -9,11 +9,11 @@ import asyncio
 from pathlib import Path
 from typing import Literal
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Request
 from fastapi.responses import HTMLResponse, Response
 from pydantic import BaseModel, Field
 
-from services.app.revenue import catalog as C, fixtures, routing, runs, service as svc, store
+from services.app.revenue import catalog as C, event_csv, fixtures, routing, runs, service as svc, store
 from services.app.settings import settings
 from services.app.db import engine
 
@@ -190,18 +190,25 @@ def pay_page(request_id: str):
 # ------------------------------------------------------------------------------------------------- automated dataset runs (Phase 9)
 class RunRequest(BaseModel):
     dataset: str | None = Field(default=None, description='a prebuilt dataset, routing_fixtures or event_type_mix')
-    csv_id: str | None = Field(default=None, description='an uploaded and validated CSV (from POST /tests/csv/validate)')
+    csv_id: str | None = Field(default=None, description='an uploaded and validated payment-failure CSV (from POST /tests/csv/validate)')
+    events_csv_id: str | None = Field(default=None, description='an uploaded and validated revenue-events CSV (from POST /revenue/events-csv/validate)')
     limit: int | None = Field(default=None, ge=1, le=5000)
     temporal_limit: int = Field(default=0, ge=0, le=50, description='also run the first N cases through Temporal and compare with the in-process result')
+    temporal_all: bool = Field(default=False, description='run EVERY eligible case (a payment opportunity exists) through Temporal, in batches; contradictory and directly escalated cases are not sent')
+    acceptance_pct: float | None = Field(default=None, ge=0, le=100, description='simulated customer acceptance rate for eligible cases; omit for the built-in cause-based simulator')
+    acceptance_seed: int = Field(default=1, ge=0, le=2_000_000_000, description='seed that makes the simulated answers reproducible')
 
 
 @router.post('/revenue/runs', status_code=202)
 def start_run(req: RunRequest):
     _demo()
-    if bool(req.dataset) == bool(req.csv_id):
-        raise HTTPException(422, 'give exactly one of dataset or csv_id')
+    if sum(bool(x) for x in (req.dataset, req.csv_id, req.events_csv_id)) != 1:
+        raise HTTPException(422, 'give exactly one of dataset, csv_id or events_csv_id')
+    if req.temporal_all and req.temporal_limit:
+        raise HTTPException(422, 'choose either temporal_limit or temporal_all, not both')
     try:
-        return {'run_id': runs.start(req.dataset or f'csv:{req.csv_id}', req.limit, req.temporal_limit), 'status': 'queued'}
+        name = req.dataset or (f'csv:{req.csv_id}' if req.csv_id else f'events:{req.events_csv_id}')
+        return {'run_id': runs.start(name, req.limit, req.temporal_limit, req.acceptance_pct, req.acceptance_seed, req.temporal_all), 'status': 'queued'}
     except runs.Busy as busy:
         raise HTTPException(409, f'another revenue run is in progress ({busy.run_id}); only one at a time')
     except KeyError as exc:
@@ -223,9 +230,32 @@ def get_run(run_id: str):
     return doc
 
 
+@router.get('/revenue/events-csv/template')
+def events_csv_template():
+    return Response(event_csv.template(), media_type='text/csv', headers={'Content-Disposition': 'attachment; filename="revenue_events_template.csv"'})
+
+
+@router.post('/revenue/events-csv/validate')
+async def events_csv_validate(request: Request):
+    """Validate an upload of revenue events (one row per event, the fields of POST /revenue/events). Same rules as the Custom form; nothing is invented."""
+    _demo()
+    return await asyncio.to_thread(event_csv.validate, (await request.body()).decode('utf-8', errors='replace'))
+
+
+@router.get('/revenue/datasets/{name}/entries')
+def dataset_entries(name: str, scenario: str | None = None, offset: int = Query(0, ge=0), limit: int = Query(50, ge=1, le=203)):
+    """Read-only view of the entries of the revenue-event dataset (the 203-entry demo dataset): controlled inputs and the route each is expected to take."""
+    if not (name == runs.DEMO and runs.DEMO_FILE.exists()) and not name.startswith('events:'):
+        raise HTTPException(404, 'only revenue-event datasets have an entry view')
+    try:
+        return runs.entry_page(name, offset, limit, scenario)
+    except KeyError:
+        raise HTTPException(404, 'unknown events CSV upload')
+
+
 @router.get('/revenue/runs/{run_id}/cases')
-def run_cases(run_id: str, route: str | None = None, status: str | None = None, offset: int = Query(0, ge=0), limit: int = Query(50, ge=1, le=500)):
-    out = runs.cases(run_id, route, status, offset, limit)
+def run_cases(run_id: str, route: str | None = None, status: str | None = None, scenario: str | None = None, offset: int = Query(0, ge=0), limit: int = Query(50, ge=1, le=500)):
+    out = runs.cases(run_id, route, status, offset, limit, scenario)
     if out is None:
         raise HTTPException(404, 'unknown or unfinished run')
     return out

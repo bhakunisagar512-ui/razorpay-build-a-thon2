@@ -12,7 +12,8 @@ INDIVIDUAL = JS[JS.index('function initIndividual() {'):JS.index('/* -----------
 def test_event_creation_uses_dropdowns_only():
     assert not re.findall(r"h\('textarea'", CONSOLE), 'the revenue console creates no textarea'
     inputs = re.findall(r"h\('input', \{[^}]*\}", CONSOLE)
-    assert inputs and all("type: 'file'" in i for i in inputs), 'the only input is the CSV file chooser, never a text field'
+    assert inputs and all("type: 'file'" in i or "type: 'range'" in i for i in inputs), 'the only inputs are the CSV file chooser and the acceptance-rate slider, never a text field'
+    assert sum("type: 'range'" in i for i in inputs) == 1 and 'Simulated Customer Acceptance Rate (%)' in CONSOLE
     assert 'type="text"' not in CONSOLE and "type: 'text'" not in CONSOLE and "type: 'search'" not in INDIVIDUAL and "id: 'i-search'" not in JS
     assert 'datalist' not in CONSOLE and "list: 'dl-" not in JS                                         # no suggestion lists over free text either
     for field in ('c-method', 'c-hint', 'c-code', 'c-source', 'c-step', 'c-reason', 'c-truth', 'c-customer', 'c-issuer', 'c-amount', 'c-time'):
@@ -63,3 +64,38 @@ def test_the_diagnosis_scenario_selector_has_three_choices_three_examples_and_ne
     assert 'route' not in submit.replace('diagnosis_scenario', '') and 'model_c' not in submit.lower()                      # the browser never supplies a route, a prediction or a call count
     for shown in ('Route taken', 'Decided by', 'Predicted cause', 'Model C calls', 'Safety gate', 'Temporal execution', 'Recovery plan'):
         assert shown in CONSOLE, shown
+
+
+def test_the_payment_page_is_action_aware_shows_all_three_methods_and_never_makes_a_method_selectable():
+    js = (STATIC / 'pay.js').read_text(encoding='utf-8')
+    html = (STATIC / 'pay.html').read_text(encoding='utf-8')
+    for action in ('checkout_reminder', 'invoice_reminder', 'payment_reminder', 'alternative_payment_method', 'card_update_request', 'delayed_retry'):
+        assert f"case '{action}'" in js, action
+    for shown in ('Your checkout is incomplete', 'Your invoice is overdue', 'Your subscription renewal failed', 'Try another payment method', 'Your card needs updating',
+                  'Outstanding amount', 'Originally attempted', 'Simulated customer outcome', 'Payment options', "name: 'UPI'", "name: 'Credit / Debit Card'", "name: 'Netbanking'"):
+        assert shown in js, shown
+    assert 'choosing a method is not simulated, charged or recorded' in js and 'ACCEPT: the customer completes the payment' in js and 'REJECT: the customer does not pay' in js
+    methods = js[js.index('function methodCards'):js.index('function paint(')]
+    assert "el('button'" not in methods and "el('input'" not in methods and "el('a'" not in methods and 'onclick' not in methods        # the methods are display-only
+    assert 'method:' not in js[js.index('async function respond'):js.index('function methodCards')].replace("method: 'POST'", '')   # the answer carries only ACCEPT / REJECT, never a method
+    assert 'razorpay' not in (js + html).lower().replace('razorpay track', '')                                                       # no gateway integration or checkout script
+    assert 'type="text"' not in html and '<script src="/pay/assets/pay.js">' in html
+
+
+def test_the_customer_context_exposes_only_catalog_labels_and_the_attempted_method():
+    from services.app.revenue import store
+    assert store.customer_context('SUBSCRIPTION_FAILURE', {'plan_id': 'plan_pro_monthly', 'method': 'card', 'failure_kind': 'CARD_EXPIRED', 'evaluation_label': 'RISK_BLOCKED'}) == {
+        'original_method': 'card', 'subscription_plan': 'Pro, monthly (₹999)'}
+    assert store.customer_context('CHECKOUT_ABANDONMENT', {'checkout_stage': 'payment_page'}) == {'original_method': None, 'checkout_stage': 'Left at the payment page'}
+    assert store.customer_context('OVERDUE_RECEIVABLE', {'invoice_id': 'inv_syn_03'}) == {'original_method': None, 'invoice_number': 'INV-0003', 'days_overdue': 30}
+    ctx = store.customer_context('PAYMENT_FAILURE', {'method': 'upi', 'gw_error_code': 'GATEWAY_ERROR', 'error_reason': 'payment_risk_check_failed', 'diagnosis_scenario': 'generic'})
+    assert ctx == {'original_method': 'upi'}                                                                                         # no gateway evidence, cause or scenario reaches the customer page
+
+
+def test_dataset_testing_ui_has_the_rate_slider_the_all_eligible_option_progress_and_a_paginated_expandable_list():
+    for needle in ("['all', 'All eligible cases']", "min: 0, max: 100", 'Execution progress', 'Pending / running workflows', 'Failed workflow executions', 'Individual Payment Evaluation Results',
+                   'CASES_PER_PAGE = 20', "id: 'rr-prev'", "id: 'rr-next'", 'A. Original input', 'B. Diagnosis', 'C. Recovery planning', 'D. Temporal execution', 'E. Final outcome',
+                   '/revenue/events-csv/validate', 'events_csv_id', 'temporal_all', 'acceptance_pct'):
+        assert needle in CONSOLE, needle
+    detail = CONSOLE[CONSOLE.index('function renderCaseDetail'):CONSOLE.index('function renderRevenueCase(')]
+    assert 'mc ? mc.confidence' in detail and 'model_c_confidence' not in detail                      # a confidence is shown only where the diagnosis carries Model C data
